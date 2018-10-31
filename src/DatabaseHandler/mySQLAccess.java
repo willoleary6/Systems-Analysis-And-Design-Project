@@ -67,6 +67,19 @@ public class mySQLAccess {
         }
     }
 
+    public void deleteFromDatabase(String query, Object [] args){
+        try {
+            preparedStatement = connect
+                    .prepareStatement(query);
+            setPreparedStatement(args);
+            preparedStatement.executeUpdate();
+
+        } catch(Exception e) {
+            System.out.println("Unable to delete from database");
+            System.out.println(e);
+        }
+    }
+
     public void setPreparedStatement(Object [] args){
         try{
             int i = 1;
@@ -88,30 +101,6 @@ public class mySQLAccess {
         } catch(Exception e){
             System.out.println("Unable to set statement");
             System.out.println(e);
-        }
-    }
-    public void deleteFromDatabase(String query, Object [] args){
-        try {
-            preparedStatement = connect
-                    .prepareStatement(query);
-            setPreparedStatement(args);
-            preparedStatement.executeUpdate();
-
-        } catch(Exception e) {
-            System.out.println("Unable to delete from database");
-            System.out.println(e);
-        }
-    }
-
-    private void writeMetaData(ResultSet resultSet) throws SQLException {
-        //   Now get some metadata from the database
-        // Result set get the result of the SQL query
-
-        System.out.println("The columns in the table are: ");
-
-        System.out.println("Table: " + resultSet.getMetaData().getTableName(1));
-        for  (int i = 1; i<= resultSet.getMetaData().getColumnCount(); i++){
-            System.out.println("Column " +i  + " "+ resultSet.getMetaData().getColumnName(i));
         }
     }
 

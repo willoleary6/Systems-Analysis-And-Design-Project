@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2018 at 03:58 PM
+-- Generation Time: Oct 31, 2018 at 01:19 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -260,7 +260,7 @@ ALTER TABLE `discounts`
 -- Constraints for table `flights`
 --
 ALTER TABLE `flights`
-  ADD CONSTRAINT `linkToAirline` FOREIGN KEY (`airlineID`) REFERENCES `flights` (`autoID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `linkToAirline` FOREIGN KEY (`airlineID`) REFERENCES `airlines` (`autoID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `linkToDepartureAirport` FOREIGN KEY (`depatureAirport`) REFERENCES `airports` (`autoID`),
   ADD CONSTRAINT `linkToDestinationAirport` FOREIGN KEY (`destinationAirport`) REFERENCES `airports` (`autoID`);
 COMMIT;

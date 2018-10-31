@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9355fa72-e471-427e-b89e-d3be48e49e9b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/DatabaseHandler/mySQLAccess.java" afterPath="$PROJECT_DIR$/src/DatabaseHandler/mySQLAccess.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -28,8 +27,8 @@
       <file leaf-file-name="mySQLAccess.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DatabaseHandler/mySQLAccess.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="109" column="61" lean-forward="true" selection-start-line="109" selection-start-column="61" selection-end-line="109" selection-end-column="61" />
+            <state relative-caret-position="-1021">
+              <caret line="34" column="45" lean-forward="true" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,7 +61,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="1910" />
     <option name="width" value="1940" />
     <option name="height" value="2110" />
@@ -260,7 +259,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="3862" height="2122" extended-state="6" />
+    <frame x="-11" y="-11" width="3862" height="2122" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -345,8 +344,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DatabaseHandler/mySQLAccess.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="109" column="61" lean-forward="true" selection-start-line="109" selection-start-column="61" selection-end-line="109" selection-end-column="61" />
+        <state relative-caret-position="-1021">
+          <caret line="34" column="45" lean-forward="true" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
