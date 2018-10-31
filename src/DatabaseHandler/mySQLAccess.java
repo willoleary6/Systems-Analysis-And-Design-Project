@@ -1,12 +1,6 @@
 package DatabaseHandler;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.Date;
 
 public class mySQLAccess {
@@ -123,25 +117,22 @@ public class mySQLAccess {
 
     private void writeResultSet(ResultSet resultSet) throws SQLException {
         // ResultSet is initially before the first data set
+        ResultSetMetaData rsmd = resultSet.getMetaData();
+        int columnCount = rsmd.getColumnCount();
+        String [] columns = new String[columnCount];
+        // The column count starts from 1
+        for (int i = 1; i <= columnCount; i++ ) {
+            columns[i-1] = rsmd.getColumnName(i);
+        }
         while (resultSet.next()) {
             // It is possible to get the columns via name
             // also possible to get the columns via the column number
             // which starts at 1
             // e.g. resultSet.getSTring(2);
-            String user = resultSet.getString("username");
-            System.out.println("User: " + user);
-      /*
-      String user = resultSet.getString("myuser");
-      String website = resultSet.getString("webpage");
-      String summery = resultSet.getString("summery");
-      Date date = resultSet.getDate("datum");
-      String comment = resultSet.getString("comments");
-      System.out.println("User: " + user);
-      System.out.println("Website: " + website);
-      System.out.println("Summery: " + summery);
-      System.out.println("Date: " + date);
-      System.out.println("Comment: " + comment);
-        */
+            for (int i = 0; i < columns.length; i++ ) {
+                String value = resultSet.getString(columns[i]);
+                System.out.println(value);
+            }
         }
     }
 
