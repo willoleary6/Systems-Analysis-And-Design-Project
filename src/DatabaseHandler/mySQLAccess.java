@@ -46,7 +46,6 @@ public class mySQLAccess {
         try {
             preparedStatement = connect
                     .prepareStatement(query);
-            // "myuser, webpage, datum, summery, COMMENTS from FEEDBACK.COMMENTS")
             setPreparedStatement(args);
             preparedStatement.executeUpdate();
         } catch(Exception e) {
