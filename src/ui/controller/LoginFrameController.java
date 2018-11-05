@@ -3,6 +3,8 @@ package ui.controller;
 import ui.view.LoginFrame;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginFrameController {
     private LoginFrame loginFrame;
@@ -31,6 +33,17 @@ public class LoginFrameController {
     }
 
     private void initListeners() {
-        loginButton.addActionListener(e -> System.out.println("Logging in!"));
+        loginButton.addActionListener(new LoginButtonListener());
+    }
+
+    private class LoginButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            MainMenuFrameController mainMenuFrameController = new MainMenuFrameController();
+            mainMenuFrameController.setUsername(userNameField.getText());
+            mainMenuFrameController.setAvailablePoints(500);
+            mainMenuFrameController.show();
+            hide();
+        }
     }
 }

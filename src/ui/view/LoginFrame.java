@@ -12,7 +12,6 @@ public class LoginFrame extends JFrame {
     private JLabel usernameLabel;
 
     public LoginFrame() {
-        super();
         setSize(500, 500);
         setContentPane(mainPanel);
         setLocationRelativeTo(null);

@@ -10,7 +10,6 @@ public class WelcomeFrame extends JFrame {
     private JPanel mainPanel;
 
     public WelcomeFrame() {
-        super();
         setSize(500, 500);
         setContentPane(mainPanel);
         setLocationRelativeTo(null);
