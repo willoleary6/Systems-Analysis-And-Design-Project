@@ -10,6 +10,7 @@ public class WelcomeFrame extends JFrame {
     private JPanel mainPanel;
 
     public WelcomeFrame() {
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(500, 500);
         setContentPane(mainPanel);
         setLocationRelativeTo(null);

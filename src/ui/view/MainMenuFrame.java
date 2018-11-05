@@ -13,6 +13,7 @@ public class MainMenuFrame extends JFrame {
     private JLabel availablePointsLabel;
 
     public MainMenuFrame() {
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(500, 500);
         setContentPane(mainPanel);
         setLocationRelativeTo(null);
