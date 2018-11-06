@@ -1,5 +1,6 @@
 package ui.model;
 
+import sun.rmi.runtime.Log;
 import ui.exception.InvalidEmailException;
 import ui.exception.InvalidPasswordException;
 
@@ -8,8 +9,13 @@ public class LoginModel  {
     private String email;
     private String password;
 
+
+    public LoginModel() {
+        validator = new Validator();
+    }
+
     public void setEmail(String email) throws InvalidEmailException {
-        if (validator.validateEmail(email)) {
+        if (!validator.validateEmail(email)) {
             throw new InvalidEmailException("Invalid email address");
         }
 
