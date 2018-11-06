@@ -1,15 +1,13 @@
 package ui.view;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class LoginFrame extends JFrame {
     private JPanel mainPanel;
-    private JTextField userNameField;
+    private JTextField emailField;
     private JPasswordField passwordField;
     private JButton loginButton;
-    private JLabel passwordLabel;
-    private JLabel usernameLabel;
+    private JLabel errorLabel;
 
     public LoginFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -18,8 +16,8 @@ public class LoginFrame extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    public JTextField getUserNameField() {
-        return userNameField;
+    public JTextField getEmailField() {
+        return emailField;
     }
 
     public JPasswordField getPasswordField() {
@@ -28,5 +26,9 @@ public class LoginFrame extends JFrame {
 
     public JButton getLoginButton() {
         return loginButton;
+    }
+
+    public JLabel getErrorLabel() {
+        return errorLabel;
     }
 }

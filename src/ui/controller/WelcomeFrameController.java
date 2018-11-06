@@ -8,11 +8,15 @@ import java.awt.event.ActionListener;
 
 public class WelcomeFrameController {
 
+    private RegisterFrameController registerFrameController;
+    private LoginFrameController loginFrameController;
     private WelcomeFrame welcomeFrame;
     private JButton loginButton;
     private JButton registerButton;
 
     public WelcomeFrameController() {
+        registerFrameController = new RegisterFrameController();
+        loginFrameController = new LoginFrameController();
         initComponents();
         initListeners();
     }
@@ -33,16 +37,32 @@ public class WelcomeFrameController {
 
     private void initListeners() {
         loginButton.addActionListener(new LoginActionListener());
-        registerButton.addActionListener(e -> System.out.println("Register"));
+        registerButton.addActionListener(new RegisterActionListener());
+        registerFrameController.addBackButtonListener(new BackButtonActionListener());
     }
 
     private class LoginActionListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
-            LoginFrameController loginController = new LoginFrameController();
-            loginController.show();
+            loginFrameController.show();
             hide();
+        }
+    }
+
+    private class RegisterActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            registerFrameController.show();
+            hide();
+        }
+    }
+
+    private class BackButtonActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            show();
+            registerFrameController.hide();
+            loginFrameController.hide();
         }
     }
 }
