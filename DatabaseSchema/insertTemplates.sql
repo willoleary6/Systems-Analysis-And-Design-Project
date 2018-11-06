@@ -14,15 +14,17 @@ INSERT INTO `users`
                 ) 
                 VALUES (
                 NULL, 
-                'AaronDunne', 
-                'AaronD@gmail.com', 
+                'ColmLeGear', 
+                'ColmLeGear@gmail.com', 
                 'pass', 
-                '16', 
+                '25', 
                 '0', 
                 '1', 
                 NULL
                 );
 */
+ #SELECT * FROM users
+
 # airlines insert
 /*
 INSERT INTO `airlines` 
@@ -35,11 +37,15 @@ INSERT INTO `airlines`
                 VALUES 
                 (
                 NULL, 
-                'Emirates', 
+                'British Airways', 
                 '1', 
                 NULL
-                )
+                );
+
+
+
 */
+#select * from airlines;
 # airports insert
 /*
 INSERT INTO `airports` 
@@ -52,11 +58,14 @@ INSERT INTO `airports`
                 VALUES 
                 (
                 NULL, 
-                'Standstead', 
+                'Athens', 
                 '1', 
                 NULL
-                )
+                );
+
+
 */
+#select * from airports;
 # flights insert
 /*
 INSERT INTO `flights` 
@@ -74,25 +83,42 @@ INSERT INTO `flights`
             ) 
 	VALUES (
 			NULL, 
-			'A4532', 
-			'1', 
-			'2', 
+			'NB328', 
+			'6', 
+			'7', 
 			'{
 				\r\n day:\"Thursday\",
-				\r\n time: \"14:00\"\r\n
+				\r\n time: \"07:00\"\r\n
 			}', 
 			'{
 				\r\n day:\"Thursday\",
-				\r\n time: \"15:00\"\r\n
+				\r\n time: \"16:00\"\r\n
 			}', 
-			'300', 
-			'2', 
+			'500', 
+			'4', 
 			'1', 
 			NULL
-			)
+			);
 
 */
+/*
+UPDATE `flights` 
+		SET `flightNumber` = 'AP3213'
+        WHERE `flights`.`autoID` = 29;
+*/
+#UPDATE `flights` SET `departureTime` = replace(`departureTime`, ' ', '') where autoID =3 ; #departureTime like '\t%';
+#update table_name set column_name = replace (column_name , 'oldstring' ,'newstring') where column_name like 'oldstring%'
+#UPDATE flights SET departureTime = REPLACE(departureTime, char(9), '');
+/*
+UPDATE `flights`
+SET `departureTime` = REPLACE(`departureTime`,'day:','"day":')
+WHERE `departureTime` like '%day:%';
 
+UPDATE `flights`
+SET `departureTime` = REPLACE(`departureTime`,'time:','"time":')
+WHERE `departureTime` like '%time:%';
+*/
+ select * from flights 
 # INSERT bookings
 /*
 INSERT INTO `bookings` (
