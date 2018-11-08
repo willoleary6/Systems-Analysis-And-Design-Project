@@ -1,18 +1,17 @@
 package ui.controller;
 
-import ui.exception.InvalidEmailException;
-import ui.exception.InvalidNameException;
-import ui.exception.InvalidPasswordException;
+import ui.coordinator.ILoginCoordinator;
 import ui.model.RegisterModel;
 import ui.view.RegisterFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.InvalidParameterException;
 
-public class RegisterFrameController {
+public class RegisterFrameController extends BaseFrameController {
+    private ILoginCoordinator coordinator;
     private RegisterModel model;
-    private RegisterFrame registerFrame;
     private JTextField nameField;
     private JTextField emailField;
     private JPasswordField passwordField1;
@@ -21,26 +20,16 @@ public class RegisterFrameController {
     private JButton backButton;
     private JLabel errorLabel;
 
-    public RegisterFrameController() {
+    public RegisterFrameController(ILoginCoordinator coordinator) {
+        this.coordinator = coordinator;
         model = new RegisterModel();
         initComponents();
         initListeners();
     }
 
-    public void show() {
-        registerFrame.setVisible(true);
-    }
-
-    public void hide() {
-        registerFrame.setVisible(false);
-    }
-
-    public void addBackButtonListener(ActionListener listener) {
-        backButton.addActionListener(listener);
-    }
-
     private void initComponents() {
-        registerFrame = new RegisterFrame();
+        RegisterFrame registerFrame = new RegisterFrame();
+        frame = registerFrame;
         nameField = registerFrame.getNameField();
         emailField = registerFrame.getEmailField();
         passwordField1 = registerFrame.getPasswordField1();
@@ -51,39 +40,24 @@ public class RegisterFrameController {
     }
 
     private void initListeners() {
+        backButton.addActionListener(e -> coordinator.start());
         signUpButton.addActionListener(new SignUpButtonListener());
     }
 
     private class SignUpButtonListener implements ActionListener {
-        @Override
         public void actionPerformed(ActionEvent e) {
             try {
                 model.setFullName(nameField.getText());
-            } catch (InvalidNameException exception) {
-                errorLabel.setText(exception.getMessage());
-                return;
-            }
-
-            try {
                 model.setEmail(emailField.getText());
-            } catch (InvalidEmailException exception) {
-                errorLabel.setText(exception.getMessage());
-                return;
-            }
-
-            try {
                 model.setPassword(passwordField1.getText(), passwordField2.getText());
-            } catch(InvalidPasswordException exception) {
+            } catch (InvalidParameterException exception) {
                 errorLabel.setText(exception.getMessage());
                 return;
             }
-
-            errorLabel.setText("");
+            errorLabel.setText(" ");
             model.createUser();
 
-            MainMenuFrameController mainMenuFrameController = new MainMenuFrameController();
-            mainMenuFrameController.show();
-            hide();
+            coordinator.goToMainMenu();
         }
     }
 }

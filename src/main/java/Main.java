@@ -1,5 +1,5 @@
-import ui.controller.WelcomeFrameController;
-import ui.view.WelcomeFrame;
+import ui.coordinator.ILoginCoordinator;
+import ui.coordinator.LoginCoordinator;
 
 public class Main {
 
@@ -7,7 +7,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        WelcomeFrameController welcomeFrame = new WelcomeFrameController();
-        welcomeFrame.show();
+        ILoginCoordinator loginCoordinator = new LoginCoordinator();
+        loginCoordinator.start();
     }
 }
