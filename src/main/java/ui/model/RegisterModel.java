@@ -1,8 +1,6 @@
 package ui.model;
 
-import ui.exception.InvalidEmailException;
-import ui.exception.InvalidNameException;
-import ui.exception.InvalidPasswordException;
+import java.security.InvalidParameterException;
 
 public class RegisterModel {
     private Validator validator;
@@ -14,28 +12,28 @@ public class RegisterModel {
         validator = new Validator();
     }
 
-    public void setFullName(String fullName) throws InvalidNameException {
+    public void setFullName(String fullName) throws InvalidParameterException {
         if (!validator.validateName(fullName)) {
-            throw new InvalidNameException("Invalid name");
+            throw new InvalidParameterException("Invalid name");
         }
         this.fullName = fullName;
     }
 
-    public void setEmail(String email) throws InvalidEmailException {
-        if (validator.validateEmail(email)) {
-            throw new InvalidEmailException("Invalid email address");
+    public void setEmail(String email) throws InvalidParameterException {
+        if (!validator.validateEmail(email)) {
+            throw new InvalidParameterException("Invalid email address");
         }
 
         this.email = email;
     }
 
-    public void setPassword(String password, String confirmPassword) throws InvalidPasswordException {
+    public void setPassword(String password, String confirmPassword) throws InvalidParameterException {
         if(!password.equals(confirmPassword)) {
-            throw new InvalidPasswordException("Passwords do not match.");
+            throw new InvalidParameterException("Passwords do not match.");
         }
 
         if (!validator.validatePassword(password)) {
-            throw new InvalidPasswordException("Passwords must be between 6 and 32 characters.");
+            throw new InvalidParameterException("Passwords must be between 6 and 32 characters.");
         }
 
         this.password = password;

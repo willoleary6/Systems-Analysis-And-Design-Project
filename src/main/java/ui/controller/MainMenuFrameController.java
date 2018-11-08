@@ -1,11 +1,12 @@
 package ui.controller;
 
+import ui.coordinator.IMainMenuCoordinator;
 import ui.view.MainMenuFrame;
 
 import javax.swing.*;
 
-public class MainMenuFrameController {
-    private MainMenuFrame mainMenuFrame;
+public class MainMenuFrameController extends BaseFrameController  {
+    private IMainMenuCoordinator coordinator;
     private JButton bookFlightsButton;
     private JButton cancelFlightsButton;
     private JButton orderHistoryButton;
@@ -13,29 +14,15 @@ public class MainMenuFrameController {
     private JLabel usernameLabel;
     private JLabel availablePointsLabel;
 
-    public MainMenuFrameController() {
+    public MainMenuFrameController(IMainMenuCoordinator coordinator) {
+        this.coordinator = coordinator;
         initComponents();
         initListeners();
     }
 
-    public void show() {
-        mainMenuFrame.setVisible(true);
-    }
-
-    public void hide() {
-        mainMenuFrame.setVisible(false);
-    }
-
-    public void setUsername(String username) {
-        usernameLabel.setText(username);
-    }
-
-    public void setAvailablePoints(int points) {
-        availablePointsLabel.setText("Available points: " + points);
-    }
-
     private void initComponents() {
-        mainMenuFrame = new MainMenuFrame();
+        MainMenuFrame mainMenuFrame = new MainMenuFrame();
+        frame = mainMenuFrame;
         bookFlightsButton = mainMenuFrame.getBookFlightsButton();
         cancelFlightsButton = mainMenuFrame.getCancelFlightsButton();
         orderHistoryButton = mainMenuFrame.getOrderHistoryButton();
@@ -45,6 +32,6 @@ public class MainMenuFrameController {
     }
 
     private void initListeners() {
-
+        logoutButton.addActionListener(e -> coordinator.logout());
     }
 }

@@ -1,38 +1,31 @@
 package ui.controller;
-
-import ui.exception.InvalidEmailException;
-import ui.exception.InvalidPasswordException;
+import ui.coordinator.ILoginCoordinator;
 import ui.model.LoginModel;
 import ui.view.LoginFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.InvalidParameterException;
 
-public class LoginFrameController {
+public class LoginFrameController extends BaseFrameController {
+    private ILoginCoordinator coordinator;
     private LoginModel model;
-    private LoginFrame loginFrame;
     private JButton loginButton;
     private JTextField emailField;
     private JPasswordField passwordField;
     private JLabel errorLabel;
 
-    public LoginFrameController() {
+    public LoginFrameController(ILoginCoordinator coordinator) {
+        this.coordinator = coordinator;
         model = new LoginModel();
         initComponents();
         initListeners();
     }
 
-    public void show() {
-        loginFrame.setVisible(true);
-    }
-
-    public void hide() {
-        loginFrame.setVisible(false);
-    }
-
     private void initComponents() {
-        loginFrame = new LoginFrame();
+        LoginFrame loginFrame = new LoginFrame();
+        frame = loginFrame;
         loginButton = loginFrame.getLoginButton();
         emailField = loginFrame.getEmailField();
         passwordField = loginFrame.getPasswordField();
@@ -44,27 +37,16 @@ public class LoginFrameController {
     }
 
     private class LoginButtonListener implements ActionListener {
-        @Override
         public void actionPerformed(ActionEvent e) {
             try {
                 model.setEmail(emailField.getText());
-            } catch (InvalidEmailException exception) {
-                errorLabel.setText(exception.getMessage());
-                return;
-            }
-
-            try {
                 model.setPassword(passwordField.getText());
-            } catch (InvalidPasswordException exception) {
+            } catch (InvalidParameterException exception) {
                 errorLabel.setText(exception.getMessage());
                 return;
             }
-
             model.getUser();
-
-            MainMenuFrameController mainMenuFrameController = new MainMenuFrameController();
-            mainMenuFrameController.show();
-            hide();
+            coordinator.goToMainMenu();
         }
     }
 }

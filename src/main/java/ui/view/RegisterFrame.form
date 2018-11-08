@@ -94,7 +94,7 @@
         </constraints>
         <properties>
           <foreground color="-61439"/>
-          <text value=""/>
+          <text value="   "/>
         </properties>
       </component>
     </children>
