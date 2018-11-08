@@ -174,6 +174,7 @@ public class getRequestHandler {
         String [] keys = apiResponse.get("keys").toString()
                 .replaceAll("\\[", "")
                 .replaceAll("\\]", "")
+                .replaceAll(" ", "")
                 .replaceAll("\"", "").split(",");
         
         return keys;
