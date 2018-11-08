@@ -8,6 +8,6 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
-target
+target/**
 
 .DS_Store
