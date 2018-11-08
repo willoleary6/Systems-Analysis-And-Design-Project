@@ -21,11 +21,11 @@ abstract public class User {
         return this.userName;
     }
 
-    protected int getUserID(){
+    public int getUserID(){
         return this.userID;
     }
 
-    protected int getUserType(){
+    public int getUserType(){
         return this.userType;
     }
 }

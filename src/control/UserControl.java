@@ -1,32 +1,33 @@
 package control;
-import account.AirlineEmployee;
-import account.Customer;
+import account.SimpleUserFactory;
 import account.User;
 
 public class UserControl {
 
-    public UserControl(){
+    private SimpleUserFactory userFactory;
+    // simple factory pattern implemented to support extensibility of user types and to better manage dependencies
 
+
+    public UserControl(){
+        userFactory = new SimpleUserFactory();
     }
 
     public User getUser(String username, String password, int userType){
         /*pull user from database*/
         if(validateUsername(username) && validatePassword(password)) {
-            if(userType == 0)
-                return new Customer(username, 2, userType);
-            else if(userType == 1)
-                return new AirlineEmployee(username, 2, userType);
+            return userFactory.createUser(username, 2, userType);
         }
         return null;
     }
 
-    public Boolean createUser(String username, String password, int userType){
+    public User createUser(String username, String password, int userType){
         if(userType != 0 && userType != 1)
-            return false;
+            return null;
         else if(validateUsername(username) && validatePassword(password)) {
-            /*send new user to database*/
+            /*add to db*/
+            return getUser(username, password, userType);
         }
-        return true;
+        return null;
     }
 
     private Boolean validateUsername(String username){

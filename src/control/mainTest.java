@@ -1,13 +1,14 @@
 package control;
+import account.Customer;
 
 public class mainTest {
 
     public static void main(String [] args) {
         uiController ui = new uiController();
-        UserControl user = new UserControl();
-
         ui.logIn("Hello_mannn", "D00rFrame",0 );
-        System.out.println(ui.currentUser.getUserName());
+        Customer user = (Customer)ui.currentUser;
+        System.out.println(user.getUserName());
+        System.out.println(user.getPoints().getNumOfPoints());
 
     }
 }
