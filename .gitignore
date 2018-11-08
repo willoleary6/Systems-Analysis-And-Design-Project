@@ -9,3 +9,5 @@
 .idea/**/shelf
 
 target
+
+.DS_Store
