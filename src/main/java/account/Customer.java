@@ -2,12 +2,13 @@ package account;
 
 public class Customer extends User {
 
-    private LoyaltyPoints points = new LoyaltyPoints();
+    private LoyaltyPoints points;
 
-    Customer(String userName, int userID, int userType){
+    public Customer(String userName, int userID, int userType){
         this.setUserName(userName);
         this.setUserID(userID);
         this.setUserType(userType);
+        points = new LoyaltyPoints();
     }
 
     public LoyaltyPoints getPoints() {

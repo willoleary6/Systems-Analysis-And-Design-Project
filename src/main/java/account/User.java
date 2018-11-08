@@ -17,15 +17,15 @@ abstract public class User {
         this.userType = userType;
     }
 
-    protected String getUserName(){
+    public String getUserName(){
         return this.userName;
     }
 
-    protected int getUserID(){
+    public int getUserID(){
         return this.userID;
     }
 
-    protected int getUserType(){
+    public int getUserType(){
         return this.userType;
     }
 }
