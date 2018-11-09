@@ -41,12 +41,11 @@ public class LoginFrameController extends BaseFrameController {
             try {
                 model.setEmail(emailField.getText());
                 model.setPassword(passwordField.getText());
+                model.getUser();
+                coordinator.goToMainMenu();
             } catch (InvalidParameterException exception) {
                 errorLabel.setText(exception.getMessage());
-                return;
             }
-            model.getUser();
-            coordinator.goToMainMenu();
         }
     }
 }
