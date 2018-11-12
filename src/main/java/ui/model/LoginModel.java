@@ -1,8 +1,6 @@
 package ui.model;
 
-import sun.rmi.runtime.Log;
-import ui.exception.InvalidEmailException;
-import ui.exception.InvalidPasswordException;
+import java.security.InvalidParameterException;
 
 public class LoginModel  {
     private Validator validator;
@@ -14,17 +12,17 @@ public class LoginModel  {
         validator = new Validator();
     }
 
-    public void setEmail(String email) throws InvalidEmailException {
+    public void setEmail(String email) throws InvalidParameterException {
         if (!validator.validateEmail(email)) {
-            throw new InvalidEmailException("Invalid email address");
+            throw new InvalidParameterException("Invalid email address");
         }
 
         this.email = email;
     }
 
-    public void setPassword(String password) throws InvalidPasswordException {
+    public void setPassword(String password) throws InvalidParameterException {
         if (!validator.validatePassword(password)) {
-            throw new InvalidPasswordException("Passwords must be between 6 and 32 characters.");
+            throw new InvalidParameterException("Passwords must be between 6 and 32 characters.");
         }
 
         this.password = password;

@@ -1,18 +1,17 @@
-/*package backgroundServices;
+package backgroundServices;
 
-import backgroundServices.API_Handler.getRequestHandler;
+import backgroundServices.API_Handlers.insertRequestHandler;
 import org.json.JSONObject;
 
 
 public class tester {
 
     public static void main(String[] args) {
-        getRequestHandler myHandler = new getRequestHandler();
-        myHandler.getAllAirports();
-        JSONObject [] AwsResponse = myHandler.getApiResponseResults();
-        String [] AwsKeys = myHandler.getApiResponseKeys();
+        insertRequestHandler myHandler = new insertRequestHandler();
+        JSONObject [] AwsResponse;
+        String [] AwsKeys;
 
-        myHandler.getUserInformation("WilliamOLeary", "pass");
+        myHandler.addNewUser("will","will@gmail.com","pass");
 
         AwsResponse = myHandler.getApiResponseResults();
         AwsKeys = myHandler.getApiResponseKeys();
@@ -25,4 +24,3 @@ public class tester {
 
     }
 }
-*/

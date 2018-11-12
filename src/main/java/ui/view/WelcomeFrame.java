@@ -1,7 +1,6 @@
 package ui.view;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class WelcomeFrame extends JFrame {
     private JButton loginButton;
