@@ -2,10 +2,15 @@ package control;
 
 import backgroundServices.API_Handler.getRequestHandler;
 import org.json.JSONObject;
+import org.json.JSONString;
 import routeCalculation.flight;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class SearchController {
     private getRequestHandler dbHandler;
+    private ArrayList<flight> flights;
 
     public SearchController(){
         dbHandler = new getRequestHandler();
@@ -16,17 +21,25 @@ public class SearchController {
     }
 
     public void retrieveFlights(){
+        flights = new ArrayList<flight>();
         dbHandler.getAllFlights();
         JSONObject []response = dbHandler.getApiResponseResults();
-        String []keys = dbHandler.getApiResponseKeys();
         for(int i = 0; i < response.length;i++) {
-            JSONObject obj = response[i];
-            System.out.println(obj.get("departureTime"));
+            flights.add(jobjToFLight(response[i]));
+        }
+        for(int i = 0; i < flights.size(); i++){
+            System.out.println(flights.get(i).getFlightnumber());
         }
     }
 
     public flight jobjToFLight(JSONObject jobj) {
-        //do stuff
-        return null;
+        JSONObject depart = new JSONObject(jobj.getString("departureTime"));
+        JSONObject arrive = new JSONObject(jobj.getString("arrivalTime"));
+        return new flight(jobj.getString("flightNumber"),
+                jobj.getInt("departureAirport"), jobj.getInt("destinationAirport"),
+                depart.getString("time"), arrive.getString("time"), depart.getString("day"),
+                arrive.getString("day"), jobj.getDouble("price"),
+                jobj.getInt("airlineID"));
+
     }
 }

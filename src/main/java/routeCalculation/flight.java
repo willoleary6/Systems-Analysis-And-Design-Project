@@ -4,42 +4,47 @@ package routeCalculation;
 import java.util.Date;
 
 public class flight {
-    private int flightnumber;
-    private String departureAirport;
-    private String destinationAirport;
-    private Date departureTime;
-    private Date arrivalTime;
+    private String flightnumber;
+    private int departureAirport;
+    private int destinationAirport;
+    private String departureTime;
+    private String arrivalTime;
+    private String departureDay;
+    private String arrivalDay;
     private double price;
     private int airlineID;
 
-    public flight(int flightnumber, String departureAirport, String destinationAirport,
-                    Date departureTime, Date arrivalTime, double price, int airlineID) {
+    public flight(String flightnumber, int departureAirport, int destinationAirport,
+                    String departureTime, String arrivalTime, String departureDay, String arrivalDay,
+                    double price, int airlineID) {
         this.flightnumber = flightnumber;
         this.departureAirport = departureAirport;
         this.destinationAirport = destinationAirport;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
+        this.departureDay = departureDay;
+        this.arrivalDay = arrivalDay;
         this.price = price;
         this.airlineID = airlineID;
     }
 
-    public int getFlightnumber() {
+    public String getFlightnumber() {
         return flightnumber;
     }
 
-    public String getDepartureAirport() {
+    public int getDepartureAirport() {
         return departureAirport;
     }
 
-    public String getDestinationAirport() {
+    public int getDestinationAirport() {
         return destinationAirport;
     }
 
-    public Date getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public Date getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
@@ -49,5 +54,13 @@ public class flight {
 
     public int getAirlineID() {
         return airlineID;
+    }
+
+    public String getDepartureDay() {
+        return departureDay;
+    }
+
+    public String getArrivalDay() {
+        return arrivalDay;
     }
 }

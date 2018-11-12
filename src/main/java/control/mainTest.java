@@ -6,10 +6,13 @@ public class mainTest {
     public static void main(String [] args) {
         uiController ui = new uiController();
         SearchController con = new SearchController();
-        ui.logIn("Hello_mannn", "D00rFrame",0 );
-        Customer user = (Customer)ui.currentUser;
-        System.out.println(user.getUserName());
-        System.out.println(user.getPoints().getNumOfPoints());
-        con.retrieveFlights();
+        ui.logIn("basicCustomer", "pass",0 );
+        if(ui.currentUser != null) {
+            Customer user = (Customer) ui.currentUser;
+            System.out.println(user.getUserName());
+            System.out.println(user.getUserID());
+            System.out.println(user.getPoints().getNumOfPoints());
+            con.retrieveFlights();
+        }
     }
 }
