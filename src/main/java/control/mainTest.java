@@ -6,7 +6,7 @@ public class mainTest {
     public static void main(String [] args) {
         uiController ui = new uiController();
         SearchController con = new SearchController();
-        ui.logIn("basicCustomer", "pass",0 );
+        ui.register("ChunkyMitts3", "D00rframe","ac2.cleere@gmail.com",0 );
         if(ui.currentUser != null) {
             Customer user = (Customer) ui.currentUser;
             System.out.println(user.getUserName());

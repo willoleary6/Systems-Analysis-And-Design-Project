@@ -2,25 +2,27 @@ package control;
 import account.SimpleUserFactory;
 import account.User;
 import backgroundServices.API_Handlers.getRequestHandler;
+import backgroundServices.API_Handlers.insertRequestHandler;
 import org.json.JSONObject;
 
 public class UserControl {
 
     private SimpleUserFactory userFactory;
     // simple factory pattern implemented to support extensibility of user types and to better manage dependencies
-    private getRequestHandler dbHandler;
+    private getRequestHandler dbPullHandler;
+    private insertRequestHandler dbInsertHandler;
 
 
     public UserControl(){
         userFactory = new SimpleUserFactory();
-        dbHandler = new getRequestHandler();
+        dbPullHandler = new getRequestHandler();
+        dbInsertHandler = new insertRequestHandler();
     }
 
     public User getUser(String username, String password, int userType){
-        dbHandler.getUserInformation(username,password);
+        dbPullHandler.getUserInformation(username,password);
         try {
-            JSONObject[] obj = dbHandler.getApiResponseResults();
-            //String userID = obj[0].get("userID");
+            JSONObject[] obj = dbPullHandler.getApiResponseResults();
             return userFactory.createUser(username, obj[0].getInt("userID"), userType);
         } catch( Exception e) {
             System.out.println(e);
@@ -29,11 +31,17 @@ public class UserControl {
     }
 
     //TODO need to have functionality
-    public User createUser(String username, String password, int userType){
-        if(userType != 0 && userType != 1)
-            return null;
-        else if(validateUsername(username) && validatePassword(password)) {
-            return getUser(username, password, userType);
+    public User createUser(String username, String password, String email, int userType){
+        if(validateUsername(username) && validatePassword(password)) {
+            dbInsertHandler.addNewUser(username, email, password);
+            try {
+                JSONObject[] obj = dbInsertHandler.getApiResponseResults();
+                System.out.println("not caught");
+                return getUser(username, password, userType);
+            } catch( Exception e) {
+                System.out.println(e);
+                return null;
+            }
         }
         return null;
     }

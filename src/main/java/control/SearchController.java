@@ -2,11 +2,9 @@ package control;
 
 import backgroundServices.API_Handlers.getRequestHandler;
 import org.json.JSONObject;
-import org.json.JSONString;
 import routeCalculation.flight;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class SearchController {
     private getRequestHandler dbHandler;

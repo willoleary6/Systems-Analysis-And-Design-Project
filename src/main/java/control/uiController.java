@@ -23,8 +23,8 @@ public class uiController {
             currentUser = user;
     }
 
-    public void register(String username, String password, int userType) {
-        User user = userCon.createUser(username, password, userType);
+    public void register(String username, String password, String email, int userType) {
+        User user = userCon.createUser(username, password, email, userType);
         if(user != null)
             currentUser = user;
     }
