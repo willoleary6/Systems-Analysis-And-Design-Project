@@ -1,7 +1,7 @@
 package control;
 import account.SimpleUserFactory;
 import account.User;
-import backgroundServices.API_Handler.getRequestHandler;
+import backgroundServices.API_Handlers.getRequestHandler;
 import org.json.JSONObject;
 
 public class UserControl {

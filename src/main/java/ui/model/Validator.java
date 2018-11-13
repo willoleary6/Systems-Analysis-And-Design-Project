@@ -7,7 +7,7 @@ public class Validator {
     }
 
     public boolean validatePassword(String password) {
-        return password.matches(".{6,32}");
+        return password.matches(".{2,32}");
     }
 
     public boolean validateName(String name) {
