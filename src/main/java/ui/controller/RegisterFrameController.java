@@ -50,14 +50,14 @@ public class RegisterFrameController extends BaseFrameController {
                 model.setFullName(nameField.getText());
                 model.setEmail(emailField.getText());
                 model.setPassword(passwordField1.getText(), passwordField2.getText());
+                errorLabel.setText(" ");
+
+                model.createUser();
+                coordinator.goToMainMenu();
+
             } catch (InvalidParameterException exception) {
                 errorLabel.setText(exception.getMessage());
-                return;
             }
-            errorLabel.setText(" ");
-            model.createUser();
-
-            coordinator.goToMainMenu();
         }
     }
 }

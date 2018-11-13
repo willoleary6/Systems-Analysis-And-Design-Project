@@ -1,4 +1,4 @@
-package backgroundServices.API_Handler;
+package backgroundServices.API_Handlers;
 
 
 import backgroundServices.resourceReader.reader;
@@ -7,10 +7,9 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.Properties;
 
-public class getRequestHandler {
+public class getRequestHandler implements ApiRequestHandler{
     private reader myReader;
     private Properties apiProperties;
     private JSONObject apiResponse;
@@ -26,7 +25,7 @@ public class getRequestHandler {
     public void getAllAirports(){
         try {
             HttpResponse<String> jsonResponse =
-                    Unirest.get(apiProperties.getProperty("ApiUrl")+apiProperties.getProperty("getAllAirports"))
+                    Unirest.get(apiProperties.getProperty("getUrl")+apiProperties.getProperty("getAllAirports"))
                             .asString();
 
             apiResponse =  new JSONObject(jsonResponse.getBody());
@@ -41,7 +40,7 @@ public class getRequestHandler {
     public void getAllFlights(){
         try {
             HttpResponse<String> jsonResponse =
-                    Unirest.get(apiProperties.getProperty("ApiUrl")+apiProperties.getProperty("getAllFlights"))
+                    Unirest.get(apiProperties.getProperty("getUrl")+apiProperties.getProperty("getAllFlights"))
                             .asString();
 
             apiResponse =  new JSONObject(jsonResponse.getBody());
@@ -57,8 +56,13 @@ public class getRequestHandler {
     public void getFlightsByDepartureAirport(int id){
         try {
             HttpResponse<String> jsonResponse =
-                    Unirest.get(apiProperties.getProperty("ApiUrl")+apiProperties.getProperty("getFlightsInfoByDepartureAirportID"))
-                            .queryString("airportID", id)
+                    Unirest.post(apiProperties.getProperty("getUrl")+apiProperties.getProperty("getFlightsInfoByDepartureAirportID"))
+                            .header("accept", "application/json")
+                            .body("" +
+                                    "{" +
+                                    "\"airportID\":\""+id+"\"" +
+                                    "}"
+                            )
                             .asString();
 
             apiResponse =  new JSONObject(jsonResponse.getBody());
@@ -74,8 +78,13 @@ public class getRequestHandler {
     public void getDiscountsByFlightID(int id){
         try {
             HttpResponse<String> jsonResponse =
-                    Unirest.get(apiProperties.getProperty("ApiUrl")+apiProperties.getProperty("getDiscountsByFlightID"))
-                            .queryString("flightID", id)
+                    Unirest.post(apiProperties.getProperty("getUrl")+apiProperties.getProperty("getDiscountsByFlightID"))
+                            .header("accept", "application/json")
+                            .body("" +
+                                    "{" +
+                                    "\"flightID\":\""+id+"\"" +
+                                    "}"
+                            )
                             .asString();
 
             apiResponse =  new JSONObject(jsonResponse.getBody());
@@ -91,10 +100,14 @@ public class getRequestHandler {
     public void getUserInformation(int id){
         try {
             HttpResponse<String> jsonResponse =
-                    Unirest.get(apiProperties.getProperty("ApiUrl")+apiProperties.getProperty("getUserById"))
-                            .queryString("id", id)
+                    Unirest.post(apiProperties.getProperty("getUrl")+apiProperties.getProperty("getUserById"))
+                            .header("accept", "application/json")
+                            .body("" +
+                                    "{" +
+                                    "\"id\":\""+id+"\"" +
+                                    "}"
+                            )
                             .asString();
-
             apiResponse =  new JSONObject(jsonResponse.getBody());
         } catch (UnirestException e) {
             e.printStackTrace();
@@ -109,10 +122,14 @@ public class getRequestHandler {
     public void getUserInformation(String username){
         try {
             HttpResponse<String> jsonResponse =
-                    Unirest.get(apiProperties.getProperty("ApiUrl")+apiProperties.getProperty("getUserByUsername"))
-                            .queryString("username", username)
+                    Unirest.post(apiProperties.getProperty("getUrl")+apiProperties.getProperty("getUserByUsername"))
+                            .header("accept", "application/json")
+                            .body("" +
+                                    "{" +
+                                    "\"username\":\""+username+"\"" +
+                                    "}"
+                            )
                             .asString();
-
             apiResponse =  new JSONObject(jsonResponse.getBody());
         } catch (UnirestException e) {
             e.printStackTrace();
@@ -126,12 +143,14 @@ public class getRequestHandler {
      */
     public void getUserInformation(String username, String password){
         try {
-            HashMap queries = new HashMap<String, String>();
-            queries.put("username", username);
-            queries.put("password", password);
             HttpResponse<String> jsonResponse =
-                    Unirest.get(apiProperties.getProperty("ApiUrl")+apiProperties.getProperty("getUserByUsernameAndPassword"))
-                            .queryString(queries)
+                    Unirest.post(apiProperties.getProperty("getUrl")+apiProperties.getProperty("getUserByUsernameAndPassword"))
+                            .header("accept", "application/json")
+                            .body("" +
+                                    "{" +
+                                    "\"username\":\""+username+"\"," +
+                                    "\"password\":\""+password+"\"" +
+                                    "}")
                             .asString();
 
             apiResponse =  new JSONObject(jsonResponse.getBody());
