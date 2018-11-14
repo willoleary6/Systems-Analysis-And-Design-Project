@@ -3,7 +3,7 @@ package control;
 import backgroundServices.API_Handlers.getRequestHandler;
 import org.json.JSONObject;
 import org.json.JSONString;
-import routeCalculation.flight;
+import routecalculation.flight;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,7 +16,7 @@ public class SearchController {
         dbHandler = new getRequestHandler();
     }
 
-    public void routeCalcultion(int searchParams, String origin, String destination, String timestamp) {
+    public void routecalcultion(int searchParams, String origin, String destination, String timestamp) {
         //connect to wills handler pull data pick relevant and pass
     }
 
@@ -35,11 +35,9 @@ public class SearchController {
     public flight jobjToFLight(JSONObject jobj) {
         JSONObject depart = new JSONObject(jobj.getString("departureTime"));
         JSONObject arrive = new JSONObject(jobj.getString("arrivalTime"));
-        return new flight(jobj.getString("flightNumber"),
-                jobj.getInt("departureAirport"), jobj.getInt("destinationAirport"),
-                depart.getString("time"), arrive.getString("time"), depart.getString("day"),
-                arrive.getString("day"), jobj.getDouble("price"),
-                jobj.getInt("airlineID"));
+        return new flight(
+                jobj.getInt("departureAirport"), jobj.getInt("destinationAirport")
+                , jobj.getDouble("price"));
 
     }
 }

@@ -1,9 +1,9 @@
-package routeCalculation;
+package routecalculation;
 
 
 import java.util.Date;
 
-public class flight {
+public class flight implements Edge {
     private String flightnumber;
     private int departureAirport;
     private int destinationAirport;
@@ -13,19 +13,21 @@ public class flight {
     private String arrivalDay;
     private double price;
     private int airlineID;
+    private int fromNodeIndex;
+    private int toNodeIndex;
+    private double cost;
 
-    public flight(String flightnumber, int departureAirport, int destinationAirport,
-                    String departureTime, String arrivalTime, String departureDay, String arrivalDay,
-                    double price, int airlineID) {
-        this.flightnumber = flightnumber;
+    public flight( int departureAirport, int destinationAirport,
+                    double price) {
+        //this.flightnumber = flightnumber;
         this.departureAirport = departureAirport;
         this.destinationAirport = destinationAirport;
-        this.departureTime = departureTime;
-        this.arrivalTime = arrivalTime;
-        this.departureDay = departureDay;
-        this.arrivalDay = arrivalDay;
+        //this.departureTime = departureTime;
+        //this.arrivalTime = arrivalTime;
+        //this.departureDay = departureDay;
+        //this.arrivalDay = arrivalDay;
         this.price = price;
-        this.airlineID = airlineID;
+        //this.airlineID = airlineID;
     }
 
     public String getFlightnumber() {
@@ -62,5 +64,33 @@ public class flight {
 
     public String getArrivalDay() {
         return arrivalDay;
+    }
+
+    public int getFromNodeIndex() {
+        return departureAirport;
+    }
+
+    public int getToNodeIndex() {
+        return destinationAirport;
+    }
+
+    public int getNeighbourIndex(int nodeIndex) {
+        if (this.fromNodeIndex == nodeIndex)
+            return  this.toNodeIndex;
+        else
+            return  this.fromNodeIndex;
+
+        /*switch (nodeIndex) {
+            case nodeIndex:
+                return this.toNodeIndex;
+                break;
+            default:
+                return this.fromNodeIndex;
+                break;
+        }*/
+    }
+
+    public double getCost() {
+        return cost;
     }
 }
