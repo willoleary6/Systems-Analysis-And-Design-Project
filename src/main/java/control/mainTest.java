@@ -14,5 +14,6 @@ public class mainTest {
             System.out.println(user.getPoints().getNumOfPoints());
             con.retrieveFlights();
         }
+        con.routeCalculation();
     }
 }

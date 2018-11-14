@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class uiController {
     public User currentUser;
     private UserControl userCon;
-    //private Arrylist<flight> archivedRoutes;
-    //private Arrylist<flight> routes;
+    //private Arrylist<Flight> archivedRoutes;
+    //private Arrylist<Flight> routes;
     private String routeOrigin;
     private String routeDestination;
 
@@ -29,7 +29,7 @@ public class uiController {
             currentUser = user;
     }
 
-    /*public ArrayList<Arrylist<flight>> getPreviousSearchs() {
+    /*public ArrayList<Arrylist<Flight>> getPreviousSearchs() {
         return archivedRoutes;
     }*/
 

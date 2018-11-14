@@ -1,4 +1,4 @@
-package routecalculation;
+package routeCalculation;
 
 import java.util.ArrayList;
 
@@ -8,5 +8,5 @@ public interface Node {
     void setVisited(boolean visited);
     int getDistanceFromSource();
     void setDistanceFromSource(int distanceFromSource);
-    void addNodeToJourney(int nodeIndex);
+    void addAirportToJourney(int nodeIndex);
 }
