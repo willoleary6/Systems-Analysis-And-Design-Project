@@ -1,5 +1,6 @@
 package ui.controller;
 
+import control.UIController;
 import ui.coordinator.IMainMenuCoordinator;
 import ui.view.MainMenuFrame;
 
@@ -29,6 +30,8 @@ public class MainMenuFrameController extends BaseFrameController  {
         logoutButton = mainMenuFrame.getLogoutButton();
         usernameLabel = mainMenuFrame.getUsernameLabel();
         availablePointsLabel = mainMenuFrame.getAvailablePointsLabel();
+
+        usernameLabel.setText(UIController.shared.currentUser.getUserName());
     }
 
     private void initListeners() {

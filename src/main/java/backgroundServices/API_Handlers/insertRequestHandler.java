@@ -50,7 +50,6 @@ public class insertRequestHandler  implements ApiRequestHandler{
          Since we need to convert this string to an array we need to
          specify where to split the string with out causing "issues".
         */
-        System.out.println(results);
         results = results.toString()
                 .replaceAll("\\},", "}~,");
 

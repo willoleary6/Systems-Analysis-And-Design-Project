@@ -1,10 +1,12 @@
 package ui.model;
 
+import control.UIController;
+
 import java.security.InvalidParameterException;
 
 public class LoginModel  {
     private Validator validator;
-    private String email;
+    private String username;
     private String password;
 
 
@@ -12,12 +14,12 @@ public class LoginModel  {
         validator = new Validator();
     }
 
-    public void setEmail(String email) throws InvalidParameterException {
-        if (!validator.validateEmail(email)) {
-            throw new InvalidParameterException("Invalid email address");
-        }
+    public void setUsername(String username) throws InvalidParameterException {
+//        if (!validator.validateEmail(username)) {
+//            throw new InvalidParameterException("Invalid email address");
+//        }
 
-        this.email = email;
+        this.username = username;
     }
 
     public void setPassword(String password) throws InvalidParameterException {
@@ -28,7 +30,7 @@ public class LoginModel  {
         this.password = password;
     }
 
-    public void getUser() {
-
+    public void login() {
+        UIController.shared.logIn(username, password, 0);
     }
 }

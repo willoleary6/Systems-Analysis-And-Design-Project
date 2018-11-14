@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class LoginFrame extends JFrame {
     private JPanel mainPanel;
-    private JTextField emailField;
+    private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton;
     private JLabel errorLabel;
@@ -16,8 +16,8 @@ public class LoginFrame extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    public JTextField getEmailField() {
-        return emailField;
+    public JTextField getUsernameField() {
+        return usernameField;
     }
 
     public JPasswordField getPasswordField() {

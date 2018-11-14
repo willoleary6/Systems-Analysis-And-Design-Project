@@ -12,7 +12,7 @@ public class LoginFrameController extends BaseFrameController {
     private ILoginCoordinator coordinator;
     private LoginModel model;
     private JButton loginButton;
-    private JTextField emailField;
+    private JTextField usernameField;
     private JPasswordField passwordField;
     private JLabel errorLabel;
 
@@ -27,7 +27,7 @@ public class LoginFrameController extends BaseFrameController {
         LoginFrame loginFrame = new LoginFrame();
         frame = loginFrame;
         loginButton = loginFrame.getLoginButton();
-        emailField = loginFrame.getEmailField();
+        usernameField = loginFrame.getUsernameField();
         passwordField = loginFrame.getPasswordField();
         errorLabel = loginFrame.getErrorLabel();
     }
@@ -39,9 +39,9 @@ public class LoginFrameController extends BaseFrameController {
     private class LoginButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             try {
-                model.setEmail(emailField.getText());
+                model.setUsername(usernameField.getText());
                 model.setPassword(passwordField.getText());
-                model.getUser();
+                model.login();
                 coordinator.goToMainMenu();
             } catch (InvalidParameterException exception) {
                 errorLabel.setText(exception.getMessage());

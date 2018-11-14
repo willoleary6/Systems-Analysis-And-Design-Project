@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class RegisterFrame extends JFrame {
     private JPanel mainPanel;
-    private JTextField nameField;
+    private JTextField usernameField;
     private JTextField emailField;
     private JPasswordField passwordField1;
     private JPasswordField passwordField2;
@@ -23,8 +23,8 @@ public class RegisterFrame extends JFrame {
         return errorLabel;
     }
 
-    public JTextField getNameField() {
-        return nameField;
+    public JTextField getUsernameField() {
+        return usernameField;
     }
 
     public JTextField getEmailField() {

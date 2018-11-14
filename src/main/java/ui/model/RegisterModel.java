@@ -1,10 +1,12 @@
 package ui.model;
 
+import control.UIController;
+
 import java.security.InvalidParameterException;
 
 public class RegisterModel {
     private Validator validator;
-    private String fullName;
+    private String userName;
     private String email;
     private String password;
 
@@ -12,11 +14,11 @@ public class RegisterModel {
         validator = new Validator();
     }
 
-    public void setFullName(String fullName) throws InvalidParameterException {
-        if (!validator.validateName(fullName)) {
-            throw new InvalidParameterException("Invalid name");
-        }
-        this.fullName = fullName;
+    public void setUserName(String userName) throws InvalidParameterException {
+//        if (!validator.validateName(userName)) {
+//            throw new InvalidParameterException("Invalid name");
+//        }
+        this.userName = userName;
     }
 
     public void setEmail(String email) throws InvalidParameterException {
@@ -40,6 +42,6 @@ public class RegisterModel {
     }
 
     public void createUser() {
-
+        UIController.shared.register(userName, email, password, 0);
     }
 }

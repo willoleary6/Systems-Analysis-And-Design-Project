@@ -32,18 +32,17 @@ public class UserControl {
 
     //TODO need to have functionality
     public User createUser(String username, String password, String email, int userType){
-        if(validateUsername(username) && validatePassword(password)) {
+//        if(validateUsername(username) && validatePassword(password)) {
             dbInsertHandler.addNewUser(username, email, password);
             try {
                 JSONObject[] obj = dbInsertHandler.getApiResponseResults();
-                System.out.println("not caught");
                 return getUser(username, password, userType);
             } catch( Exception e) {
                 System.out.println(e);
                 return null;
             }
-        }
-        return null;
+//        }
+//        return null;
     }
 
     private Boolean validateUsername(String username){

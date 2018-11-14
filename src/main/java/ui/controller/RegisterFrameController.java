@@ -12,7 +12,7 @@ import java.security.InvalidParameterException;
 public class RegisterFrameController extends BaseFrameController {
     private ILoginCoordinator coordinator;
     private RegisterModel model;
-    private JTextField nameField;
+    private JTextField usernameField;
     private JTextField emailField;
     private JPasswordField passwordField1;
     private JPasswordField passwordField2;
@@ -30,7 +30,7 @@ public class RegisterFrameController extends BaseFrameController {
     private void initComponents() {
         RegisterFrame registerFrame = new RegisterFrame();
         frame = registerFrame;
-        nameField = registerFrame.getNameField();
+        usernameField = registerFrame.getUsernameField();
         emailField = registerFrame.getEmailField();
         passwordField1 = registerFrame.getPasswordField1();
         passwordField2 = registerFrame.getPasswordField2();
@@ -47,7 +47,7 @@ public class RegisterFrameController extends BaseFrameController {
     private class SignUpButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             try {
-                model.setFullName(nameField.getText());
+                model.setUserName(usernameField.getText());
                 model.setEmail(emailField.getText());
                 model.setPassword(passwordField1.getText(), passwordField2.getText());
                 errorLabel.setText(" ");

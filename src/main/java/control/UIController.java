@@ -5,15 +5,18 @@ import account.User;
 import java.util.ArrayList;
 
 
-public class uiController {
+public class UIController {
+    public static UIController shared = new UIController();
     public User currentUser;
     private UserControl userCon;
+//    private Arrylist<Airport> airports;
+
     //private Arrylist<flight> archivedRoutes;
     //private Arrylist<flight> routes;
     private String routeOrigin;
     private String routeDestination;
 
-    public uiController(){
+    private UIController(){
         userCon = new UserControl();
     }
 
