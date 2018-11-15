@@ -2,51 +2,52 @@ package routeCalculation;
 
 import java.util.ArrayList;
 
-public class Airport implements Node{
+public class Airport implements Comparable<Airport> {
+    private String airportName;
+    private int autoKey;
+    private ArrayList<Flight> flights = new ArrayList<Flight>();
+    private double minimumDistance = Double.POSITIVE_INFINITY;
+    private Airport previous;
 
-    private int distanceFromSource = Integer.MAX_VALUE;
-    private boolean visited;
-    private ArrayList<Integer> journey = new ArrayList<Integer>();
-    private ArrayList<Flight> edges = new ArrayList<Flight>(); // now we must create edges
-
-    public int getDistanceFromSource() {
-        return distanceFromSource;
+    public Airport(int autoKey, String airportName) {
+        this.autoKey = autoKey;
+        this.airportName = airportName;
     }
 
-    public void addAirportToJourney(int nodeIndex){
-        boolean duplicates = false;
-        for(int i = 0; i < journey.size(); i++){
-            if(nodeIndex == journey.get(i)){
-                duplicates = true;
-            }
-        }
-        if(!duplicates){
-            journey.add(nodeIndex);
-        }
+    public String getAirportName() {
+        return airportName;
     }
 
-    public void setDistanceFromSource(int distanceFromSource) {
-        this.distanceFromSource = distanceFromSource;
+    public int getAutoKey() {
+        return autoKey;
     }
 
-    public boolean isVisited() {
-        return visited;
-    }
-
-    public void setVisited(boolean visited) {
-        this.visited = visited;
+    public void setFlightsDeparting(ArrayList<Flight> flights){
+        this.flights = flights;
     }
 
     public ArrayList<Flight> getFlights() {
-        return edges;
+        return flights;
     }
 
-    public ArrayList<Integer> getJourney() {
-        return journey;
+    public double getMinimumDistance() {
+        return minimumDistance;
     }
 
-    public void setEdges(ArrayList<Flight> edges) {
-        this.edges = edges;
+    public void setMinimumDistance(Double newDistance) {
+        minimumDistance = newDistance;
     }
 
+    public Airport getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(Airport previous) {
+        this.previous = previous;
+    }
+
+    public int compareTo(Airport other)
+    {
+        return Double.compare(minimumDistance, other.minimumDistance);
+    }
 }

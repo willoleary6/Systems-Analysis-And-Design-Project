@@ -1,131 +1,51 @@
 package routeCalculation;
 
-
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.PriorityQueue;
 
-// now we must create graph object and implement dijkstra algorithm
 public class Grapher {
+    public static void computePaths(Airport source, ArrayList<Airport> listOfAirports) {
+        source.setMinimumDistance(0.);
+        PriorityQueue<Airport> vertexQueue = new PriorityQueue<Airport>();
+        vertexQueue.add(source);
 
-    private Airport[] airports;
-    private int numOfAirports;
-    private Flight[] flights;
-    private int numOfLights;
-    private int source;
+        while (!vertexQueue.isEmpty()) {
+            Airport u = vertexQueue.poll();
 
-    public Grapher(Flight[] flights) {
-        this.flights = flights;
-        this.numOfAirports = calculateNoOfNodes(flights);
-        this.airports = new Airport[this.numOfAirports];
-        for (int n = 0; n < this.numOfAirports; n++) {
-            this.airports[n] = new Airport();
-        }
-        this.numOfLights = flights.length;
-        for (int flightToAdd = 0; flightToAdd < this.numOfLights; flightToAdd++) {
-            this.airports[flights[flightToAdd].getDepartureAirportIndex()].getFlights().add(flights[flightToAdd]);
-            this.airports[flights[flightToAdd].getDestinationAirportIndex()].getFlights().add(flights[flightToAdd]);
-        }
-    }
+            for (Flight e : u.getFlights()) {
+                double weight, distanceThroughU;
 
-    private int calculateNoOfNodes(Flight[] edges) {
-        int noOfAirports = 0;
-        for (Flight e : edges) {
-            if (e.getDestinationAirportIndex() > noOfAirports)
-                noOfAirports = e.getDestinationAirportIndex();
-            if (e.getDepartureAirportIndex() > noOfAirports)
-                noOfAirports = e.getDepartureAirportIndex();
-        }
-        noOfAirports++;
-        return noOfAirports;
-    }
+                Airport v = getAirportByID(e.getTargetAirportID(), listOfAirports);
+                weight = e.getCost();
+                distanceThroughU = u.getMinimumDistance() + weight;
 
-    // next video to implement the Dijkstra algorithm !!!
-    public void calculateShortestDistance(int source) {
-        // node 0 as source
-        this.source = source;
-        this.airports[this.source].setDistanceFromSource(0);
-        int nextAirport = this.source;
-        for (int i = 0; i < this.airports.length; i++) {
-            airports[i].addAirportToJourney(this.source);
-        }
-        // visit every node
-        for (int i = 0; i < this.airports.length; i++) {
-            // loop around the flights of current node
-
-            ArrayList<Flight> currentAirportFlights = this.airports[nextAirport].getFlights();
-            for (int joinedFlight = 0; joinedFlight < currentAirportFlights.size(); joinedFlight++) {
-                int neighbourIndex = currentAirportFlights.get(joinedFlight).getNeighbourIndex(nextAirport);
-                // only if not visited
-                if (!this.airports[neighbourIndex].isVisited()) {
-                    int tentative = this.airports[nextAirport].getDistanceFromSource() + currentAirportFlights.get(joinedFlight).getCost();
-                    if (tentative < airports[neighbourIndex].getDistanceFromSource()) {
-                        airports[neighbourIndex].addAirportToJourney(nextAirport);
-                        airports[neighbourIndex].setDistanceFromSource(tentative);
-                    }
-                }
-            }
-
-            // all neighbours checked so node visited
-            airports[nextAirport].setVisited(true);
-            // next node must be with shortest distance
-            nextAirport = getAirportShortestDistanced();
-
-        }
-
-        for (int i = 0; i < this.airports.length; i++) {
-            airports[i].addAirportToJourney(i);
-        }
-    }
-
-    // now we're going to implement this method in next part !
-    private int getAirportShortestDistanced() {
-        int storedAirportIndex = 0;
-        int storedDistance = Integer.MAX_VALUE;
-
-        for (int i = 0; i < this.airports.length; i++) {
-            int currentDistance = this.airports[i].getDistanceFromSource();
-
-            if (!this.airports[i].isVisited() && currentDistance < storedDistance) {
-                storedDistance = currentDistance;
-                storedAirportIndex = i;
-            }
-        }
-
-        return storedAirportIndex;
-    }
-
-    // display result
-    public void printResult() {
-        String output = "Number of airports = " + this.numOfAirports;
-        output += "\nNumber of flights = " + this.numOfLights;
-
-        for (int i = 0; i < this.airports.length; i++) {
-            output += ("\nThe shortest distance from node "+this.source+" to node " + i + " is " + airports[i].getDistanceFromSource())+"\n";
-            ArrayList<Integer> airportsOnJourney = airports[i].getJourney();
-            for (int j = 0; j < airportsOnJourney.size(); j++){
-                output += airportsOnJourney.get(j);
-                if( j < airportsOnJourney.size()-1 ){
-                    output+="->";
+                if (distanceThroughU < v.getMinimumDistance()) {
+                    vertexQueue.remove(distanceThroughU);
+                    v.setMinimumDistance(distanceThroughU);
+                    v.setPrevious(u);
+                    vertexQueue.add(v);
                 }
             }
         }
-
-        System.out.println(output);
     }
 
-    public Airport[] getAirports() {
-        return airports;
+    public static List<Airport> getShortestPathTo(Airport target) {
+        List<Airport> path = new ArrayList<Airport>();
+
+        for (Airport vertex = target; vertex != null; vertex = vertex.getPrevious())
+            path.add(vertex);
+
+        Collections.reverse(path);
+        return path;
     }
 
-    public int getNumOfAirports() {
-        return numOfAirports;
+    public static Airport getAirportByID(int airportID, ArrayList<Airport> listOfAirports) {
+        for (int i = 0; i < listOfAirports.size(); i++) {
+            if (airportID == listOfAirports.get(i).getAutoKey())
+                return listOfAirports.get(i);
+        }
+        return listOfAirports.get(0);
     }
-
-    public Flight[] getFlights() {
-        return flights;
-    }
-
-    public int getNumOfFlights() {
-        return numOfLights;
-    }
-
 }

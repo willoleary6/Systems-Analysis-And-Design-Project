@@ -1,45 +1,67 @@
 package routeCalculation;
 
-public class Flight implements Edge {
+import org.json.JSONObject;
 
-    private int fromNodeIndex;
-    private int toNodeIndex;
-    private int cost;
-    private int departureAirport;
-    private int destinationAirport;
-    private String flightnumber;
-    private String departureTime;
-    private String arrivalTime;
+public class Flight {
 
-    public Flight(int fromNodeIndex, int toNodeIndex, int cost) {
-        this.fromNodeIndex = fromNodeIndex;
-        this.toNodeIndex = toNodeIndex;
+    private int sourceAirportID;
+    private int targetAirportID;
+    private int airlineID;
+    private String flightNumber;
+    private JSONObject depart;
+    private JSONObject arrive;
+    private double cost;
+
+    public Flight(int sourceAirportID, int targetAirportID, int airlineID, String flightNumber, JSONObject depart,
+                  JSONObject arrive, double cost) {
+        this.sourceAirportID = sourceAirportID;
+        this.targetAirportID = targetAirportID;
+        this.airlineID = airlineID;
+        this.flightNumber = flightNumber;
+        this.depart = depart;
+        this.arrive = arrive;
         this.cost = cost;
     }
 
-    public int getDepartureAirportIndex() {
-        return fromNodeIndex;
+    public int getSourceAirportID() {
+        return sourceAirportID;
     }
 
-    public int getDestinationAirportIndex() {
-        return toNodeIndex;
+    public int getTargetAirportID() {
+        return targetAirportID;
     }
 
-    public int getCost() {
+    public int getAirlineID() {
+        return airlineID;
+    }
+
+    public String getFlightNumber() {
+        return flightNumber;
+    }
+
+    public JSONObject getDepart() {
+        return depart;
+    }
+
+    public JSONObject getArrive() {
+        return arrive;
+    }
+
+    public double getCost() {
         return cost;
     }
 
-    // determines the neighbouring node of a supplied node, based on the two nodes connected by this edge
+    /*// determines the neighbouring node of a supplied node, based on the two nodes connected by this edge
     public int getNeighbourIndex(int nodeIndex) {
-        if (this.fromNodeIndex == nodeIndex) {
-            return this.toNodeIndex;
+        if (this.fromAirportIndex == nodeIndex) {
+            return this.toAirportIndex;
         } else {
-            return this.fromNodeIndex;
+            return this.fromAirportIndex;
         }
     }
 
-    public String getFlightnumber() {
-        return flightnumber;
+    public String getFlightNumber() {
+        return flightNumber;
     }
 
     public int getDepartureAirport() {
@@ -56,6 +78,6 @@ public class Flight implements Edge {
 
     public String getArrivalTime() {
         return arrivalTime;
-    }
+    }*/
 
 }
