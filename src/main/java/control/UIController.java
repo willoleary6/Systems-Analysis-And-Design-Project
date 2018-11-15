@@ -1,18 +1,19 @@
 package control;
 
+import account.AirlineEmployee;
 import account.User;
 
 import java.util.ArrayList;
+import routeCalculation.Flight;
 
 
 public class UIController {
     public static UIController shared = new UIController();
     public User currentUser;
     private UserControl userCon;
-//    private Arrylist<Airport> airports;
-
-    //private Arrylist<flight> archivedRoutes;
-    //private Arrylist<flight> routes;
+    //private Arrylist<Airport> airports;
+    //private Arrylist<Flight> archivedRoutes;
+    //private Arrylist<Flight> routes;
     private String routeOrigin;
     private String routeDestination;
 
@@ -20,8 +21,8 @@ public class UIController {
         userCon = new UserControl();
     }
 
-    public void logIn(String username, String password, int userType) {
-        User user = userCon.getUser(username, password, userType);
+    public void logIn(String username, String password) {
+        User user = userCon.getUser(username, password);
         if(user != null)
             currentUser = user;
     }
@@ -32,7 +33,7 @@ public class UIController {
             currentUser = user;
     }
 
-    /*public ArrayList<Arrylist<flight>> getPreviousSearchs() {
+    /*public ArrayList<Arrylist<Flight>> getPreviousSearchs() {
         return archivedRoutes;
     }*/
 
@@ -41,8 +42,23 @@ public class UIController {
 
     }
 
-    public void applyDiscount() {
-        /* method should display all flights which below to airline employees airline then he can display discounts*/
+    public void applyDiscount(Flight flight, int percentage) {
+        if(checkForHigherAccess()) {
+            if(flight.getAirlineID() == ((AirlineEmployee) currentUser).getAirlineID()) {
+                double price = flight.getPrice();
+                //apply discount and update database
+            }
+        }
+    }
+
+    public boolean checkForHigherAccess(){
+        /**
+         *  checks if the user is an airline employee thus giving access to discount system
+         *  */
+        if(currentUser.getUserType() > 0)
+            return true;
+        else
+            return false;
     }
 
 }

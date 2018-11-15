@@ -3,6 +3,10 @@ package account;
 public class LoyaltyPoints {
     private int numOfPoints;
 
+    public LoyaltyPoints(int points) {
+        this.numOfPoints = points;
+    }
+
     public int getNumOfPoints() {
         return numOfPoints;
     }

@@ -72,8 +72,8 @@ public class getRequestHandler implements ApiRequestHandler{
     }
 
     /**
-     * Method that retrieves any discounts applied to specified flight.
-     * @param id integer number acting as a unique identifier for the flight
+     * Method that retrieves any discounts applied to specified Flight.
+     * @param id integer number acting as a unique identifier for the Flight
      */
     public void getDiscountsByFlightID(int id){
         try {

@@ -3,7 +3,7 @@ package routeCalculation;
 
 import java.util.Date;
 
-public class flight {
+public class Flight {
     private String flightnumber;
     private int departureAirport;
     private int destinationAirport;
@@ -14,9 +14,9 @@ public class flight {
     private double price;
     private int airlineID;
 
-    public flight(String flightnumber, int departureAirport, int destinationAirport,
-                    String departureTime, String arrivalTime, String departureDay, String arrivalDay,
-                    double price, int airlineID) {
+    public Flight(String flightnumber, int departureAirport, int destinationAirport,
+                  String departureTime, String arrivalTime, String departureDay, String arrivalDay,
+                  double price, int airlineID) {
         this.flightnumber = flightnumber;
         this.departureAirport = departureAirport;
         this.destinationAirport = destinationAirport;
