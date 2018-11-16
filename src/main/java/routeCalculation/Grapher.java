@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 public class Grapher {
-    public static void computePaths(Airport source, ArrayList<Airport> listOfAirports) {
+    public void computePaths(Airport source, ArrayList<Airport> listOfAirports) {
         source.setMinimumDistance(0.);
         PriorityQueue<Airport> vertexQueue = new PriorityQueue<Airport>();
         vertexQueue.add(source);
@@ -31,7 +31,7 @@ public class Grapher {
         }
     }
 
-    public static List<Airport> getShortestPathTo(Airport target) {
+    public List<Airport> getShortestPathTo(Airport target) {
         List<Airport> path = new ArrayList<Airport>();
 
         for (Airport vertex = target; vertex != null; vertex = vertex.getPrevious())
@@ -41,7 +41,7 @@ public class Grapher {
         return path;
     }
 
-    public static Airport getAirportByID(int airportID, ArrayList<Airport> listOfAirports) {
+    public Airport getAirportByID(int airportID, ArrayList<Airport> listOfAirports) {
         for (int i = 0; i < listOfAirports.size(); i++) {
             if (airportID == listOfAirports.get(i).getAutoKey())
                 return listOfAirports.get(i);

@@ -19,36 +19,6 @@ public class SearchController {
     }
 
     public void routeCalculation() {
-        /*
-        Flight[] Flights = {
-                new Flight(0, 2, 1),
-                new Flight(0, 3, 4),
-                new Flight(0, 4, 2),
-                new Flight(0, 1, 3),
-                new Flight(1, 3, 2),
-                new Flight(1, 4, 3),
-                new Flight(1, 5, 1),
-                new Flight(2, 4, 1),
-                new Flight(3, 5, 4),
-                new Flight(4, 5, 2),
-                new Flight(4, 6, 7),
-                new Flight(4, 7, 2),
-                new Flight(5, 6, 4),
-                new Flight(6, 7, 5)
-        };
-        */
-        /*
-        // TODO fix me bitch!
-        Flight [] flightsArray = new Flight[Flights.size()];
-        for (int i = 0; i < flightsArray.length; i++){
-            flightsArray[i] = Flights.get(i);
-            System.out.println("---------------------------------");
-            System.out.println(": "+flightsArray[i].getDepartureAirportIndex());
-            System.out.println(": "+flightsArray[i].getDestinationAirportIndex());
-            System.out.println(": "+flightsArray[i].getCost());
-            System.out.println("---------------------------------");
-
-        }*/
         Grapher g = new Grapher();
         g.computePaths(airports.get(0), airports); // run test.Dijkstra
         System.out.println("Distance to " + airports.get(3).getAirportName() + ": " + airports.get(3).getMinimumDistance());
@@ -61,9 +31,7 @@ public class SearchController {
 
 
         int source = 1;
-        // Grapher g = new Grapher(flightsArray);
-        // g.calculateShortestDistance(source);
-        //g.printResult(); // let's try it !
+
     }
 
     public void retrieveAirports(){
@@ -112,8 +80,8 @@ public class SearchController {
                 jsonObject.getInt("destinationAirport"),
                 jsonObject.getInt("airlineID"),
                 jsonObject.getString("flightNumber"),
-                depart,
-                arrive,
+                depart.getString("time"), arrive.getString("time"), depart.getString("day"),
+                arrive.getString("day"),
                 jsonObject.getInt("price")
         );
 

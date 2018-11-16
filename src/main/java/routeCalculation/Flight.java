@@ -8,18 +8,22 @@ public class Flight {
     private int targetAirportID;
     private int airlineID;
     private String flightNumber;
-    private JSONObject depart;
-    private JSONObject arrive;
+    private String departTime;
+    private String departDay;
+    private String arriveTime;
+    private String arriveDay;
     private double cost;
 
-    public Flight(int sourceAirportID, int targetAirportID, int airlineID, String flightNumber, JSONObject depart,
-                  JSONObject arrive, double cost) {
+    public Flight(int sourceAirportID, int targetAirportID, int airlineID, String flightNumber, String departureTime,
+                  String arrivalTime, String departureDay, String arrivalDay, double cost) {
         this.sourceAirportID = sourceAirportID;
         this.targetAirportID = targetAirportID;
         this.airlineID = airlineID;
         this.flightNumber = flightNumber;
-        this.depart = depart;
-        this.arrive = arrive;
+        this.departTime = departureTime;
+        this.departDay = departureDay;
+        this.arriveTime = arrivalTime;
+        this.arriveDay = arrivalDay;
         this.cost = cost;
     }
 
@@ -39,12 +43,20 @@ public class Flight {
         return flightNumber;
     }
 
-    public JSONObject getDepart() {
-        return depart;
+    public String getDepartTime() {
+        return departTime;
     }
 
-    public JSONObject getArrive() {
-        return arrive;
+    public String getDepartDay() {
+        return departDay;
+    }
+
+    public String getArriveTime() {
+        return arriveTime;
+    }
+
+    public String getArriveDay() {
+        return arriveDay;
     }
 
     public double getCost() {
