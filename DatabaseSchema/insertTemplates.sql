@@ -66,9 +66,9 @@ INSERT INTO `airports`
 
 */
 #select * from airports;
-# flights insert
+# Flights insert
 /*
-INSERT INTO `flights` 
+INSERT INTO `Flights`
 			(
             `autoID`, 
             `flightNumber`, 
@@ -102,23 +102,23 @@ INSERT INTO `flights`
 
 */
 /*
-UPDATE `flights` 
+UPDATE `Flights`
 		SET `flightNumber` = 'AP3213'
-        WHERE `flights`.`autoID` = 29;
+        WHERE `Flights`.`autoID` = 29;
 */
-#UPDATE `flights` SET `departureTime` = replace(`departureTime`, ' ', '') where autoID =3 ; #departureTime like '\t%';
+#UPDATE `Flights` SET `departureTime` = replace(`departureTime`, ' ', '') where autoID =3 ; #departureTime like '\t%';
 #update table_name set column_name = replace (column_name , 'oldstring' ,'newstring') where column_name like 'oldstring%'
-#UPDATE flights SET departureTime = REPLACE(departureTime, char(9), '');
+#UPDATE Flights SET departureTime = REPLACE(departureTime, char(9), '');
 /*
-UPDATE `flights`
+UPDATE `Flights`
 SET `departureTime` = REPLACE(`departureTime`,'day:','"day":')
 WHERE `departureTime` like '%day:%';
 
-UPDATE `flights`
+UPDATE `Flights`
 SET `departureTime` = REPLACE(`departureTime`,'time:','"time":')
 WHERE `departureTime` like '%time:%';
 */
- select * from flights 
+ select * from Flights
 # INSERT bookings
 /*
 INSERT INTO `bookings` (

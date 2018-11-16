@@ -1,34 +1,30 @@
 package control;
 
-import account.AirlineEmployee;
 import account.User;
 
 import java.util.ArrayList;
-import routeCalculation.Flight;
 
 
-public class UIController {
-    public static UIController shared = new UIController();
+public class uiController {
     public User currentUser;
     private UserControl userCon;
-    //private Arrylist<Airport> airports;
     //private Arrylist<Flight> archivedRoutes;
     //private Arrylist<Flight> routes;
     private String routeOrigin;
     private String routeDestination;
 
-    private UIController(){
+    public uiController(){
         userCon = new UserControl();
     }
 
-    public void logIn(String username, String password) {
-        User user = userCon.getUser(username, password);
+    public void logIn(String username, String password, int userType) {
+        User user = userCon.getUser(username, password, userType);
         if(user != null)
             currentUser = user;
     }
 
-    public void register(String username, String password, String email, int userType) {
-        User user = userCon.createUser(username, password, email, userType);
+    public void register(String username, String password, int userType) {
+        User user = userCon.createUser(username, password, userType);
         if(user != null)
             currentUser = user;
     }
@@ -42,23 +38,8 @@ public class UIController {
 
     }
 
-    public void applyDiscount(Flight flight, int percentage) {
-        if(checkForHigherAccess()) {
-            if(flight.getAirlineID() == ((AirlineEmployee) currentUser).getAirlineID()) {
-                double price = flight.getPrice();
-                //apply discount and update database
-            }
-        }
-    }
-
-    public boolean checkForHigherAccess(){
-        /**
-         *  checks if the user is an airline employee thus giving access to discount system
-         *  */
-        if(currentUser.getUserType() > 0)
-            return true;
-        else
-            return false;
+    public void applyDiscount() {
+        /* method should display all flights which below to airline employees airline then he can display discounts*/
     }
 
 }
