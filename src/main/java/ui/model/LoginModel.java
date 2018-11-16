@@ -31,6 +31,6 @@ public class LoginModel  {
     }
 
     public void login() {
-        UIController.shared.logIn(username, password, 0);
+        UIController.shared.logIn(username, password);
     }
 }

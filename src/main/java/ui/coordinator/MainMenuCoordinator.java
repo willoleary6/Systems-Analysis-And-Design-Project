@@ -1,7 +1,7 @@
 package ui.coordinator;
 
 
-import ui.controller.FlightSeachFrameController;
+import ui.controller.FlightSearchFrameController;
 import ui.controller.MainMenuFrameController;
 
 public class MainMenuCoordinator extends BaseCoordinator implements IMainMenuCoordinator {
@@ -21,7 +21,7 @@ public class MainMenuCoordinator extends BaseCoordinator implements IMainMenuCoo
 
     @Override
     public void goToFlightSearch() {
-        FlightSeachFrameController flightSearch = new FlightSeachFrameController(this);
+        FlightSearchFrameController flightSearch = new FlightSearchFrameController(this);
         setViewController(flightSearch);
     }
 

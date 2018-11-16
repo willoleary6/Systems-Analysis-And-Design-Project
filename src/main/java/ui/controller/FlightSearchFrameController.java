@@ -1,11 +1,16 @@
 package ui.controller;
 
+import routeCalculation.Airport;
 import ui.coordinator.IMainMenuCoordinator;
+import ui.model.AirportComboBoxModel;
+import ui.model.FlightSearchModel;
 import ui.view.FlightSearchFrame;
 
 import javax.swing.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class FlightSeachFrameController extends BaseFrameController {
+public class FlightSearchFrameController extends BaseFrameController implements PropertyChangeListener {
     private IMainMenuCoordinator coordinator;
     private JComboBox departureComboBox;
     private JComboBox destinationComboBox;
@@ -14,11 +19,15 @@ public class FlightSeachFrameController extends BaseFrameController {
     private JRadioButton timeRadioButton;
     private JButton backButton;
     private JButton searchFlightsButton;
+    private FlightSearchModel model;
 
-    public FlightSeachFrameController(IMainMenuCoordinator coordinator) {
+    public FlightSearchFrameController(IMainMenuCoordinator coordinator) {
         this.coordinator = coordinator;
+        this.model = new FlightSearchModel();
+        model.addPropertyChangeListener(this);
         initComponents();
         initListeners();
+        model.updateAirports();
     }
 
     private void initComponents() {
@@ -36,5 +45,16 @@ public class FlightSeachFrameController extends BaseFrameController {
     private void initListeners() {
         backButton.addActionListener(e -> coordinator.start());
         searchFlightsButton.addActionListener(e-> coordinator.goToFlightSearchResults());
+        model.addPropertyChangeListener(this);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        Airport[] airportList = (Airport[]) evt.getNewValue();
+
+        ComboBoxModel boxModel1 = new AirportComboBoxModel(airportList);
+        ComboBoxModel boxModel2 = new AirportComboBoxModel(airportList);
+        departureComboBox.setModel(boxModel1);
+        destinationComboBox.setModel(boxModel2);
     }
 }
