@@ -1,11 +1,14 @@
 package control;
 
+import account.AirlineEmployee;
 import account.User;
+import routeCalculation.Flight;
 
 import java.util.ArrayList;
 
 
-public class uiController {
+public class UIController {
+    public static UIController shared = new UIController();
     public User currentUser;
     private UserControl userCon;
     //private Arrylist<Flight> archivedRoutes;
@@ -13,18 +16,18 @@ public class uiController {
     private String routeOrigin;
     private String routeDestination;
 
-    public uiController(){
+    public UIController(){
         userCon = new UserControl();
     }
 
-    public void logIn(String username, String password, int userType) {
-        User user = userCon.getUser(username, password, userType);
+    public void logIn(String username, String password) {
+        User user = userCon.getUser(username, password);
         if(user != null)
             currentUser = user;
     }
 
-    public void register(String username, String password, int userType) {
-        User user = userCon.createUser(username, password, userType);
+    public void register(String username, String password, String email, int userType) {
+        User user = userCon.createUser(username, password, email, userType);
         if(user != null)
             currentUser = user;
     }
@@ -38,8 +41,22 @@ public class uiController {
 
     }
 
-    public void applyDiscount() {
-        /* method should display all flights which below to airline employees airline then he can display discounts*/
+    public void applyDiscount(Flight flight, int percentage) {
+        if(checkForHigherAccess()) {
+            if(flight.getAirlineID() == ((AirlineEmployee) currentUser).getAirlineID()) {
+                double price = flight.getCost();
+                //apply discount and update database
+            }
+        }
+    }
+    public boolean checkForHigherAccess(){
+        /**
+         *  checks if the user is an airline employee thus giving access to discount system
+         *  */
+        if(currentUser.getUserType() > 0)
+            return true;
+        else
+            return false;
     }
 
 }
