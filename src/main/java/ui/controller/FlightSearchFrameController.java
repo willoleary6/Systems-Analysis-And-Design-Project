@@ -23,11 +23,9 @@ public class FlightSearchFrameController extends BaseFrameController implements 
 
     public FlightSearchFrameController(IMainMenuCoordinator coordinator) {
         this.coordinator = coordinator;
-        this.model = new FlightSearchModel();
-        model.addPropertyChangeListener(this);
         initComponents();
         initListeners();
-        model.updateAirports();
+        this.model = new FlightSearchModel(this);
     }
 
     private void initComponents() {
@@ -45,7 +43,6 @@ public class FlightSearchFrameController extends BaseFrameController implements 
     private void initListeners() {
         backButton.addActionListener(e -> coordinator.start());
         searchFlightsButton.addActionListener(e-> coordinator.goToFlightSearchResults());
-        model.addPropertyChangeListener(this);
     }
 
     @Override

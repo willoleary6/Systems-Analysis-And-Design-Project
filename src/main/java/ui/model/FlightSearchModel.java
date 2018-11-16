@@ -7,13 +7,15 @@ import java.beans.PropertyChangeSupport;
 
 //Implemented Observer pattern using property change listeners
 public class FlightSearchModel {
-    public final static String AIRPORT_PROPERTY = "airport";
+    public final static String AIRPORT_PROPERTY = "airports";
     private PropertyChangeSupport support;
     private Airport[] airports;
     private String departureDate;
 
-    public FlightSearchModel() {
+    public FlightSearchModel(PropertyChangeListener pcl) {
         support = new PropertyChangeSupport(this);
+        addPropertyChangeListener(pcl);
+        updateAirports();
     }
 
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
@@ -24,7 +26,7 @@ public class FlightSearchModel {
         support.removePropertyChangeListener(pcl);
     }
 
-    private void setAirports(Airport[] airports) {
+    public void setAirports(Airport[] airports) {
         support.firePropertyChange(AIRPORT_PROPERTY, this.airports, airports);
         this.airports = airports;
     }
