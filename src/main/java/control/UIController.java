@@ -49,6 +49,11 @@ public class UIController {
             }
         }
     }
+
+    public void logout() {
+        currentUser = null;
+    }
+
     public boolean checkForHigherAccess(){
         /**
          *  checks if the user is an airline employee thus giving access to discount system
