@@ -34,6 +34,10 @@ public class SearchController {
 
     }
 
+    public ArrayList<Airport> getAirports() {
+        return airports;
+    }
+
     public void retrieveAirports(){
         dbHandler.getAllAirports();
         JSONObject[] response = dbHandler.getApiResponseResults();

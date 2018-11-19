@@ -50,4 +50,9 @@ public class Airport implements Comparable<Airport> {
     {
         return Double.compare(minimumDistance, other.minimumDistance);
     }
+
+    @Override
+    public String toString() {
+        return airportName;
+    }
 }
