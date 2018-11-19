@@ -31,7 +31,7 @@ public class AirportComboBoxModel implements ComboBoxModel {
 
     @Override
     public Object getElementAt(int index) {
-        return airports[index].getName();
+        return airports[index];
     }
 
     @Override

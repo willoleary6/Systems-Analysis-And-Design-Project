@@ -1,8 +1,10 @@
 package ui.model;
 
+import control.SearchController;
 import routeCalculation.Airport;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 
 //Implemented Observer pattern using property change listeners
@@ -11,8 +13,10 @@ public class FlightSearchModel {
     private PropertyChangeSupport support;
     private Airport[] airports;
     private String departureDate;
+    private SearchController searchController;
 
     public FlightSearchModel(PropertyChangeListener pcl) {
+        searchController = new SearchController();
         support = new PropertyChangeSupport(this);
         addPropertyChangeListener(pcl);
         updateAirports();
@@ -39,8 +43,8 @@ public class FlightSearchModel {
     }
 
     public void updateAirports() {
-        Airport[] ports = { new Airport("Test 1"), new Airport("Test 2"), new Airport("Test 3") };
-        //Airport[] ports = UIController.shared.getAirports();
-        setAirports(ports);
+        searchController.retrieveAirports();
+        Airport[] airports = searchController.getAirports().toArray(new Airport[0]);
+        setAirports(airports);
     }
 }
