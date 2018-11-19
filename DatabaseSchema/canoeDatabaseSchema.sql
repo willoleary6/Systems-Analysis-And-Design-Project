@@ -110,10 +110,10 @@ INSERT INTO `discounts` (`autoID`, `userID`, `flightID`, `discountStartDate`, `d
 -- --------------------------------------------------------
 
 --
--- Table structure for table `flights`
+-- Table structure for table `Flights`
 --
 
-CREATE TABLE `flights` (
+CREATE TABLE `Flights` (
   `autoID` int(11) NOT NULL,
   `flightNumber` varchar(256) NOT NULL,
   `depatureAirport` int(11) NOT NULL,
@@ -126,10 +126,10 @@ CREATE TABLE `flights` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `flights`
+-- Dumping data for table `Flights`
 --
 
-INSERT INTO `flights` (`autoID`, `flightNumber`, `depatureAirport`, `destinationAirport`, `departureTime`, `arrivalTime`, `price`, `airlineID`, `extendedDataInJSON`) VALUES
+INSERT INTO `Flights` (`autoID`, `flightNumber`, `depatureAirport`, `destinationAirport`, `departureTime`, `arrivalTime`, `price`, `airlineID`, `extendedDataInJSON`) VALUES
 (1, 'K4535', 1, 2, '{day:\"Tuesday\", time:\"14:00\"}', '{day:\"Tuesday\", time:\"15:00\"}', 40, 1, NULL);
 
 -- --------------------------------------------------------
@@ -190,9 +190,9 @@ ALTER TABLE `discounts`
   ADD KEY `flightDiscountIsAppliedTo` (`flightID`);
 
 --
--- Indexes for table `flights`
+-- Indexes for table `Flights`
 --
-ALTER TABLE `flights`
+ALTER TABLE `Flights`
   ADD PRIMARY KEY (`autoID`),
   ADD KEY `linkToAirline` (`airlineID`),
   ADD KEY `linkToDepartureAirport` (`depatureAirport`),
@@ -229,9 +229,9 @@ ALTER TABLE `bookings`
 ALTER TABLE `discounts`
   MODIFY `autoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `flights`
+-- AUTO_INCREMENT for table `Flights`
 --
-ALTER TABLE `flights`
+ALTER TABLE `Flights`
   MODIFY `autoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `users`
@@ -246,20 +246,20 @@ ALTER TABLE `users`
 -- Constraints for table `bookings`
 --
 ALTER TABLE `bookings`
-  ADD CONSTRAINT `linkToFlight` FOREIGN KEY (`flightID`) REFERENCES `flights` (`autoID`),
+  ADD CONSTRAINT `linkToFlight` FOREIGN KEY (`flightID`) REFERENCES `Flights` (`autoID`),
   ADD CONSTRAINT `linkToPassenger` FOREIGN KEY (`passengerID`) REFERENCES `users` (`userID`);
 
 --
 -- Constraints for table `discounts`
 --
 ALTER TABLE `discounts`
-  ADD CONSTRAINT `flightDiscountIsAppliedTo` FOREIGN KEY (`flightID`) REFERENCES `flights` (`autoID`),
+  ADD CONSTRAINT `flightDiscountIsAppliedTo` FOREIGN KEY (`flightID`) REFERENCES `Flights` (`autoID`),
   ADD CONSTRAINT `userWhoAppliedDiscount` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
 
 --
--- Constraints for table `flights`
+-- Constraints for table `Flights`
 --
-ALTER TABLE `flights`
+ALTER TABLE `Flights`
   ADD CONSTRAINT `linkToAirline` FOREIGN KEY (`airlineID`) REFERENCES `airlines` (`autoID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `linkToDepartureAirport` FOREIGN KEY (`depatureAirport`) REFERENCES `airports` (`autoID`),
   ADD CONSTRAINT `linkToDestinationAirport` FOREIGN KEY (`destinationAirport`) REFERENCES `airports` (`autoID`);
