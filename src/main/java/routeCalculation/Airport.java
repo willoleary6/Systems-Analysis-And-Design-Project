@@ -2,10 +2,10 @@ package routeCalculation;
 
 import java.util.ArrayList;
 
-public class Airport implements Comparable<Airport> {
+public class Airport implements Comparable<Airport>, Node {
     private String airportName;
     private int autoKey;
-    private ArrayList<Flight> flights = new ArrayList<Flight>();
+    private ArrayList<Flight> flights =  new ArrayList<Flight>();
     private double minimumDistance = Double.POSITIVE_INFINITY;
     private Airport previous;
 
@@ -26,9 +26,11 @@ public class Airport implements Comparable<Airport> {
         this.flights = flights;
     }
 
-    public ArrayList<Flight> getFlights() {
+    public ArrayList<Flight> getEdges() {
         return flights;
     }
+
+
 
     public double getMinimumDistance() {
         return minimumDistance;
@@ -38,13 +40,6 @@ public class Airport implements Comparable<Airport> {
         minimumDistance = newDistance;
     }
 
-    public Airport getPrevious() {
-        return previous;
-    }
-
-    public void setPrevious(Airport previous) {
-        this.previous = previous;
-    }
 
     public int compareTo(Airport other)
     {

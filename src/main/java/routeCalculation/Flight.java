@@ -3,7 +3,7 @@ package routeCalculation;
 
 import java.util.Date;
 
-public class Flight {
+public class Flight implements Edge {
     private int sourceAirportID;
     private int targetAirportID;
     private int airlineID;
@@ -29,11 +29,14 @@ public class Flight {
         this.cost = cost;
     }
 
-    public int getSourceAirportID() {
+    public Flight() {
+    }
+
+    public int getOrigin() {
         return sourceAirportID;
     }
 
-    public int getTargetAirportID() {
+    public int getTarget() {
         return targetAirportID;
     }
 
@@ -61,7 +64,7 @@ public class Flight {
         return arriveDay;
     }
 
-    public double getCost() {
+    public double getWeight() {
         return cost;
     }
 

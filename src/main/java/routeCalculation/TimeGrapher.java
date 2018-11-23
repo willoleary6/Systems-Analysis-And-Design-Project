@@ -1,4 +1,4 @@
 package routeCalculation;
 
-public interface Grapher {
+public class TimeGrapher {
 }

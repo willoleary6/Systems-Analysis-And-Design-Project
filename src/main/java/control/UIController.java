@@ -4,8 +4,6 @@ import account.AirlineEmployee;
 import account.User;
 import routeCalculation.Flight;
 
-import java.util.ArrayList;
-
 
 public class UIController {
     public static UIController shared = new UIController();
@@ -44,7 +42,7 @@ public class UIController {
     public void applyDiscount(Flight flight, int percentage) {
         if(checkForHigherAccess()) {
             if(flight.getAirlineID() == ((AirlineEmployee) currentUser).getAirlineID()) {
-                double price = flight.getCost();
+                double price = flight.getWeight();
                 //apply discount and update database
             }
         }

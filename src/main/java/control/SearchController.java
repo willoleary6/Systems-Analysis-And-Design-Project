@@ -4,12 +4,11 @@ import backgroundServices.API_Handlers.getRequestHandler;
 import org.json.JSONObject;
 import routeCalculation.Airport;
 import routeCalculation.Flight;
-import routeCalculation.Grapher;
+import routeCalculation.CostGrapher;
 import routeCalculation.Route;
-//import routeCalculation.Grapher;
+//import routeCalculation.CostGrapher;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchController {
     private getRequestHandler dbHandler;
@@ -20,13 +19,13 @@ public class SearchController {
     }
 
     public void routeCalculation() {
-        Grapher g = new Grapher();
+        CostGrapher g = new CostGrapher();
         ArrayList<Route> routeToDestination = g.startCalculation(airports.get(0), airports.get(3), 0, airports);
         for(int i =0; i< routeToDestination.size(); i++){
             System.out.println(routeToDestination.get(i).getOrigin()
                     +" --- "+routeToDestination.get(i).getDest()
                     +"  Flight: "+routeToDestination.get(i).getFlight().getFlightNumber()
-                    +"  Cost: "+routeToDestination.get(i).getFlight().getCost()
+                    +"  Cost: "+routeToDestination.get(i).getFlight().getWeight()
             );
         }
     }
@@ -44,8 +43,8 @@ public class SearchController {
             airports.get(i).setFlightsDeparting(retrieveFlights(airports.get(i).getAutoKey()));
             //System.out.println("------------------------");
             //System.out.println(airports.get(i).getAirportName());
-            for(int j =0; j < airports.get(i).getFlights().size(); j++){
-                //System.out.println(airports.get(i).getFlights().get(j).getSourceAirport() + "   :    "+airports.get(i).getFlights().get(j).getTargetAirport()+"   :   "+airports.get(i).getFlights().get(j).getCost());
+            for(int j = 0; j < airports.get(i).getEdges().size(); j++){
+                //System.out.println(airports.get(i).getEdges().get(j).getSourceAirport() + "   :    "+airports.get(i).getEdges().get(j).getTargetAirport()+"   :   "+airports.get(i).getEdges().get(j).getWeight());
             }
         }
 
