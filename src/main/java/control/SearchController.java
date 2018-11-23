@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import routeCalculation.Airport;
 import routeCalculation.Flight;
 import routeCalculation.Grapher;
+import routeCalculation.Route;
 //import routeCalculation.Grapher;
 
 import java.util.ArrayList;
@@ -20,9 +21,14 @@ public class SearchController {
 
     public void routeCalculation() {
         Grapher g = new Grapher();
-        g.startCalculation(airports.get(0), airports.get(3), 0, airports);
-
-
+        ArrayList<Route> routeToDestination = g.startCalculation(airports.get(0), airports.get(3), 0, airports);
+        for(int i =0; i< routeToDestination.size(); i++){
+            System.out.println(routeToDestination.get(i).getOrigin()
+                    +" --- "+routeToDestination.get(i).getDest()
+                    +"  Flight: "+routeToDestination.get(i).getFlight().getFlightNumber()
+                    +"  Cost: "+routeToDestination.get(i).getFlight().getCost()
+            );
+        }
     }
 
     public ArrayList<Airport> getAirports() {
