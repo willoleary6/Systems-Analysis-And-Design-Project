@@ -7,6 +7,7 @@ public class Flight {
     private int sourceAirportID;
     private int targetAirportID;
     private int airlineID;
+    private int flightID;
     private String flightNumber;
     private String departTime;
     private String departDay;
@@ -14,8 +15,9 @@ public class Flight {
     private String arriveDay;
     private double cost;
 
-    public Flight(int sourceAirportID, int targetAirportID, int airlineID, String flightNumber, String departureTime,
+    public Flight(int flightID, int sourceAirportID, int targetAirportID, int airlineID, String flightNumber, String departureTime,
                   String arrivalTime, String departureDay, String arrivalDay, double cost) {
+        this.flightID = flightID;
         this.sourceAirportID = sourceAirportID;
         this.targetAirportID = targetAirportID;
         this.airlineID = airlineID;
@@ -61,5 +63,9 @@ public class Flight {
 
     public double getCost() {
         return cost;
+    }
+
+    public int getFlightID() {
+        return flightID;
     }
 }

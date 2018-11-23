@@ -77,6 +77,7 @@ public class SearchController {
         JSONObject arrive = new JSONObject(jsonObject.getString("arrivalTime"));
 
         return new Flight(
+                jsonObject.getInt("autoID"),
                 jsonObject.getInt("departureAirport"),
                 jsonObject.getInt("destinationAirport"),
                 jsonObject.getInt("airlineID"),
