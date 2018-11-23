@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Airport implements Comparable<Airport>, Node {
     private String airportName;
     private int autoKey;
-    private ArrayList<Flight> flights =  new ArrayList<Flight>();
+    private ArrayList<? extends Edge> flights =  new ArrayList<Flight>();
+    private Edge flight =  new Flight();
     private double minimumDistance = Double.POSITIVE_INFINITY;
     private Airport previous;
 
@@ -26,9 +27,10 @@ public class Airport implements Comparable<Airport>, Node {
         this.flights = flights;
     }
 
-    public ArrayList<Flight> getEdges() {
-        return flights;
+    public ArrayList<? extends Edge> getEdges() {
+        return flights ;
     }
+
 
 
 

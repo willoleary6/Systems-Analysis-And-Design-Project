@@ -25,7 +25,7 @@ public class Route {
         return flight;
     }
 
-    public void setFlight(Flight flight) {
-        this.flight = flight;
+    public void setFlight(Edge flight) {
+        this.flight = (Flight) flight;
     }
 }

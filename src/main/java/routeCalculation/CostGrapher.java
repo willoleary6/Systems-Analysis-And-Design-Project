@@ -14,7 +14,7 @@ public class CostGrapher {
         while (!vertexQueue.isEmpty()) {
             Airport currentAirport = vertexQueue.poll();
             mostEfficientRouteToNextNode = new Route();
-            for (Flight currentFlight : currentAirport.getEdges()) {
+            for (Edge currentFlight :  currentAirport.getEdges()) {
                 double costOfCurrentFlight, costThroughCurrentAirport;
 
                 Airport targetAirport = getAirportByID(currentFlight.getTarget(), listOfAirports);
