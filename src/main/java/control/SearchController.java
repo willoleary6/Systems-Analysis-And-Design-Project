@@ -20,17 +20,8 @@ public class SearchController {
 
     public void routeCalculation() {
         Grapher g = new Grapher();
-        g.computePaths(airports.get(0), airports); // run test.Dijkstra
-        System.out.println("Distance to " + airports.get(3).getAirportName() + ": " + airports.get(3).getMinimumDistance());
-        List<Airport> path = g.getShortestPathTo(airports.get(3));
-        System.out.print("Path: ");
-        for(int i = 0; i < path.size(); i++){
-            System.out.print(path.get(i).getAirportName()+" - ");
-        }
+        g.startCalculation(airports.get(0), airports.get(3), 0, airports);
 
-
-
-        int source = 1;
 
     }
 
@@ -88,6 +79,17 @@ public class SearchController {
                 arrive.getString("day"),
                 jsonObject.getInt("price")
         );
+
+        /*return  new ApplyDiscount(double discount, new Flight(
+                jsonObject.getInt("departureAirport"),
+                jsonObject.getInt("destinationAirport"),
+                jsonObject.getInt("airlineID"),
+                jsonObject.getString("flightNumber"),
+                depart.getString("time"), arrive.getString("time"), depart.getString("day"),
+                arrive.getString("day"),
+                jsonObject.getInt("price")
+        ));*/
+
 
     }
     public Airport jsonObjectToAirport(JSONObject jsonObject) {
