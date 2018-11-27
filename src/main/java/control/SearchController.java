@@ -2,10 +2,7 @@ package control;
 
 import backgroundServices.API_Handlers.getRequestHandler;
 import org.json.JSONObject;
-import routeCalculation.Airport;
-import routeCalculation.Flight;
-import routeCalculation.CostGrapher;
-import routeCalculation.Route;
+import routeCalculation.*;
 //import routeCalculation.CostGrapher;
 
 import java.util.ArrayList;
@@ -18,15 +15,33 @@ public class SearchController {
         dbHandler = new getRequestHandler();
     }
 
-    public void routeCalculation() {
-        CostGrapher g = new CostGrapher();
-        ArrayList<Route> routeToDestination = g.startCalculation(airports.get(0), airports.get(3), 0, airports);
-        for(int i =0; i< routeToDestination.size(); i++){
-            System.out.println(routeToDestination.get(i).getOrigin()
-                    +" --- "+routeToDestination.get(i).getDest()
-                    +"  Flight: "+routeToDestination.get(i).getFlight().getFlightNumber()
-                    +"  Cost: "+routeToDestination.get(i).getFlight().getWeight()
-            );
+    public void routeCalculation(int searchType) {
+        if(searchType == 0) {
+            CostGrapher g = new CostGrapher();
+            ArrayList<Route> routeToDestination =  g.startCalculation(airports.get(0), airports.get(5), 0, airports);
+            /*
+            for (int i = 0; i < routeToDestination.size(); i++) {
+                System.out.println(routeToDestination.get(i).getOrigin()
+                        + " --- " + routeToDestination.get(i).getDest()
+                        + "  Flight: " + routeToDestination.get(i).getFlight().getFlightNumber()
+                        + "  Cost: " + routeToDestination.get(i).getFlight().getWeight()
+                );
+            }
+            */
+        }else{
+            /*
+            TimeGrapher g = new TimeGrapher();
+            ArrayList<Route> routeToDestination = g.startCalculation(airports.get(4), airports.get(5), 0, airports);
+
+            for (int i = 0; i < routeToDestination.size(); i++) {
+                System.out.println(routeToDestination.get(i).getOrigin()
+                        + " --- " + routeToDestination.get(i).getDest()
+                        + "  Flight: " + routeToDestination.get(i).getFlight().getFlightNumber()
+                       // + "  Cost: " + routeToDestination.get(i).getFlight().getWeight()
+                );
+            }
+            */
+
         }
     }
 
