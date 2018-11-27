@@ -2,8 +2,10 @@ package routeCalculation;
 
 
 public class Route {
-    private Airport dest, origin;
+    private Airport dest;
+    private Airport origin;
     private Flight flight ;
+    private double cost ;
 
     public Airport getDest() {
         return dest;
@@ -27,5 +29,13 @@ public class Route {
 
     public void setFlight(Edge flight) {
         this.flight = (Flight) flight;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
     }
 }

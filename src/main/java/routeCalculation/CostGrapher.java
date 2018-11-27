@@ -10,36 +10,89 @@ public class CostGrapher {
         source.setMinimumDistance(0.);
         PriorityQueue<Airport> vertexQueue = new PriorityQueue<Airport>();
         vertexQueue.add(source);
-        Route mostEfficientRouteToNextNode;
         while (!vertexQueue.isEmpty()) {
             Airport currentAirport = vertexQueue.poll();
-            mostEfficientRouteToNextNode = new Route();
             for (Edge currentFlight :  currentAirport.getEdges()) {
+                Route mostEfficientRouteToNextNode = new Route();
                 double costOfCurrentFlight, costThroughCurrentAirport;
-
                 Airport targetAirport = getAirportByID(currentFlight.getTarget(), listOfAirports);
+                Airport originAirport = getAirportByID(currentFlight.getOrigin(), listOfAirports);
+                //System.out.println(originAirport+"     "+targetAirport+"   "+currentFlight.getWeight());
+
                 costOfCurrentFlight = currentFlight.getWeight();
                 costThroughCurrentAirport = currentAirport.getMinimumDistance() + costOfCurrentFlight;
                 if (costThroughCurrentAirport < targetAirport.getMinimumDistance()) {
                     vertexQueue.remove(costThroughCurrentAirport);
-                    System.out.println(currentAirport);
                     mostEfficientRouteToNextNode.setOrigin(currentAirport);
                     mostEfficientRouteToNextNode.setDest(targetAirport);
                     mostEfficientRouteToNextNode.setFlight(currentFlight);
-                    targetAirport.setMinimumDistance(costThroughCurrentAirport);
+                    mostEfficientRouteToNextNode.setCost(costOfCurrentFlight);
                     vertexQueue.add(targetAirport);
+                    targetAirport.setMinimumDistance(costThroughCurrentAirport);
+                    routes.add(mostEfficientRouteToNextNode);
+                    eliminateDuplicateTargets();
                 }
             }
-            //System.out.println(mostEfficientRouteToNextNode.getOrigin());
-            routes.add(mostEfficientRouteToNextNode);
         }
     }
 
+    private void eliminateDuplicateTargets(){
+        ArrayList<Route> listOfAirports = new ArrayList<Route>();
+        Route routeToRemove = null;
+        Route matchedWith = null;
+        //Route matchedWith = null;
+        for(Route currentRoute : routes){
+            matchedWith = checkForDuplicate(listOfAirports, currentRoute.getDest());
+            if(matchedWith == null){
+                listOfAirports.add(currentRoute);
+            }else{
+                routeToRemove = currentRoute;
+                break;
+            }
+        }
+
+        if(routeToRemove != null){
+            //System.out.println(matchedWith.getDest()+"  :  "+matchedWith.getCost()+" -  "+routeToRemove.getDest()+"  :  "+routeToRemove.getCost());
+
+            if(calculateCostOfTraceback(matchedWith) <= calculateCostOfTraceback(routeToRemove)){
+                routes.remove(matchedWith);
+            }else {
+                routes.remove(routeToRemove);
+            }
+            //System.out.println(calculateCostOfTraceback(routeToRemove));
+
+            //routes.remove(routeToRemove);
+            eliminateDuplicateTargets();
+        }
+
+    }
+
+    private double calculateCostOfTraceback(Route routeToTraceBack){
+        double summaryCost = 0;
+        Airport origin = routeToTraceBack.getOrigin();
+        //System.out.println("================");
+        while (getRouteWithSpecifiedDestination(origin) != null) {
+            //System.out.println(routeToTraceBack.getOrigin() +"   "+ routeToTraceBack.getDest());
+            summaryCost += routeToTraceBack.getCost();
+            routeToTraceBack = getRouteWithSpecifiedDestination(origin);
+            origin = routeToTraceBack.getOrigin();
+        }
+        return summaryCost;
+    }
+
+    private Route checkForDuplicate( ArrayList<Route> listOfAirports, Airport currentAirport){
+        Route found = null;
+        for(Route airportCheck : listOfAirports){
+            if(airportCheck.getDest() == currentAirport){
+                found = airportCheck;
+            }
+        }
+        return found;
+    }
+
     public Route getRouteWithSpecifiedDestination(Airport target) {
-        //System.out.println(routes.size());
         for(int i = 0; i < routes.size(); i++){
-            //System.out.println(routes.get(i).getOrigin());
-           if(routes.get(i).getDest() == target){
+            if(routes.get(i).getDest().getAirportName() == target.getAirportName()){
                return routes.get(i);
            }
         }
@@ -48,19 +101,15 @@ public class CostGrapher {
 
     public ArrayList<Route> startCalculation(Airport start, Airport destination, int methodOfCalculation, ArrayList<Airport> airports) {
         computePaths(start, airports); // run test.Dijkstra
-        /*
-        Route traceBack = getRouteWithSpecifiedDestination(destination);
-        //System.out.println(traceBack);
+        Route traceBack;
         ArrayList<Route> routeToDestination = new ArrayList<Route>();
-        while(traceBack.getOrigin() != start){
+        do{
             traceBack = getRouteWithSpecifiedDestination(destination);
-            //System.out.println(traceBack.getOrigin().getAirportName());
             destination = traceBack.getOrigin();
             routeToDestination.add(traceBack);
-        }
+        }while(traceBack.getOrigin() != start);
         Collections.reverse(routeToDestination);
-        */
-        return null;
+        return routeToDestination;
     }
 
     public Airport getAirportByID(int airportID, ArrayList<Airport> listOfAirports) {
