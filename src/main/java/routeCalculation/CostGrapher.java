@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
 
-public class CostGrapher {
+public class CostGrapher implements Grapher{
     private ArrayList<Route> routes;
 
     public CostGrapher(){
@@ -13,11 +13,11 @@ public class CostGrapher {
 
     private void computeShortestRouteToEveryAirport(Airport sourceAirport, ArrayList<Airport> listOfAirports) {
         sourceAirport.setMinimumDistance(0.);
-        PriorityQueue<Airport> vertexQueue = new PriorityQueue<Airport>();
+        PriorityQueue<Airport> airportQueue = new PriorityQueue<Airport>();
         // start with our departure airport
-        vertexQueue.add(sourceAirport);
-        while (!vertexQueue.isEmpty()) {
-            Airport currentAirport = vertexQueue.poll();
+        airportQueue.add(sourceAirport);
+        while (!airportQueue.isEmpty()) {
+            Airport currentAirport = airportQueue.poll();
             // run through each of the flights leaving this airport.
             for (Edge currentFlight :  currentAirport.getEdges()) {
                 double costOfCurrentFlight, costThroughCurrentAirport;
@@ -31,7 +31,7 @@ public class CostGrapher {
                     // seems like a valid route, lets add it to our list
                     routes.add(new Route(currentAirport, targetAirport, currentFlight, costOfCurrentFlight));
                     targetAirport.setMinimumDistance(costThroughCurrentAirport);
-                    vertexQueue.add(targetAirport);
+                    airportQueue.add(targetAirport);
                     eliminateDuplicateTargets();
                 }
             }
@@ -43,7 +43,7 @@ public class CostGrapher {
         Route routeToRemove = null;
         Route matchedWith = null;
         for(Route currentRoute : routes){
-            matchedWith = checkForDuplicate(listOfAirports, currentRoute.getDest());
+            matchedWith = checkForDuplicate(listOfAirports, currentRoute.getDestination());
             if(matchedWith == null){
                 listOfAirports.add(currentRoute);
             }else{
@@ -74,7 +74,7 @@ public class CostGrapher {
 
     private Route checkForDuplicate(ArrayList<Route> listOfAirports, Airport currentAirport){
         for(Route airportCheck : listOfAirports){
-            if(airportCheck.getDest() == currentAirport){
+            if(airportCheck.getDestination() == currentAirport){
                 return airportCheck;
             }
         }
@@ -83,7 +83,7 @@ public class CostGrapher {
 
     private Route getRouteWithSpecifiedDestination(Airport target) {
         for(int i = 0; i < routes.size(); i++){
-            if(routes.get(i).getDest().getAirportName() == target.getAirportName()){
+            if(routes.get(i).getDestination().getAirportName() == target.getAirportName()){
                return routes.get(i);
            }
         }

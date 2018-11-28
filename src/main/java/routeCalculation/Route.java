@@ -13,7 +13,7 @@ public class Route {
         this.flight = (Flight) flight;
         this.cost = cost;
     }
-    public Airport getDest() {
+    public Airport getDestination() {
         return destination;
     }
 
