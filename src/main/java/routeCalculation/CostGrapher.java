@@ -5,31 +5,33 @@ import java.util.Collections;
 import java.util.PriorityQueue;
 
 public class CostGrapher {
-    private ArrayList<Route> routes = new ArrayList<Route>();
-    public void computePaths(Airport source, ArrayList<Airport> listOfAirports) {
-        source.setMinimumDistance(0.);
+    private ArrayList<Route> routes;
+
+    public CostGrapher(){
+        routes = new ArrayList<Route>();
+    }
+
+    private void computeShortestRouteToEveryAirport(Airport sourceAirport, ArrayList<Airport> listOfAirports) {
+        sourceAirport.setMinimumDistance(0.);
         PriorityQueue<Airport> vertexQueue = new PriorityQueue<Airport>();
-        vertexQueue.add(source);
+        // start with our departure airport
+        vertexQueue.add(sourceAirport);
         while (!vertexQueue.isEmpty()) {
             Airport currentAirport = vertexQueue.poll();
+            // run through each of the flights leaving this airport.
             for (Edge currentFlight :  currentAirport.getEdges()) {
-                Route mostEfficientRouteToNextNode = new Route();
                 double costOfCurrentFlight, costThroughCurrentAirport;
+                // find target airport through the flight destination
                 Airport targetAirport = getAirportByID(currentFlight.getTarget(), listOfAirports);
-                Airport originAirport = getAirportByID(currentFlight.getOrigin(), listOfAirports);
-                //System.out.println(originAirport+"     "+targetAirport+"   "+currentFlight.getWeight());
 
                 costOfCurrentFlight = currentFlight.getWeight();
+                // calculate the cost of getting to this next node
                 costThroughCurrentAirport = currentAirport.getMinimumDistance() + costOfCurrentFlight;
                 if (costThroughCurrentAirport < targetAirport.getMinimumDistance()) {
-                    vertexQueue.remove(costThroughCurrentAirport);
-                    mostEfficientRouteToNextNode.setOrigin(currentAirport);
-                    mostEfficientRouteToNextNode.setDest(targetAirport);
-                    mostEfficientRouteToNextNode.setFlight(currentFlight);
-                    mostEfficientRouteToNextNode.setCost(costOfCurrentFlight);
-                    vertexQueue.add(targetAirport);
+                    // seems like a valid route, lets add it to our list
+                    routes.add(new Route(currentAirport, targetAirport, currentFlight, costOfCurrentFlight));
                     targetAirport.setMinimumDistance(costThroughCurrentAirport);
-                    routes.add(mostEfficientRouteToNextNode);
+                    vertexQueue.add(targetAirport);
                     eliminateDuplicateTargets();
                 }
             }
@@ -40,7 +42,6 @@ public class CostGrapher {
         ArrayList<Route> listOfAirports = new ArrayList<Route>();
         Route routeToRemove = null;
         Route matchedWith = null;
-        //Route matchedWith = null;
         for(Route currentRoute : routes){
             matchedWith = checkForDuplicate(listOfAirports, currentRoute.getDest());
             if(matchedWith == null){
@@ -50,47 +51,37 @@ public class CostGrapher {
                 break;
             }
         }
-
         if(routeToRemove != null){
-            //System.out.println(matchedWith.getDest()+"  :  "+matchedWith.getCost()+" -  "+routeToRemove.getDest()+"  :  "+routeToRemove.getCost());
-
-            if(calculateCostOfTraceback(matchedWith) <= calculateCostOfTraceback(routeToRemove)){
+            if(calculateCostOfTraceBack(matchedWith) <= calculateCostOfTraceBack(routeToRemove)){
                 routes.remove(matchedWith);
             }else {
                 routes.remove(routeToRemove);
             }
-            //System.out.println(calculateCostOfTraceback(routeToRemove));
-
-            //routes.remove(routeToRemove);
             eliminateDuplicateTargets();
         }
-
     }
 
-    private double calculateCostOfTraceback(Route routeToTraceBack){
+    private double calculateCostOfTraceBack(Route routeToTraceBack){
         double summaryCost = 0;
-        Airport origin = routeToTraceBack.getOrigin();
-        //System.out.println("================");
-        while (getRouteWithSpecifiedDestination(origin) != null) {
-            //System.out.println(routeToTraceBack.getOrigin() +"   "+ routeToTraceBack.getDest());
+        Airport originAirport = routeToTraceBack.getOrigin();
+        while (getRouteWithSpecifiedDestination(originAirport) != null) {
             summaryCost += routeToTraceBack.getCost();
-            routeToTraceBack = getRouteWithSpecifiedDestination(origin);
-            origin = routeToTraceBack.getOrigin();
+            routeToTraceBack = getRouteWithSpecifiedDestination(originAirport);
+            originAirport = routeToTraceBack.getOrigin();
         }
         return summaryCost;
     }
 
-    private Route checkForDuplicate( ArrayList<Route> listOfAirports, Airport currentAirport){
-        Route found = null;
+    private Route checkForDuplicate(ArrayList<Route> listOfAirports, Airport currentAirport){
         for(Route airportCheck : listOfAirports){
             if(airportCheck.getDest() == currentAirport){
-                found = airportCheck;
+                return airportCheck;
             }
         }
-        return found;
+        return null;
     }
 
-    public Route getRouteWithSpecifiedDestination(Airport target) {
+    private Route getRouteWithSpecifiedDestination(Airport target) {
         for(int i = 0; i < routes.size(); i++){
             if(routes.get(i).getDest().getAirportName() == target.getAirportName()){
                return routes.get(i);
@@ -99,8 +90,8 @@ public class CostGrapher {
         return null;
     }
 
-    public ArrayList<Route> startCalculation(Airport start, Airport destination, int methodOfCalculation, ArrayList<Airport> airports) {
-        computePaths(start, airports); // run test.Dijkstra
+    public ArrayList<Route> startCalculation(Airport start, Airport destination, ArrayList<Airport> airports) {
+        computeShortestRouteToEveryAirport(start, airports);
         Route traceBack;
         ArrayList<Route> routeToDestination = new ArrayList<Route>();
         do{
@@ -112,7 +103,7 @@ public class CostGrapher {
         return routeToDestination;
     }
 
-    public Airport getAirportByID(int airportID, ArrayList<Airport> listOfAirports) {
+    private Airport getAirportByID(int airportID, ArrayList<Airport> listOfAirports) {
         Airport toReturn = null;
         for (int i = 0; i < listOfAirports.size(); i++) {
             if (airportID == listOfAirports.get(i).getAutoKey())

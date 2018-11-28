@@ -8,6 +8,7 @@ import java.util.*;
 
 public class TimeGrapher {
     private ArrayList<Route> routes = new ArrayList<Route>();
+    /*
     public void computePaths(Airport source, ArrayList<Airport> listOfAirports) {
         //calculateTimeToTraverseFlight((Flight) listOfAirports.get(0).getEdges().get(0));
         //convertFlightTimeToDate((Flight) listOfAirports.get(0).getEdges().get(0));
@@ -98,4 +99,5 @@ public class TimeGrapher {
         }
         return listOfAirports.get(0);
     }
+    */
 }

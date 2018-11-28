@@ -18,7 +18,7 @@ public class SearchController {
     public void routeCalculation(int searchType) {
         if(searchType == 0) {
             CostGrapher g = new CostGrapher();
-            ArrayList<Route> routeToDestination =  g.startCalculation(airports.get(3), airports.get(5), 0, airports);
+            ArrayList<Route> routeToDestination =  g.startCalculation(airports.get(3), airports.get(5), airports);
 
             for (int i = 0; i < routeToDestination.size(); i++) {
                 System.out.println(routeToDestination.get(i).getOrigin()
