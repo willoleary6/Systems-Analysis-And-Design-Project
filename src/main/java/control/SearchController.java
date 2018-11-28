@@ -17,9 +17,9 @@ public class SearchController {
     private ArrayList<Airport> airports = new ArrayList<Airport>();
     private Grapher shortestPath;
 
-    private SearchController(Grapher shortestpath){
-        this.shortestPath = shortestpath;
-    }
+    //private SearchController(Grapher shortestpath){
+      //  this.shortestPath = shortestpath;
+    //}
 
     public SearchController(){
         dbHandler = new getRequestHandler();
@@ -27,13 +27,11 @@ public class SearchController {
 
     public void routeCalculation(int searchType) {
         Date input = new Date();
-        shortestPath.startCalculation(airports.get(2), airports.get(8), airports);
-        /*
-        if(searchType == 0) {
-            CostGrapher g = new CostGrapher();
-            ArrayList<Route> routeToDestination =  g.startCalculation(airports.get(2), airports.get(8), airports);
-            for (int i = 0; i < routeToDestination.size(); i++) {
-                System.out.println(routeToDestination.get(i).getOrigin()
+        //shortestPath.startCalculation(airports.get(2), airports.get(8), airports);
+        Grapher g = new Grapher(searchType);
+        ArrayList<Route> routeToDestination =  g.startCalculation(airports.get(2), airports.get(8), airports);
+        for (int i = 0; i < routeToDestination.size(); i++) {
+            System.out.println(routeToDestination.get(i).getOrigin()
                         + " --- " + routeToDestination.get(i).getDestination()
                         + "  Flight: " + routeToDestination.get(i).getFlight().getFlightNumber()
                         + "  Cost: " + routeToDestination.get(i).getFlight().getWeight()
@@ -42,27 +40,6 @@ public class SearchController {
                 );
                 input = convertFlightTimeToDate(routeToDestination.get(i).getFlight().getDepartDay(), routeToDestination.get(i).getFlight().getDepartTime(),input);
             }
-
-        }else{
-
-            TimeGrapher g = new TimeGrapher();
-            ArrayList<Route> routeToDestination = g.startCalculation(airports.get(2), airports.get(8),  airports);
-
-            for (int i = 0; i < routeToDestination.size(); i++) {
-                System.out.println(routeToDestination.get(i).getOrigin()
-                        + " --- " + routeToDestination.get(i).getDestination()
-                        + "  Flight:\t" + routeToDestination.get(i).getFlight().getFlightNumber()
-                       // + "  Cost: " + routeToDestination.get(i).getFlight().getWeight()
-                        + "  Departing:\t" + convertFlightTimeToDate(routeToDestination.get(i).getFlight().getDepartDay(), routeToDestination.get(i).getFlight().getDepartTime(), input)
-                        + "  Arriving: " + convertFlightTimeToDate(routeToDestination.get(i).getFlight().getArriveDay(), routeToDestination.get(i).getFlight().getArriveTime(),input)
-
-                );
-                input = convertFlightTimeToDate(routeToDestination.get(i).getFlight().getDepartDay(), routeToDestination.get(i).getFlight().getDepartTime(),input);
-            }
-
-
-        }*/
-
     }
 
     public ArrayList<Airport> getAirports() {

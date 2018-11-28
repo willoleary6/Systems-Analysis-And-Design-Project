@@ -4,12 +4,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
 
-public class CostGrapher implements Grapher{
-    private ArrayList<Route> routes;
-
-    public CostGrapher(){
+public class MoneyGrapherState implements GrapherState {
+    public MoneyGrapherState(){
         routes = new ArrayList<Route>();
     }
+
+    @Override
+    public ArrayList<Route> startCalculation(Airport start, Airport destination, ArrayList<Airport> airports) {
+        computeShortestRouteToEveryAirport(start, airports);
+        Route traceBack;
+        ArrayList<Route> routeToDestination = new ArrayList<Route>();
+        do{
+            traceBack = getRouteWithSpecifiedDestination(destination);
+            destination = traceBack.getOrigin();
+            routeToDestination.add(traceBack);
+        }while(traceBack.getOrigin() != start);
+        Collections.reverse(routeToDestination);
+        return routeToDestination;
+    }
+
+    private ArrayList<Route> routes;
+
 
     private void computeShortestRouteToEveryAirport(Airport sourceAirport, ArrayList<Airport> listOfAirports) {
         sourceAirport.setMinimumDistance(0.);
@@ -84,25 +99,11 @@ public class CostGrapher implements Grapher{
     private Route getRouteWithSpecifiedDestination(Airport target) {
         for(int i = 0; i < routes.size(); i++){
             if(routes.get(i).getDestination().getAirportName() == target.getAirportName()){
-               return routes.get(i);
-           }
+                return routes.get(i);
+            }
         }
         return null;
     }
-
-    public ArrayList<Route> startCalculation(Airport start, Airport destination, ArrayList<Airport> airports) {
-        computeShortestRouteToEveryAirport(start, airports);
-        Route traceBack;
-        ArrayList<Route> routeToDestination = new ArrayList<Route>();
-        do{
-            traceBack = getRouteWithSpecifiedDestination(destination);
-            destination = traceBack.getOrigin();
-            routeToDestination.add(traceBack);
-        }while(traceBack.getOrigin() != start);
-        Collections.reverse(routeToDestination);
-        return routeToDestination;
-    }
-
     private Airport getAirportByID(int airportID, ArrayList<Airport> listOfAirports) {
         Airport toReturn = null;
         for (int i = 0; i < listOfAirports.size(); i++) {
@@ -111,4 +112,5 @@ public class CostGrapher implements Grapher{
         }
         return toReturn;
     }
+
 }

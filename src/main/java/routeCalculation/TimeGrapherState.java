@@ -4,51 +4,35 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.PriorityQueue;
 
-public class TimeGrapher implements Grapher {
+public class TimeGrapherState implements GrapherState {
     private ArrayList<Route> routes = new ArrayList<Route>();
 
-    public TimeGrapher(){
+    public TimeGrapherState(){
         routes = new ArrayList<Route>();
     }
-
-    /*public void computePaths(Airport source, ArrayList<Airport> listOfAirports) {
-        //calculateTimeToTraverseFlight((Flight) listOfAirports.get(0).getEdges().get(0));
-        //convertFlightTimeToDate((Flight) listOfAirports.get(0).getEdges().get(0));
-        source.setMinimumDistance(0.);
-        PriorityQueue<Airport> vertexQueue = new PriorityQueue<Airport>();
-        vertexQueue.add(source);
-        Route mostEfficientRouteToNextNode;
-        Date sourceDate = new Date();
-        while (!vertexQueue.isEmpty()) {
-            Airport currentAirport = vertexQueue.poll();
-            mostEfficientRouteToNextNode = new Route();
-            for (Edge currentEdge :  currentAirport.getEdges()) {
-                Flight currentFlight = (Flight)currentEdge;
-                Date targetDate = convertFlightTimeToDate(currentFlight.getArriveDay(),currentFlight.getArriveTime());
-                double costOfCurrentFlight, costThroughCurrentAirport;
-
-                Airport targetAirport = getAirportByID(currentFlight.getTarget(), listOfAirports);
-                costOfCurrentFlight = targetDate.getTime() - sourceDate.getTime();
-                costThroughCurrentAirport = currentAirport.getMinimumDistance() + costOfCurrentFlight;
-
-                if (costThroughCurrentAirport < targetAirport.getMinimumDistance()) {
-                    vertexQueue.remove(costThroughCurrentAirport);
-                    mostEfficientRouteToNextNode.setOrigin(currentAirport);
-                    mostEfficientRouteToNextNode.setDest(targetAirport);
-                    mostEfficientRouteToNextNode.setFlight(currentFlight);
-                    targetAirport.setMinimumDistance(costThroughCurrentAirport);
-                    vertexQueue.add(targetAirport);
-                    sourceDate = convertFlightTimeToDate(currentFlight.getDepartDay(),currentFlight.getDepartTime());
-                }
-            }
-            routes.add(mostEfficientRouteToNextNode);
-        }
+    
+    @Override
+    public ArrayList<Route> startCalculation(Airport start, Airport destination, ArrayList<Airport> airports) {
+        computeShortestRouteToEveryAirport(start, airports);
+        Route traceBack;
+        ArrayList<Route> routeToDestination = new ArrayList<Route>();
+        do{
+            traceBack = getRouteWithSpecifiedDestination(destination);
+            destination = traceBack.getOrigin();
+            routeToDestination.add(traceBack);
+        }while(traceBack.getOrigin() != start);
+        Collections.reverse(routeToDestination);
+        return routeToDestination;
     }
-    */
 
-   private void computeShortestRouteToEveryAirport(Airport sourceAirport, ArrayList<Airport> listOfAirports) {
+
+
+    private void computeShortestRouteToEveryAirport(Airport sourceAirport, ArrayList<Airport> listOfAirports) {
         sourceAirport.setMinimumDistance(0.);
         PriorityQueue<Airport> airportQueue = new PriorityQueue<Airport>();
         ArrayList<Airport> visitedAirports = new ArrayList<Airport>();
@@ -59,7 +43,6 @@ public class TimeGrapher implements Grapher {
             Airport currentAirport = airportQueue.poll();
             // run through each of the flights leaving this airport.
             Date targetDate = new Date();
-            System.out.println(currentAirport.getAirportName());
             for (Edge currentEdge :  currentAirport.getEdges()) {
                 Flight currentFlight = (Flight)currentEdge;
                 double costOfCurrentFlight, costThroughCurrentAirport;
@@ -86,7 +69,7 @@ public class TimeGrapher implements Grapher {
                     //System.out.print("");
                 }
             }
-           //sourceDate = targetDate;
+            //sourceDate = targetDate;
 
 
         }
@@ -112,7 +95,6 @@ public class TimeGrapher implements Grapher {
                 routes.remove(routeToRemove);
             }
             eliminateDuplicateTargets();
-            System.out.print("");
         }
     }
 
@@ -139,26 +121,12 @@ public class TimeGrapher implements Grapher {
     private Route getRouteWithSpecifiedDestination(Airport target) {
         for(int i = 0; i < routes.size(); i++){
             if(routes.get(i).getDestination().getAirportName().equals(target.getAirportName())){
-               return routes.get(i);
-           }
+                return routes.get(i);
+            }
         }
         return null;
     }
 
-    public ArrayList<Route> startCalculation(Airport start, Airport destination, ArrayList<Airport> airports) {
-        computeShortestRouteToEveryAirport(start, airports);
-        Route traceBack;
-        ArrayList<Route> routeToDestination = new ArrayList<Route>();
-        do{
-            traceBack = getRouteWithSpecifiedDestination(destination);
-            destination = traceBack.getOrigin();
-            routeToDestination.add(traceBack);
-        }while(traceBack.getOrigin() != start);
-        Collections.reverse(routeToDestination);
-        System.out.print("");
-
-        return routeToDestination;
-    }
 
     public int calculateTimeToTraverseFlight(Flight currentFlight){
 
@@ -194,31 +162,4 @@ public class TimeGrapher implements Grapher {
         return toReturn;
     }
 
-
-    /*
-     public int calculateTimeToTraverseFlight(Flight currentFlight){
-
-        //System.out.println(newDate);
-        //currentFlight.getDepartTime();
-        //.//dt.plusHours(6);
-        //System.out.println(currentFlight.getArriveDay()+":"+currentFlight.getArriveTime());
-        return 0;
-    }
-
-    public Date convertFlightTimeToDate(String day, String hour){
-        int minutes = 60*1000;
-        LocalDate ld = LocalDate.now();
-        ld = ld.with(TemporalAdjusters.next(DayOfWeek.valueOf(day.toUpperCase())));
-        Date date = Date.from(ld.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        int minutesPassedInDay = convertStringToMinutes(hour);
-        return new Date(date.getTime() + minutesPassedInDay * minutes);
-    }
-
-    private int convertStringToMinutes(String stringTime){
-        String [] hoursAndMinutes = stringTime.split(":");
-        int hoursToMinutes = Integer.parseInt(hoursAndMinutes[0])*60;
-        int minutes = Integer.parseInt(hoursAndMinutes[1]);
-        return hoursToMinutes+minutes;
-    }
-     */
 }
