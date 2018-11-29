@@ -15,7 +15,7 @@ public class mainTest {
         System.out.println("----");
         con.routeCalculation(0);
         System.out.println("----");
-        con1.retrieveAirports();
-        con1.routeCalculation(1);
+        //con1.retrieveAirports();
+        //con1.routeCalculation(1);
     }
 }

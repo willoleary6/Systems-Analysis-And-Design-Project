@@ -51,25 +51,20 @@ public class TimeGrapherState implements GrapherState {
                 // Date and time of arrival date for current flight
                 targetDate = convertFlightTimeToDate(currentFlight.getArriveDay(), currentFlight.getArriveTime());
                 //Date sourceDate = convertFlightTimeToDate(currentFlight.getDepartDay(), currentFlight.getDepartTime());
-                //System.out.println(targetDate);
                 costOfCurrentFlight = targetDate.getTime() - sourceDate.getTime();
                 // calculate the cost of getting to this next node
                 costThroughCurrentAirport = currentAirport.getMinimumDistance() + costOfCurrentFlight;
-                //System.out.println(sourceDate+"----"+ targetDate);
                 if (costThroughCurrentAirport < targetAirport.getMinimumDistance() && (!visitedAirports.contains(targetAirport))) {
                     // seems like a valid route, lets add it to our list
-                    //System.out.println(sourceDate);
                     routes.add(new Route(currentAirport, targetAirport, currentFlight, costOfCurrentFlight));
                     targetAirport.setMinimumDistance(costThroughCurrentAirport);
                     airportQueue.add(targetAirport);
                     visitedAirports.add(targetAirport);
                     sourceDate =  convertFlightTimeToDate(currentFlight.getDepartDay(), currentFlight.getDepartTime());
                     eliminateDuplicateTargets();
-                    //break;
-                    //System.out.print("");
                 }
             }
-            //sourceDate = targetDate;
+
 
 
         }
@@ -128,14 +123,6 @@ public class TimeGrapherState implements GrapherState {
     }
 
 
-    public int calculateTimeToTraverseFlight(Flight currentFlight){
-
-        //System.out.println(newDate);
-        //currentFlight.getDepartTime();
-        //.//dt.plusHours(6);
-        //System.out.println(currentFlight.getArriveDay()+":"+currentFlight.getArriveTime());
-        return 0;
-    }
 
     public Date convertFlightTimeToDate(String day, String hour){
         int minutes = 60*1000;
