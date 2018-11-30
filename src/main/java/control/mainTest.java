@@ -10,7 +10,7 @@ public class mainTest {
         //ui.register("ChunkyMitts3", "D00rframe","ac2.cleere@gmail.com",0);
         ui.logIn("ChunkyMitts3","D00rframe");
         Customer user = (Customer) ui.currentUser;
-        con.retrieveAirports();
+        //con.retrieveAirports();
         //con.routeCalculation(1);
         System.out.println("----");
         con.routeCalculation(0);
