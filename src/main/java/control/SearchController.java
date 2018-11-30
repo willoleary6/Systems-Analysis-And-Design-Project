@@ -5,24 +5,24 @@ import org.json.JSONObject;
 import routeCalculation.*;
 //import routeCalculation.CostGrapher;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class SearchController {
     private getRequestHandler dbHandler;
     private ArrayList<Airport> airports = new ArrayList<Airport>();
     private Grapher shortestPath;
 
-    //private SearchController(Grapher shortestpath){
-      //  this.shortestPath = shortestpath;
-    //}
-
     public SearchController(){
         dbHandler = new getRequestHandler();
+        retrieveAirports();
     }
 
     public void routeCalculation(int searchType) {
@@ -31,14 +31,15 @@ public class SearchController {
         Grapher g = new Grapher(searchType);
         ArrayList<Route> routeToDestination =  g.startCalculation(airports.get(2), airports.get(8), airports);
         for (int i = 0; i < routeToDestination.size(); i++) {
+            Flight flightOnThisRoute = routeToDestination.get(i).getFlightDecorator().getFlight();
             System.out.println(routeToDestination.get(i).getOrigin()
                         + " --- " + routeToDestination.get(i).getDestination()
-                        + "  Flight: " + routeToDestination.get(i).getFlight().getFlightNumber()
-                        + "  Cost: " + routeToDestination.get(i).getFlight().getWeight()
-                        + "  Departing: " + convertFlightTimeToDate(routeToDestination.get(i).getFlight().getDepartDay(), routeToDestination.get(i).getFlight().getDepartTime(),input)
-                        + "  Arriving: " + convertFlightTimeToDate(routeToDestination.get(i).getFlight().getArriveDay(), routeToDestination.get(i).getFlight().getArriveTime(),input)
+                        + "  Flight: " + flightOnThisRoute.getFlightNumber()
+                        + "  Cost: " + routeToDestination.get(i).getCost()
+                        + "  Departing: " + convertFlightTimeToDate(flightOnThisRoute.getDepartDay(), flightOnThisRoute.getDepartTime(),input)
+                        + "  Arriving: " + convertFlightTimeToDate(flightOnThisRoute.getArriveDay(), flightOnThisRoute.getArriveTime(),input)
                 );
-                input = convertFlightTimeToDate(routeToDestination.get(i).getFlight().getDepartDay(), routeToDestination.get(i).getFlight().getDepartTime(),input);
+                input = convertFlightTimeToDate(flightOnThisRoute.getDepartDay(), flightOnThisRoute.getDepartTime(),input);
             }
     }
 
@@ -46,7 +47,7 @@ public class SearchController {
         return airports;
     }
 
-    public Date convertFlightTimeToDate(String day, String hour, Date input){
+    private Date convertFlightTimeToDate(String day, String hour, Date input){
         int minutes = 60*1000;
         LocalDate ld = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         ld = ld.with(TemporalAdjusters.next(DayOfWeek.valueOf(day.toUpperCase())));
@@ -68,31 +69,24 @@ public class SearchController {
         for(int i = 0; i < response.length;i++) {
             airports.add(jsonObjectToAirport(response[i]));
             airports.get(i).setFlightsDeparting(retrieveFlights(airports.get(i).getAutoKey()));
-            //System.out.println("------------------------");
-            //System.out.println(airports.get(i).getAirportName());
-            for(int j = 0; j < airports.get(i).getEdges().size(); j++){
-                //System.out.println(airports.get(i).getEdges().get(j).getSourceAirport() + "   :    "+airports.get(i).getEdges().get(j).getTargetAirport()+"   :   "+airports.get(i).getEdges().get(j).getWeight());
-            }
         }
 
     }
 
-    public ArrayList<Flight> retrieveFlights(int departureAirportID){
+    private ArrayList<FlightDiscountDecorator> retrieveFlights(int departureAirportID){
         dbHandler.getFlightsByDepartureAirport(departureAirportID);
-        ArrayList<Flight> flights = new ArrayList<Flight>();
+        ArrayList<FlightDiscountDecorator> flights = new ArrayList<FlightDiscountDecorator>();
         JSONObject[] response = dbHandler.getApiResponseResults();
         for(int i = 0; i < response.length;i++) {
             flights.add(jsonObjectToFlight(response[i]));
         }
-
         return flights;
     }
 
-    public Flight jsonObjectToFlight(JSONObject jsonObject) {
+    private FlightDiscountDecorator jsonObjectToFlight(JSONObject jsonObject) {
         JSONObject depart = new JSONObject(jsonObject.getString("departureTime"));
         JSONObject arrive = new JSONObject(jsonObject.getString("arrivalTime"));
-
-        return new Flight(
+        return new FlightDiscountDecorator( new Flight(
                 jsonObject.getInt("autoID"),
                 jsonObject.getInt("departureAirport"),
                 jsonObject.getInt("destinationAirport"),
@@ -101,21 +95,35 @@ public class SearchController {
                 depart.getString("time"), arrive.getString("time"), depart.getString("day"),
                 arrive.getString("day"),
                 jsonObject.getInt("price")
-        );
+        ), retrieveDiscountByFlightID(jsonObject.getInt("autoID")));
 
-        /*return  new ApplyDiscount(double discount, new Flight(
-                jsonObject.getInt("departureAirport"),
-                jsonObject.getInt("destinationAirport"),
-                jsonObject.getInt("airlineID"),
-                jsonObject.getString("flightNumber"),
-                depart.getString("time"), arrive.getString("time"), depart.getString("day"),
-                arrive.getString("day"),
-                jsonObject.getInt("price")
-        ));*/
+    }
+
+    private double retrieveDiscountByFlightID(int flightID){
+        dbHandler.getDiscountsByFlightID(flightID);
+        try {
+            JSONObject[] response = dbHandler.getApiResponseResults();
+            Double percentageDiscount = 0.0;
+            Date now = new Date();
+            Date startOfDiscount;
+            Date endOfDiscount;
+            DateFormat format = new SimpleDateFormat("YYYY-mm-dd HH:mm:ss", Locale.ENGLISH);
+            for(int i = 0; i < response.length;i++){
+                startOfDiscount = format.parse(response[i].getString("discountStartDate"));
+                endOfDiscount = format.parse(response[i].getString("discountEndDate"));
+                if(startOfDiscount.getTime() < now.getTime() && endOfDiscount.getTime() > now.getTime()){
+                    percentageDiscount+= response[i].getDouble("discountPercentage");
+                }
+            }
+            return percentageDiscount;
+        }catch (Exception e){
+            return 0;
+        }
 
 
     }
-    public Airport jsonObjectToAirport(JSONObject jsonObject) {
+
+    private Airport jsonObjectToAirport(JSONObject jsonObject) {
         return new Airport(jsonObject.getInt("autoID"),jsonObject.getString("name"));
     }
 }
