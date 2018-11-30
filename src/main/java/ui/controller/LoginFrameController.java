@@ -41,8 +41,10 @@ public class LoginFrameController extends BaseFrameController {
             try {
                 model.setUsername(usernameField.getText());
                 model.setPassword(passwordField.getText());
-                model.login();
-                coordinator.goToMainMenu();
+                if(model.login())
+                    coordinator.goToMainMenu();
+                else
+                    errorLabel.setText("Invalid username or password");
             } catch (InvalidParameterException exception) {
                 errorLabel.setText(exception.getMessage());
             }

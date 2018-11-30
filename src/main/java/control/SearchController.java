@@ -84,17 +84,7 @@ public class SearchController {
         for(int i = 0; i < response.length;i++) {
             flights.add(jsonObjectToFlight(response[i]));
         }
-        /*
-        Flights = new ArrayList<Flight>();
-        dbHandler.getAllFlights();
-        JSONObject[] response = dbHandler.getApiResponseResults();
-        for(int i = 0; i < response.length;i++) {
-            Flights.add(jsonObjectToFlight(response[i]));
-        }
-        for(int i = 0; i < Flights.size(); i++){
-            //System.out.println(Flights.get(i).getDepartureAirportIndex());
-        }
-        */
+
         return flights;
     }
 

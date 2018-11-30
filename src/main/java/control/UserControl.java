@@ -24,7 +24,11 @@ public class UserControl {
         dbPullHandler.getUserInformation(username,password);
         try {
             JSONObject[] obj = dbPullHandler.getApiResponseResults();
-            return userFactory.createUser(obj[0]);
+            if(obj[0].get("password").equals(password) && obj[0].get("username").equals(username)) {
+                return userFactory.createUser(obj[0]);
+            }
+            else
+                return null;
         } catch( Exception e) {
             System.out.println(e);
             return null;

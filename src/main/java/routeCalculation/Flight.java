@@ -71,4 +71,8 @@ public class Flight implements Edge {
     public int getFlightID() {
         return flightID;
     }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
 }

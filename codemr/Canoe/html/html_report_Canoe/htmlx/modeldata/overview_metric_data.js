@@ -1,0 +1,1 @@
+var CodeMR_ProjectMetrics = {"Project Name":"Canoe working set: {Canoe}", "Number of Highly Problematic Classes":0, "Number of Entities":46, "Number of Problematic Classes":0, "Class Lines of Code":1037, "Number of External Packages":16, "Number of Packages":10, "Number of External Entities":50}

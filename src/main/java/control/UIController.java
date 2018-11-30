@@ -18,10 +18,14 @@ public class UIController {
         userCon = new UserControl();
     }
 
-    public void logIn(String username, String password) {
+    public boolean logIn(String username, String password) {
         User user = userCon.getUser(username, password);
-        if(user != null)
+        if(user != null) {
             currentUser = user;
+            return true;
+        }
+        else
+            return false;
     }
 
     public void register(String username, String password, String email, int userType) {
@@ -43,6 +47,9 @@ public class UIController {
         if(checkForHigherAccess()) {
             if(flight.getAirlineID() == ((AirlineEmployee) currentUser).getAirlineID()) {
                 double price = flight.getWeight();
+                price = price - price / percentage;
+                flight.setCost(price);
+                //update db
                 //apply discount and update database
             }
         }

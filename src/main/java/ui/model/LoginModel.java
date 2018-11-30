@@ -30,7 +30,7 @@ public class LoginModel  {
         this.password = password;
     }
 
-    public void login() {
-        UIController.shared.logIn(username, password);
+    public boolean login() {
+        return UIController.shared.logIn(username, password);
     }
 }
