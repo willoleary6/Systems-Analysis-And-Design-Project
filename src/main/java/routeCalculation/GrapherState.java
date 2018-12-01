@@ -3,5 +3,6 @@ package routeCalculation;
 import java.util.ArrayList;
 
 public interface GrapherState {
-    ArrayList<Route> startCalculation(Airport start, Airport destination, ArrayList<Airport> airports);
+    void startCalculation(Airport start,  ArrayList<Airport> airports);
+    ArrayList<Route> calculateTraceBack(Airport destination);
 }

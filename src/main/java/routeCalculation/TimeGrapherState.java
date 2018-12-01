@@ -9,30 +9,27 @@ public class TimeGrapherState implements GrapherState {
     private ArrayList<Route> routes = new ArrayList<Route>();
     private GrapherLambdaFunctions grapherLambdaFunctions;
     private FlightDayAndTimeToDateLambdaFunctions flightDayAndTimeToDateLambdaFunctions;
+    private Grapher currentGrapherState;
 
-    public TimeGrapherState(){
+    public TimeGrapherState(Grapher currentGrapherState){
         routes = new ArrayList<Route>();
         grapherLambdaFunctions = () -> 0;
         grapherLambdaFunctions.initialise();
 
         flightDayAndTimeToDateLambdaFunctions = () -> 0;
         flightDayAndTimeToDateLambdaFunctions.initialise();
+        this.currentGrapherState = currentGrapherState;
     }
     
     @Override
-    public ArrayList<Route> startCalculation(Airport start, Airport destination, ArrayList<Airport> airports) {
+    public void startCalculation(Airport start, ArrayList<Airport> airports) {
         computeShortestRouteToEveryAirport(start, airports);
-        Route traceBack;
-        ArrayList<Route> routeToDestination = new ArrayList<Route>();
-        do{
-            traceBack = grapherLambdaFunctions.getRouteWithSpecifiedDestination(destination, routes);
-            destination = traceBack.getOrigin();
-            routeToDestination.add(traceBack);
-        }while(traceBack.getOrigin() != start);
-        Collections.reverse(routeToDestination);
-        return routeToDestination;
+        currentGrapherState.setGrapherState(new TraceBackGrapherState(routes, start));
     }
 
+    public  ArrayList<Route> calculateTraceBack(Airport destination){
+        return null;
+    }
 
 
     private void computeShortestRouteToEveryAirport(Airport sourceAirport, ArrayList<Airport> listOfAirports) {

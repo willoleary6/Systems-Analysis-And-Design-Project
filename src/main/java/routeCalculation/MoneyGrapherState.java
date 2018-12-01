@@ -7,25 +7,23 @@ import java.util.PriorityQueue;
 public class MoneyGrapherState implements GrapherState {
     private ArrayList<Route> routes;
     private GrapherLambdaFunctions grapherLambdaFunctions;
+    private Grapher currentGrapherState;
 
-    public MoneyGrapherState(){
+    public MoneyGrapherState(Grapher currentGrapherState){
         routes = new ArrayList<Route>();
         grapherLambdaFunctions = () -> 0;
         grapherLambdaFunctions.initialise();
+        this.currentGrapherState = currentGrapherState;
     }
 
     @Override
-    public ArrayList<Route> startCalculation(Airport start, Airport destination, ArrayList<Airport> airports) {
+    public void startCalculation(Airport start, ArrayList<Airport> airports) {
         computeShortestRouteToEveryAirport(start, airports);
-        Route traceBack;
-        ArrayList<Route> routeToDestination = new ArrayList<Route>();
-        do{
-            traceBack = grapherLambdaFunctions.getRouteWithSpecifiedDestination(destination, routes);
-            destination = traceBack.getOrigin();
-            routeToDestination.add(traceBack);
-        }while(traceBack.getOrigin() != start);
-        Collections.reverse(routeToDestination);
-        return routeToDestination;
+        currentGrapherState.setGrapherState(new TraceBackGrapherState(routes, start));
+    }
+
+    public  ArrayList<Route> calculateTraceBack(Airport destination){
+        return null;
     }
 
     private void computeShortestRouteToEveryAirport(Airport sourceAirport, ArrayList<Airport> listOfAirports) {

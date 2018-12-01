@@ -4,14 +4,22 @@ import java.util.ArrayList;
 
 public class Grapher{
     private GrapherState grapher;
-    private GrapherState[] states  = {new MoneyGrapherState(), new TimeGrapherState()};
-    private int currentState = 0;
+    private GrapherState[] states  = {new MoneyGrapherState(this), new TimeGrapherState(this)};
 
     public Grapher(int currentState){
-        this.currentState = currentState;
+        this.grapher = states[currentState];
     }
 
-    public ArrayList<Route> startCalculation(Airport start, Airport destination, ArrayList<Airport> airports){
-        return states[currentState].startCalculation(start, destination, airports);
+    public void setGrapherState(GrapherState grapher){
+        this.grapher = grapher;
     }
+
+    public void startCalculation(Airport start,  ArrayList<Airport> airports){
+        grapher.startCalculation(start, airports);
+    }
+
+    public ArrayList<Route> calculateTraceBack(Airport destination){
+       return  grapher.calculateTraceBack(destination);
+    }
+
 }
