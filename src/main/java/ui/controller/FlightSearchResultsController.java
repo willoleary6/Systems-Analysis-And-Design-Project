@@ -3,7 +3,6 @@ package ui.controller;
 import routeCalculation.Route;
 import ui.coordinator.IMainMenuCoordinator;
 import ui.model.FlightSearchResultsTableModel;
-import ui.view.FlightSearchFrame;
 import ui.view.FlightSearchResultsFrame;
 
 import javax.swing.*;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 public class FlightSearchResultsController extends BaseFrameController {
     private JTable flightSearchResultsTable;
     private JButton bookFlightButton;
-    private JButton mainMenuButton;
+    private JButton searchFlightsButton;
     private IMainMenuCoordinator coordinator;
 
     public FlightSearchResultsController(IMainMenuCoordinator coordinator, ArrayList<Route> routes) {
@@ -25,14 +24,14 @@ public class FlightSearchResultsController extends BaseFrameController {
         FlightSearchResultsFrame flightSearchResultsFrame = new FlightSearchResultsFrame();
         this.frame = flightSearchResultsFrame;
         bookFlightButton = flightSearchResultsFrame.getBookFlightButton();
-        mainMenuButton = flightSearchResultsFrame.getMainMenuButton();
+        searchFlightsButton = flightSearchResultsFrame.getSearchFlightsButton();
         flightSearchResultsTable = flightSearchResultsFrame.getFlightSearchResultsTable();
         FlightSearchResultsTableModel tableModel = new FlightSearchResultsTableModel(routes);
         flightSearchResultsTable.setModel(tableModel);
     }
 
     private void initListeners() {
-        mainMenuButton.addActionListener(e -> coordinator.start());
+        searchFlightsButton.addActionListener(e -> coordinator.goToFlightSearch());
         bookFlightButton.addActionListener(e -> System.out.print("Book flight " + flightSearchResultsTable.getSelectedRow()));
     }
 }
