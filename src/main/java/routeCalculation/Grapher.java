@@ -1,6 +1,7 @@
 package routeCalculation;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Grapher{
     private GrapherState grapher;
@@ -14,8 +15,8 @@ public class Grapher{
         this.grapher = grapher;
     }
 
-    public void startCalculation(Airport start,  ArrayList<Airport> airports){
-        grapher.startCalculation(start, airports);
+    public void startCalculation(Airport start,  ArrayList<Airport> airports, Date departureDate){
+        grapher.startCalculation(start, airports, departureDate);
     }
 
     public ArrayList<Route> calculateTraceBack(Airport destination){

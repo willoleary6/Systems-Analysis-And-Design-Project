@@ -22,8 +22,8 @@ public class TimeGrapherState implements GrapherState {
     }
     
     @Override
-    public void startCalculation(Airport start, ArrayList<Airport> airports) {
-        computeShortestRouteToEveryAirport(start, airports);
+    public void startCalculation(Airport start, ArrayList<Airport> airports, Date departureDate) {
+        computeShortestRouteToEveryAirport(start, airports, departureDate);
         currentGrapherState.setGrapherState(new TraceBackGrapherState(routes, start));
     }
 
@@ -32,7 +32,7 @@ public class TimeGrapherState implements GrapherState {
     }
 
 
-    private void computeShortestRouteToEveryAirport(Airport sourceAirport, ArrayList<Airport> listOfAirports) {
+    private void computeShortestRouteToEveryAirport(Airport sourceAirport, ArrayList<Airport> listOfAirports, Date departureDate) {
         sourceAirport.setMinimumDistance(0.);
         PriorityQueue<Airport> airportQueue = new PriorityQueue<Airport>();
         ArrayList<Airport> visitedAirports = new ArrayList<Airport>();
@@ -51,7 +51,7 @@ public class TimeGrapherState implements GrapherState {
                 Airport targetAirport = grapherLambdaFunctions.getAirportByID(currentFlight.getTarget(), listOfAirports);
                 // Date and time of arrival date for current flight
                 targetDate = flightDayAndTimeToDateLambdaFunctions.convertFlightTimeToDate(currentFlight.getArriveDay(),
-                                currentFlight.getArriveTime());
+                                currentFlight.getArriveTime(), departureDate);
                 costOfCurrentFlight = targetDate.getTime() - sourceDate.getTime();
                 // calculate the cost of getting to this next node
                 costThroughCurrentAirport = currentAirport.getMinimumDistance() + costOfCurrentFlight;
@@ -63,7 +63,7 @@ public class TimeGrapherState implements GrapherState {
                     airportQueue.add(targetAirport);
                     visitedAirports.add(targetAirport);
                     sourceDate =  flightDayAndTimeToDateLambdaFunctions.convertFlightTimeToDate(currentFlight.getDepartDay(),
-                            currentFlight.getDepartTime());
+                            currentFlight.getDepartTime(), departureDate);
                     routes = grapherLambdaFunctions.eliminateDuplicateTargets(routes);
                 }
             }

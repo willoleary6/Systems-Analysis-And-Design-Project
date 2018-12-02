@@ -2,6 +2,7 @@ package routeCalculation;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.PriorityQueue;
 
 public class MoneyGrapherState implements GrapherState {
@@ -17,8 +18,8 @@ public class MoneyGrapherState implements GrapherState {
     }
 
     @Override
-    public void startCalculation(Airport start, ArrayList<Airport> airports) {
-        computeShortestRouteToEveryAirport(start, airports);
+    public void startCalculation(Airport start, ArrayList<Airport> airports, Date departureDate) {
+        computeShortestRouteToEveryAirport(start, airports, departureDate);
         currentGrapherState.setGrapherState(new TraceBackGrapherState(routes, start));
     }
 
@@ -26,7 +27,7 @@ public class MoneyGrapherState implements GrapherState {
         return null;
     }
 
-    private void computeShortestRouteToEveryAirport(Airport sourceAirport, ArrayList<Airport> listOfAirports) {
+    private void computeShortestRouteToEveryAirport(Airport sourceAirport, ArrayList<Airport> listOfAirports, Date departureDate) {
         sourceAirport.setMinimumDistance(0.);
         PriorityQueue<Airport> airportQueue = new PriorityQueue<Airport>();
         // start with our departure airport

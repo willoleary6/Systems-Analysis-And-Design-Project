@@ -28,7 +28,7 @@ public class SearchController {
     public ArrayList<Route> searchForFlight(Airport departure, Airport destination, Date departureDate, boolean costBased) {
         int searchType = costBased ? 0 : 1;
         Grapher g = new Grapher(searchType);
-        g.startCalculation(departure, airports);
+        g.startCalculation(departure, airports, departureDate);
         ArrayList<Route> routeToDestination =  g.calculateTraceBack(destination);
         return routeToDestination;
     }
@@ -37,7 +37,7 @@ public class SearchController {
         Date input = new Date();
         //shortestPath.startCalculation(airports.get(2), airports.get(8), airports);
         Grapher g = new Grapher(searchType);
-        g.startCalculation(airports.get(2), airports);
+        g.startCalculation(airports.get(2), airports, new Date());
         ArrayList<Route> routeToDestination =  g.calculateTraceBack(airports.get(8));
         for (int i = 0; i < routeToDestination.size(); i++) {
             Flight flightOnThisRoute = routeToDestination.get(i).getFlightDecorator().getFlight();

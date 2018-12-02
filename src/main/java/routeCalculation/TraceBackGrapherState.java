@@ -2,6 +2,7 @@ package routeCalculation;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 public class TraceBackGrapherState implements GrapherState {
     private ArrayList<Route> routes;
@@ -15,7 +16,7 @@ public class TraceBackGrapherState implements GrapherState {
         this.start = start;
     }
     @Override
-    public void startCalculation(Airport start, ArrayList<Airport> airports) {
+    public void startCalculation(Airport start, ArrayList<Airport> airports, Date departureDate) {
     }
 
     @Override
