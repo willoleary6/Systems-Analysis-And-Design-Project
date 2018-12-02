@@ -9,6 +9,8 @@ import ui.view.FlightSearchResultsFrame;
 
 import java.util.ArrayList;
 
+import javax.swing.*;
+
 public class MainMenuCoordinator extends BaseCoordinator implements IMainMenuCoordinator {
 
     @Override
@@ -19,9 +21,18 @@ public class MainMenuCoordinator extends BaseCoordinator implements IMainMenuCoo
 
     @Override
     public void logout() {
-        ILoginCoordinator loginCoordinator = new LoginCoordinator();
-        loginCoordinator.start();
-        setViewController(null);
+        int x = JOptionPane.showConfirmDialog(
+                null,
+                "Are you sure you wish to log out?",
+                "Logout", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (x == JOptionPane.YES_NO_OPTION) {
+            ILoginCoordinator loginCoordinator = new LoginCoordinator();
+            loginCoordinator.start();
+            setViewController(null);
+        }
     }
 
     @Override

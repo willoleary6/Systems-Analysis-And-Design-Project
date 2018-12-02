@@ -1,6 +1,8 @@
 package ui.view;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class RegisterFrame extends JFrame {
     private JPanel mainPanel;
@@ -13,10 +15,27 @@ public class RegisterFrame extends JFrame {
     private JLabel errorLabel;
 
     public RegisterFrame() {
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Canoe - Flight Booking Service | Registration");
         setSize(500, 500);
         setContentPane(mainPanel);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int x = JOptionPane.showConfirmDialog(
+                        null,
+                        "Are you sure you wish to exit Canoe?",
+                        "Exit Canoe",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+                );
+
+                if (x == JOptionPane.YES_OPTION)
+                    System.exit(0);
+            }
+        });
     }
 
     public JLabel getErrorLabel() {
