@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class FlightSearchResultsTableModel extends AbstractTableModel {
 
+    private String[] columnNames = { "Origin", "Destination", "Cost" };
     ArrayList<Route> routes;
 
     public FlightSearchResultsTableModel(ArrayList<Route> routes) {
@@ -20,11 +21,26 @@ public class FlightSearchResultsTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return Route.class.getFields().length;
+        return columnNames.length;
+    }
+
+    @Override
+    public String getColumnName(int column) {
+        return columnNames[column];
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return routes.get(rowIndex);
+        Route route = routes.get(rowIndex);
+        switch (columnIndex) {
+            case 0:
+                return route.getOrigin();
+            case 1:
+                return route.getDestination();
+            case 2:
+                return route.getCost();
+            default:
+                return "";
+        }
     }
 }

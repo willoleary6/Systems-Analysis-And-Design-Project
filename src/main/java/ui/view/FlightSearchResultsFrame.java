@@ -8,6 +8,14 @@ public class FlightSearchResultsFrame extends JFrame {
     private JButton bookFlightButton;
     private JButton mainMenuButton;
 
+
+    public FlightSearchResultsFrame() {
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setSize(500, 500);
+        setContentPane(panel1);
+        setLocationRelativeTo(null);
+    }
+
     public JTable getFlightSearchResultsTable() {
         return flightSearchResultsTable;
     }
