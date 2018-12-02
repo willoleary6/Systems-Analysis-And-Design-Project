@@ -27,26 +27,23 @@ public class UserControl {
             if(obj[0].get("password").equals(password) && obj[0].get("username").equals(username)) {
                 return userFactory.createUser(obj[0]);
             }
-            else
+            else {
                 return null;
+            }
         } catch( Exception e) {
-            System.out.println(e);
             return null;
         }
     }
 
     public User createUser(String username, String password, String email, int userType){
-//        if(validateUsername(username) && validatePassword(password)) {
-            dbInsertHandler.addNewUser(username, email, password);
-            try {
-                JSONObject[] obj = dbInsertHandler.getApiResponseResults();
-                return getUser(username, password);
-            } catch( Exception e) {
-                System.out.println(e);
-                return null;
-            }
-//        }
-//        return null;
+        dbInsertHandler.addNewUser(username, email, password);
+        try {
+            JSONObject[] obj = dbInsertHandler.getApiResponseResults();
+            return getUser(username, password);
+        } catch( Exception e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
     private Boolean validateUsername(String username){
