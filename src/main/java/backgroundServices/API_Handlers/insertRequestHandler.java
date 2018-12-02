@@ -38,6 +38,29 @@ public class insertRequestHandler  implements ApiRequestHandler{
         }
     }
 
+
+    public void addNewDiscount(String userID, String flightID,String discountStartDate,
+                               String discountEndDate, String discountPercentage){
+        try {
+            HttpResponse<String> jsonResponse =
+                    Unirest.post(apiProperties.getProperty("insertUrl")+apiProperties.getProperty("addNewDiscount"))
+                            .header("accept", "application/json")
+                            .body("" +
+                                    "{" +
+                                    "\"userID\":\""+userID+"\"," +
+                                    "\"flightID\":\""+flightID+"\"," +
+                                    "\"discountStartDate\":\""+discountStartDate+"\"," +
+                                    "\"discountEndDate\":\""+discountEndDate+"\"," +
+                                    "\"discountPercentage\":\""+discountPercentage+"\"" +
+                                    "}")
+                            .asString();
+
+            apiResponse =  new JSONObject(jsonResponse.getBody());
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Method that formats the AWS response to the last query executed and returns a JSON object.
      * @return Returns an array of JSONObjects that contain the response from AWS.
