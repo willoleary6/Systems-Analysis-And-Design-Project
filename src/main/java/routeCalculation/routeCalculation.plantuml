@@ -1,0 +1,231 @@
+@startuml
+
+title __ROUTECALCULATION's Class Diagram__\n
+
+  package  {
+    package routeCalculation {
+      class Airport {
+          - airportName : String
+          - autoKey : int
+          - flights : ArrayList<? extends Edge>
+          - minimumDistance : double
+          + Airport()
+          + getAirportName()
+          + getAutoKey()
+          + setFlightsDeparting()
+          + getEdges()
+          + getMinimumDistance()
+          + setMinimumDistance()
+          + compareTo()
+          + toString()
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      interface Edge {
+          {abstract} + getOrigin()
+          {abstract} + getTarget()
+          {abstract} + getWeight()
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class EdgeDecorator {
+          + getOrigin()
+          + getTarget()
+          + getWeight()
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class Flight {
+          - sourceAirportID : int
+          - targetAirportID : int
+          - airlineID : int
+          - flightID : int
+          - flightNumber : String
+          - departTime : String
+          - departDay : String
+          - arriveTime : String
+          - arriveDay : String
+          - cost : double
+          + Flight()
+          + Flight()
+          + getOrigin()
+          + getTarget()
+          + getAirlineID()
+          + getFlightNumber()
+          + getDepartTime()
+          + getDepartDay()
+          + getArriveTime()
+          + getArriveDay()
+          + getWeight()
+          + getFlightID()
+          + setCost()
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      interface FlightDayAndTimeToDateLambdaFunctions {
+          {abstract} + initialise()
+          + convertFlightTimeToDate()
+          + convertStringToMinutes()
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class FlightDiscountDecorator {
+          - discountOnFlight : double
+          + FlightDiscountDecorator()
+          + getFlight()
+          + getWeight()
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class Grapher {
+          - states : GrapherState[]
+          + Grapher()
+          + setGrapherState()
+          + startCalculation()
+          + calculateTraceBack()
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      interface GrapherLambdaFunctions {
+          {abstract} + initialise()
+          + eliminateDuplicateTargets()
+          + checkForDuplicate()
+          + calculateCostOfTraceBack()
+          + getRouteWithSpecifiedDestination()
+          + getAirportByID()
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      interface GrapherState {
+          {abstract} + startCalculation()
+          {abstract} + calculateTraceBack()
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class MoneyGrapherState {
+          - routes : ArrayList<Route>
+          + MoneyGrapherState()
+          + startCalculation()
+          + calculateTraceBack()
+          - computeShortestRouteToEveryAirport()
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      interface Node {
+          {abstract} + getEdges()
+          {abstract} + setMinimumDistance()
+          {abstract} + getMinimumDistance()
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class Route {
+          - cost : double
+          + Route()
+          + getDestination()
+          + getOrigin()
+          + getFlightDecorator()
+          + getCost()
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class TimeGrapherState {
+          - routes : ArrayList<Route>
+          + TimeGrapherState()
+          + startCalculation()
+          + calculateTraceBack()
+          - computeShortestRouteToEveryAirport()
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class TraceBackGrapherState {
+          - routes : ArrayList<Route>
+          + TraceBackGrapherState()
+          + startCalculation()
+          + calculateTraceBack()
+      }
+    }
+  }
+  
+
+  Airport -up-|> Comparable
+  Airport -up-|> Node
+  EdgeDecorator -up-|> Edge
+  EdgeDecorator o-- Edge : decoratedEdge
+  Flight -up-|> Edge
+  FlightDiscountDecorator -up-|> EdgeDecorator
+  Grapher o-- GrapherState : grapher
+  MoneyGrapherState -up-|> GrapherState
+  MoneyGrapherState o-- GrapherLambdaFunctions : grapherLambdaFunctions
+  MoneyGrapherState o-- Grapher : currentGrapherState
+  Route o-- Airport : destination
+  Route o-- Airport : origin
+  Route o-- Edge : discountedFlight
+  TimeGrapherState -up-|> GrapherState
+  TimeGrapherState o-- GrapherLambdaFunctions : grapherLambdaFunctions
+  TimeGrapherState o-- FlightDayAndTimeToDateLambdaFunctions : flightDayAndTimeToDateLambdaFunctions
+  TimeGrapherState o-- Grapher : currentGrapherState
+  TraceBackGrapherState -up-|> GrapherState
+  TraceBackGrapherState o-- GrapherLambdaFunctions : grapherLambdaFunctions
+  TraceBackGrapherState o-- Airport : start
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
