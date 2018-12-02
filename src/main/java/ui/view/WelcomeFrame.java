@@ -29,7 +29,7 @@ public class WelcomeFrame extends JFrame {
                 );
 
                 if (x == JOptionPane.YES_OPTION)
-                    e.getWindow().dispose();
+                   System.exit(0);
 
             }
         });

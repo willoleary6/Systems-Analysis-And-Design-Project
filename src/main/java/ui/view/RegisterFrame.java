@@ -15,7 +15,7 @@ public class RegisterFrame extends JFrame {
     private JLabel errorLabel;
 
     public RegisterFrame() {
-        setTitle("Canoe - Flight Booking Service - Registration");
+        setTitle("Canoe - Flight Booking Service | Registration");
         setSize(500, 500);
         setContentPane(mainPanel);
         setLocationRelativeTo(null);
@@ -29,11 +29,11 @@ public class RegisterFrame extends JFrame {
                         "Are you sure you wish to exit Canoe?",
                         "Exit Canoe",
                         JOptionPane.YES_NO_OPTION,
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.QUESTION_MESSAGE
                 );
 
                 if (x == JOptionPane.YES_OPTION)
-                    e.getWindow().dispose();
+                    System.exit(0);
             }
         });
     }
