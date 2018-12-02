@@ -53,7 +53,7 @@ public interface GrapherLambdaFunctions {
 
     default Route getRouteWithSpecifiedDestination(Airport target, ArrayList<Route> listOfRoutes) {
         for(int i = 0; i < listOfRoutes.size(); i++){
-            if(listOfRoutes.get(i).getDestination().getAirportName() == target.getAirportName()){
+            if(listOfRoutes.get(i).getDestination().getAirportName().equals(target.getAirportName())){
                 return listOfRoutes.get(i);
             }
         }

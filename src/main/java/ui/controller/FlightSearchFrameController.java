@@ -1,14 +1,19 @@
 package ui.controller;
 
 import routeCalculation.Airport;
+import routeCalculation.Route;
 import ui.coordinator.IMainMenuCoordinator;
 import ui.model.AirportComboBoxModel;
 import ui.model.FlightSearchModel;
 import ui.view.FlightSearchFrame;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.ParseException;
+import java.util.ArrayList;
 
 public class FlightSearchFrameController extends BaseFrameController implements PropertyChangeListener {
     private IMainMenuCoordinator coordinator;
@@ -42,7 +47,7 @@ public class FlightSearchFrameController extends BaseFrameController implements 
 
     private void initListeners() {
         backButton.addActionListener(e -> coordinator.start());
-        searchFlightsButton.addActionListener(e-> coordinator.goToFlightSearchResults());
+        searchFlightsButton.addActionListener(new SearchFlightButtonListener());
     }
 
     @Override
@@ -53,5 +58,21 @@ public class FlightSearchFrameController extends BaseFrameController implements 
         ComboBoxModel boxModel2 = new AirportComboBoxModel(airportList);
         departureComboBox.setModel(boxModel1);
         destinationComboBox.setModel(boxModel2);
+    }
+
+    private class SearchFlightButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                model.setDepartureDate(departureDateField.getText());
+                model.setDepartureAirport((Airport) departureComboBox.getSelectedItem());
+                model.setDestinationAirport((Airport) destinationComboBox.getSelectedItem());
+                model.setCostBased(costRadioButton.isSelected());
+                ArrayList<Route> route = model.searchForFlight();
+                coordinator.goToFlightSearchResults(route);
+            } catch (ParseException exception) {
+                System.out.print(exception);
+            }
+        }
     }
 }

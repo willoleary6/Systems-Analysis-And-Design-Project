@@ -1,8 +1,13 @@
 package ui.coordinator;
 
 
+import routeCalculation.Route;
 import ui.controller.FlightSearchFrameController;
+import ui.controller.FlightSearchResultsController;
 import ui.controller.MainMenuFrameController;
+import ui.view.FlightSearchResultsFrame;
+
+import java.util.ArrayList;
 
 public class MainMenuCoordinator extends BaseCoordinator implements IMainMenuCoordinator {
 
@@ -26,7 +31,8 @@ public class MainMenuCoordinator extends BaseCoordinator implements IMainMenuCoo
     }
 
     @Override
-    public void goToFlightSearchResults() {
-
+    public void goToFlightSearchResults(ArrayList<Route> results) {
+        FlightSearchResultsController flightSearchResults = new FlightSearchResultsController(this, results);
+        setViewController(flightSearchResults);
     }
 }

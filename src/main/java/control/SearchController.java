@@ -25,6 +25,14 @@ public class SearchController {
         retrieveAirports();
     }
 
+    public ArrayList<Route> searchForFlight(Airport departure, Airport destination, Date departureDate, boolean costBased) {
+        int searchType = costBased ? 0 : 1;
+        Grapher g = new Grapher(searchType);
+        g.startCalculation(departure, airports);
+        ArrayList<Route> routeToDestination =  g.calculateTraceBack(destination);
+        return routeToDestination;
+    }
+
     public void routeCalculation(int searchType) {
         Date input = new Date();
         //shortestPath.startCalculation(airports.get(2), airports.get(8), airports);
@@ -66,7 +74,7 @@ public class SearchController {
     public void retrieveAirports(){
         dbHandler.getAllAirports();
         JSONObject[] response = dbHandler.getApiResponseResults();
-
+        airports.clear();
         for(int i = 0; i < response.length;i++) {
             airports.add(jsonObjectToAirport(response[i]));
             airports.get(i).setFlightsDeparting(retrieveFlights(airports.get(i).getAutoKey()));

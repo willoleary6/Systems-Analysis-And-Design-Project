@@ -1,5 +1,8 @@
 package control;
 import account.Customer;
+import routeCalculation.Airport;
+
+import java.util.Date;
 
 public class mainTest {
 
@@ -13,10 +16,12 @@ public class mainTest {
         Customer user = (Customer) ui.currentUser;
         //con.retrieveAirports();
         //con.routeCalculation(1);
+
+        con.searchForFlight(new Airport(0, ""), new Airport(0, ""), new Date(), true);
         System.out.println("----");
-        con.routeCalculation(0);
-        System.out.println("----");
-        con1.routeCalculation(1);
+        //con.routeCalculation(0);
+        //System.out.println("----");
+        //con1.routeCalculation(1);
         */
 
     }
