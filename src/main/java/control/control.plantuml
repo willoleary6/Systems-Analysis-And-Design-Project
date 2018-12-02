@@ -7,6 +7,7 @@ title __CONTROL's Class Diagram__\n
       class SearchController {
           - airports : ArrayList<Airport>
           + SearchController()
+          + searchForFlight()
           + routeCalculation()
           + getAirports()
           - convertFlightTimeToDate()

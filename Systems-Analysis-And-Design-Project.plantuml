@@ -125,6 +125,30 @@ title __CANOE's Class Diagram__\n
   
 
   package  {
+    package ui.controller {
+      class FlightSearchResultsController {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.view {
+      class FlightSearchResultsFrame {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.model {
+      class FlightSearchResultsTableModel {
+      }
+    }
+  }
+  
+
+  package  {
     package routeCalculation {
       class Grapher {
       }
@@ -434,6 +458,12 @@ title __CANOE's Class Diagram__\n
   FlightSearchFrameController o-- IMainMenuCoordinator : coordinator
   FlightSearchFrameController o-- FlightSearchModel : model
   FlightSearchModel o-- SearchController : searchController
+  FlightSearchModel o-- Airport : departureAirport
+  FlightSearchModel o-- Airport : destinationAirport
+  FlightSearchResultsController -up-|> BaseFrameController
+  FlightSearchResultsController o-- IMainMenuCoordinator : coordinator
+  FlightSearchResultsFrame -up-|> JFrame
+  FlightSearchResultsTableModel -up-|> AbstractTableModel
   Grapher o-- GrapherState : grapher
   LoginCoordinator -up-|> ILoginCoordinator
   LoginCoordinator -up-|> BaseCoordinator

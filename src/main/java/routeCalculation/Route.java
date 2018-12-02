@@ -21,11 +21,9 @@ public class Route {
         return origin;
     }
 
-
     public FlightDiscountDecorator getFlightDecorator() {
         return (FlightDiscountDecorator) discountedFlight;
     }
-
 
     public double getCost() {
         return cost;
