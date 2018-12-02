@@ -1,0 +1,491 @@
+@startuml
+
+title __CANOE's Class Diagram__\n
+
+  package  {
+    package account {
+      class AirlineEmployee {
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class Airport {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.model {
+      class AirportComboBoxModel {
+      }
+    }
+  }
+  
+
+  package  {
+    package backgroundServices {
+      package backgroundServices.API_Handlers {
+        interface ApiRequestHandler {
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.coordinator {
+      abstract class BaseCoordinator {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.controller {
+      abstract class BaseFrameController {
+      }
+    }
+  }
+  
+
+  package  {
+    package account {
+      class Customer {
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      interface Edge {
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class EdgeDecorator {
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class Flight {
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      interface FlightDayAndTimeToDateLambdaFunctions {
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class FlightDiscountDecorator {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.view {
+      class FlightSearchFrame {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.controller {
+      class FlightSearchFrameController {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.model {
+      class FlightSearchModel {
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class Grapher {
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      interface GrapherLambdaFunctions {
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      interface GrapherState {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.coordinator {
+      interface ILoginCoordinator {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.coordinator {
+      interface IMainMenuCoordinator {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.coordinator {
+      class LoginCoordinator {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.view {
+      class LoginFrame {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.controller {
+      class LoginFrameController {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.model {
+      class LoginModel {
+      }
+    }
+  }
+  
+
+  package  {
+    package account {
+      class LoyaltyPoints {
+      }
+    }
+  }
+  
+
+  package  {
+    class Main {
+    }
+  }
+  
+
+  package  {
+    package ui.coordinator {
+      class MainMenuCoordinator {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.view {
+      class MainMenuFrame {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.controller {
+      class MainMenuFrameController {
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class MoneyGrapherState {
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      interface Node {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.view {
+      class RegisterFrame {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.controller {
+      class RegisterFrameController {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.model {
+      class RegisterModel {
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class Route {
+      }
+    }
+  }
+  
+
+  package  {
+    package control {
+      class SearchController {
+      }
+    }
+  }
+  
+
+  package  {
+    package account {
+      class SimpleUserFactory {
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class TimeGrapherState {
+      }
+    }
+  }
+  
+
+  package  {
+    package routeCalculation {
+      class TraceBackGrapherState {
+      }
+    }
+  }
+  
+
+  package  {
+    package control {
+      class UIController {
+      }
+    }
+  }
+  
+
+  package  {
+    package account {
+      abstract class User {
+      }
+    }
+  }
+  
+
+  package  {
+    package control {
+      class UserControl {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.model {
+      class Validator {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.controller {
+      interface ViewController {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.view {
+      class WelcomeFrame {
+      }
+    }
+  }
+  
+
+  package  {
+    package ui.controller {
+      class WelcomeFrameController {
+      }
+    }
+  }
+  
+
+  package  {
+    package backgroundServices {
+      package backgroundServices.API_Handlers {
+        class getRequestHandler {
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package backgroundServices {
+      package backgroundServices.API_Handlers {
+        class insertRequestHandler {
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package control {
+      class mainTest {
+      }
+    }
+  }
+  
+
+  package  {
+    package backgroundServices {
+      package backgroundServices.resourceReader {
+        class reader {
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package backgroundServices {
+      class tester {
+      }
+    }
+  }
+  
+
+  AirlineEmployee -up-|> User
+  Airport -up-|> Comparable
+  Airport -up-|> Node
+  AirportComboBoxModel -up-|> ComboBoxModel
+  BaseCoordinator o-- ViewController : currentViewController
+  BaseFrameController -up-|> ViewController
+  Customer -up-|> User
+  Customer o-- LoyaltyPoints : points
+  EdgeDecorator -up-|> Edge
+  EdgeDecorator o-- Edge : decoratedEdge
+  Flight -up-|> Edge
+  FlightDiscountDecorator -up-|> EdgeDecorator
+  FlightSearchFrame -up-|> JFrame
+  FlightSearchFrameController -up-|> PropertyChangeListener
+  FlightSearchFrameController -up-|> BaseFrameController
+  FlightSearchFrameController o-- IMainMenuCoordinator : coordinator
+  FlightSearchFrameController o-- FlightSearchModel : model
+  FlightSearchModel o-- SearchController : searchController
+  Grapher o-- GrapherState : grapher
+  LoginCoordinator -up-|> ILoginCoordinator
+  LoginCoordinator -up-|> BaseCoordinator
+  LoginFrame -up-|> JFrame
+  LoginFrameController -up-|> BaseFrameController
+  LoginFrameController o-- ILoginCoordinator : coordinator
+  LoginFrameController o-- LoginModel : model
+  LoginModel o-- Validator : validator
+  MainMenuCoordinator -up-|> IMainMenuCoordinator
+  MainMenuCoordinator -up-|> BaseCoordinator
+  MainMenuFrame -up-|> JFrame
+  MainMenuFrameController -up-|> BaseFrameController
+  MainMenuFrameController o-- IMainMenuCoordinator : coordinator
+  MoneyGrapherState -up-|> GrapherState
+  MoneyGrapherState o-- GrapherLambdaFunctions : grapherLambdaFunctions
+  MoneyGrapherState o-- Grapher : currentGrapherState
+  RegisterFrame -up-|> JFrame
+  RegisterFrameController -up-|> BaseFrameController
+  RegisterFrameController o-- ILoginCoordinator : coordinator
+  RegisterFrameController o-- RegisterModel : model
+  RegisterModel o-- Validator : validator
+  Route o-- Airport : destination
+  Route o-- Airport : origin
+  Route o-- Edge : discountedFlight
+  SearchController o-- getRequestHandler : dbHandler
+  SearchController o-- Grapher : shortestPath
+  TimeGrapherState -up-|> GrapherState
+  TimeGrapherState o-- GrapherLambdaFunctions : grapherLambdaFunctions
+  TimeGrapherState o-- FlightDayAndTimeToDateLambdaFunctions : flightDayAndTimeToDateLambdaFunctions
+  TimeGrapherState o-- Grapher : currentGrapherState
+  TraceBackGrapherState -up-|> GrapherState
+  TraceBackGrapherState o-- GrapherLambdaFunctions : grapherLambdaFunctions
+  TraceBackGrapherState o-- Airport : start
+  UIController o-- User : currentUser
+  UIController o-- UserControl : userCon
+  UserControl o-- SimpleUserFactory : userFactory
+  UserControl o-- getRequestHandler : dbPullHandler
+  UserControl o-- insertRequestHandler : dbInsertHandler
+  WelcomeFrame -up-|> JFrame
+  WelcomeFrameController -up-|> BaseFrameController
+  WelcomeFrameController o-- ILoginCoordinator : coordinator
+  getRequestHandler -up-|> ApiRequestHandler
+  getRequestHandler o-- reader : myReader
+  insertRequestHandler -up-|> ApiRequestHandler
+  insertRequestHandler o-- reader : myReader
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
