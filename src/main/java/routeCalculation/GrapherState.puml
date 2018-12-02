@@ -1,0 +1,24 @@
+@startuml
+scale 500 width
+[*] --> MoneyGrapherState : new TimeGrapherState(this)
+[*] --> TimeGrapherState : new MoneyGrapherState(this)
+
+state MoneyGrapherState{
+    MoneyGrapherState --> TraceBackState : setGrapherState
+}
+MoneyGrapherState : startCalculation
+
+
+state TimeGrapherState{
+    TimeGrapherState --> TraceBackState : setGrapherState
+}
+TimeGrapherState : startCalculation
+
+state TraceBackState{
+
+}
+
+TraceBackState --> [*] : calculateTraceBack
+
+
+@enduml
