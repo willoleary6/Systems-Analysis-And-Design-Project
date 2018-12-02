@@ -74,7 +74,7 @@ public class SearchController {
     public void retrieveAirports(){
         dbHandler.getAllAirports();
         JSONObject[] response = dbHandler.getApiResponseResults();
-
+        airports.clear();
         for(int i = 0; i < response.length;i++) {
             airports.add(jsonObjectToAirport(response[i]));
             airports.get(i).setFlightsDeparting(retrieveFlights(airports.get(i).getAutoKey()));
