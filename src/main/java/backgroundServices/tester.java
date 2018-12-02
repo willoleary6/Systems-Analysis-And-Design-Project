@@ -11,8 +11,8 @@ public class tester {
         JSONObject [] AwsResponse;
         String [] AwsKeys;
 
-        myHandler.addNewUser("will","will@gmail.com","pass");
-
+        //myHandler.addNewUser("will4543564","will@gmail.com","pass");
+        myHandler.addNewDiscount( "2","3", "2018-10-30 12:00:00","2018-11-30 12:00:00","20");
         AwsResponse = myHandler.getApiResponseResults();
         AwsKeys = myHandler.getApiResponseKeys();
 
