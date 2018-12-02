@@ -11,7 +11,7 @@ import java.security.InvalidParameterException;
 public class LoginFrameController extends BaseFrameController {
     private ILoginCoordinator coordinator;
     private LoginModel model;
-    private JButton loginButton;
+    private JButton loginButton, backButton;
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JLabel errorLabel;
@@ -27,6 +27,7 @@ public class LoginFrameController extends BaseFrameController {
         LoginFrame loginFrame = new LoginFrame();
         frame = loginFrame;
         loginButton = loginFrame.getLoginButton();
+        backButton = loginFrame.getBackButton();
         usernameField = loginFrame.getUsernameField();
         passwordField = loginFrame.getPasswordField();
         errorLabel = loginFrame.getErrorLabel();
@@ -34,6 +35,7 @@ public class LoginFrameController extends BaseFrameController {
 
     private void initListeners() {
         loginButton.addActionListener(new LoginButtonListener());
+        backButton.addActionListener(e -> coordinator.start());
     }
 
     private class LoginButtonListener implements ActionListener {
