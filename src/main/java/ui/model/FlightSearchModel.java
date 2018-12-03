@@ -1,6 +1,7 @@
 package ui.model;
 
 import control.SearchController;
+import control.UIController;
 import routeCalculation.Airport;
 import routeCalculation.Route;
 
@@ -17,13 +18,11 @@ public class FlightSearchModel {
     private PropertyChangeSupport support;
     private Airport[] airports;
     private Date departureDate;
-    private SearchController searchController;
     private Airport departureAirport;
     private Airport destinationAirport;
     private boolean costBased = false;
 
     public FlightSearchModel(PropertyChangeListener pcl) {
-        searchController = new SearchController();
         support = new PropertyChangeSupport(this);
         addPropertyChangeListener(pcl);
         updateAirports();
@@ -77,12 +76,11 @@ public class FlightSearchModel {
     }
 
     public void updateAirports() {
-        searchController.retrieveAirports();
-        Airport[] airports = searchController.getAirports().toArray(new Airport[0]);
+        Airport[] airports = UIController.getInstance().getAirports().toArray(new Airport[0]);
         setAirports(airports);
     }
 
-    public ArrayList<Route> searchForFlight() {
-        return searchController.searchForFlight(departureAirport, destinationAirport, departureDate, costBased);
+    public void searchForFlight() {
+        UIController.getInstance().searchForFlights(departureAirport, destinationAirport, departureDate, costBased);
     }
 }

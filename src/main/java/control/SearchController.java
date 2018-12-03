@@ -33,24 +33,6 @@ public class SearchController {
         return routeToDestination;
     }
 
-    public void routeCalculation(int searchType) {
-        Date input = new Date();
-        //shortestPath.startCalculation(airports.get(2), airports.get(8), airports);
-        Grapher g = new Grapher(searchType);
-        g.startCalculation(airports.get(2), airports, new Date());
-        ArrayList<Route> routeToDestination =  g.calculateTraceBack(airports.get(8));
-        for (int i = 0; i < routeToDestination.size(); i++) {
-            Flight flightOnThisRoute = routeToDestination.get(i).getFlightDecorator().getFlight();
-            System.out.println(routeToDestination.get(i).getOrigin()
-                        + " --- " + routeToDestination.get(i).getDestination()
-                        + "  Flight: " + flightOnThisRoute.getFlightNumber()
-                        + "  Cost: " + routeToDestination.get(i).getCost()
-                        + "  Departing: " + convertFlightTimeToDate(flightOnThisRoute.getDepartDay(), flightOnThisRoute.getDepartTime(),input)
-                        + "  Arriving: " + convertFlightTimeToDate(flightOnThisRoute.getArriveDay(), flightOnThisRoute.getArriveTime(),input)
-                );
-                input = convertFlightTimeToDate(flightOnThisRoute.getDepartDay(), flightOnThisRoute.getDepartTime(),input);
-            }
-    }
 
     public ArrayList<Airport> getAirports() {
         return airports;

@@ -31,7 +31,7 @@ public class MainMenuFrameController extends BaseFrameController  {
         usernameLabel = mainMenuFrame.getUsernameLabel();
         availablePointsLabel = mainMenuFrame.getAvailablePointsLabel();
 
-        usernameLabel.setText(UIController.shared.currentUser.getUserName());
+        usernameLabel.setText(UIController.getInstance().currentUser.getUserName());
     }
 
     private void initListeners() {

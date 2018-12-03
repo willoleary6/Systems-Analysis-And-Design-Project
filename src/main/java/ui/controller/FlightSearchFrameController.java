@@ -1,5 +1,6 @@
 package ui.controller;
 
+import control.UIController;
 import routeCalculation.Airport;
 import routeCalculation.Route;
 import ui.coordinator.IMainMenuCoordinator;
@@ -68,7 +69,8 @@ public class FlightSearchFrameController extends BaseFrameController implements 
                 model.setDepartureAirport((Airport) departureComboBox.getSelectedItem());
                 model.setDestinationAirport((Airport) destinationComboBox.getSelectedItem());
                 model.setCostBased(costRadioButton.isSelected());
-                ArrayList<Route> route = model.searchForFlight();
+                model.searchForFlight();
+                ArrayList<Route> route = UIController.getInstance().getResults();
                 coordinator.goToFlightSearchResults(route);
             } catch (ParseException exception) {
                 System.out.print(exception);

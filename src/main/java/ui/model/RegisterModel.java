@@ -42,6 +42,6 @@ public class RegisterModel {
     }
 
     public void createUser() {
-        UIController.shared.register(userName, password, email,0);
+        UIController.getInstance().register(userName, password, email,0);
     }
 }

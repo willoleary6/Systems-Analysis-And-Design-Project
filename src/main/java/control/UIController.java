@@ -2,20 +2,30 @@ package control;
 
 import account.AirlineEmployee;
 import account.User;
+import routeCalculation.Airport;
 import routeCalculation.Flight;
+import routeCalculation.Route;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 
 public class UIController {
-    public static UIController shared = new UIController();
+    private static final UIController shared = new UIController();
     public User currentUser;
     private UserControl userCon;
-    //private Arrylist<Flight> archivedRoutes;
-    //private Arrylist<Flight> routes;
-    private String routeOrigin;
-    private String routeDestination;
+    private SearchController searchCon;
+    private ArrayList<ArrayList<Route>> archivedRoutes;
+    private ArrayList<Route> routeResult;
 
-    public UIController(){
+    private UIController(){
         userCon = new UserControl();
+        searchCon =  new SearchController();
+        archivedRoutes = new ArrayList<>();
+    }
+
+    public static UIController getInstance() {
+        return shared;
     }
 
     public boolean logIn(String username, String password) {
@@ -34,13 +44,19 @@ public class UIController {
             currentUser = user;
     }
 
-    /*public ArrayList<Arrylist<Flight>> getPreviousSearchs() {
-        return archivedRoutes;
-    }*/
 
-    public void searchForFlights(int searchParams, String origin, String destination, String timestamp) {
-        /* search param is either 0 or 1, 0 being search for shortest time, 1 for lowest price*/
+    public void searchForFlights(Airport departure, Airport destination, Date departureDate, boolean costBased) {
+        routeResult = searchCon.searchForFlight(departure, destination, departureDate, costBased);
+        archivedRoutes.add(routeResult);
+    }
 
+    public ArrayList<Route> getResults() {
+        return routeResult;
+    }
+
+    public ArrayList<Airport> getAirports() {
+        searchCon.retrieveAirports();
+        return searchCon.getAirports();
     }
 
     public void applyDiscount(Flight flight, int percentage) {

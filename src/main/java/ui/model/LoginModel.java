@@ -31,6 +31,6 @@ public class LoginModel  {
     }
 
     public boolean login() {
-        return UIController.shared.logIn(username, password);
+        return UIController.getInstance().logIn(username, password);
     }
 }
