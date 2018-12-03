@@ -3,11 +3,9 @@
 title __RESOURCEREADER's Class Diagram__\n
 
   package  {
-    package backgroundServices {
-      package backgroundServices.resourceReader {
-        class reader {
-            + readFromResources()
-        }
+    package backgroundServices.resourceReader {
+      class reader {
+          + readFromResources()
       }
     }
   }

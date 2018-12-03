@@ -8,10 +8,7 @@ title __CONTROL's Class Diagram__\n
           - airports : ArrayList<Airport>
           + SearchController()
           + searchForFlight()
-          + routeCalculation()
           + getAirports()
-          - convertFlightTimeToDate()
-          - convertStringToMinutes()
           + retrieveAirports()
           - retrieveFlights()
           - jsonObjectToFlight()
@@ -25,13 +22,16 @@ title __CONTROL's Class Diagram__\n
   package  {
     package control {
       class UIController {
-          {static} + shared : UIController
-          - routeOrigin : String
-          - routeDestination : String
-          + UIController()
+          {static} - shared : UIController
+          - archivedRoutes : ArrayList<ArrayList<Route>>
+          - routeResult : ArrayList<Route>
+          - UIController()
+          {static} + getInstance()
           + logIn()
           + register()
           + searchForFlights()
+          + getResults()
+          + getAirports()
           + applyDiscount()
           + logout()
           + checkForHigherAccess()
@@ -53,19 +53,12 @@ title __CONTROL's Class Diagram__\n
   }
   
 
-  package  {
-    package control {
-      class mainTest {
-          {static} + main()
-      }
-    }
-  }
-  
-
   SearchController o-- getRequestHandler : dbHandler
   SearchController o-- Grapher : shortestPath
   UIController o-- User : currentUser
   UIController o-- UserControl : userCon
+  UIController o-- SearchController : searchCon
+  UIController o-- insertRequestHandler : insertHandler
   UserControl o-- SimpleUserFactory : userFactory
   UserControl o-- getRequestHandler : dbPullHandler
   UserControl o-- insertRequestHandler : dbInsertHandler

@@ -103,7 +103,6 @@ title __MODEL's Class Diagram__\n
   
 
   AirportComboBoxModel -up-|> ComboBoxModel
-  FlightSearchModel o-- SearchController : searchController
   FlightSearchModel o-- Airport : departureAirport
   FlightSearchModel o-- Airport : destinationAirport
   FlightSearchResultsTableModel -up-|> AbstractTableModel

@@ -3,6 +3,14 @@
 title __CANOE's Class Diagram__\n
 
   package  {
+    package com.intellij.uiDesigner.core {
+      abstract class AbstractLayout {
+      }
+    }
+  }
+  
+
+  package  {
     package account {
       class AirlineEmployee {
       }
@@ -27,10 +35,8 @@ title __CANOE's Class Diagram__\n
   
 
   package  {
-    package backgroundServices {
-      package backgroundServices.API_Handlers {
-        interface ApiRequestHandler {
-        }
+    package backgroundServices.API_Handlers {
+      interface ApiRequestHandler {
       }
     }
   }
@@ -55,6 +61,14 @@ title __CANOE's Class Diagram__\n
   package  {
     package account {
       class Customer {
+      }
+    }
+  }
+  
+
+  package  {
+    package com.intellij.uiDesigner.core {
+      abstract class DimensionInfo {
       }
     }
   }
@@ -173,6 +187,30 @@ title __CANOE's Class Diagram__\n
   
 
   package  {
+    package com.intellij.uiDesigner.core {
+      class GridConstraints {
+      }
+    }
+  }
+  
+
+  package  {
+    package com.intellij.uiDesigner.core {
+      class GridLayoutManager {
+      }
+    }
+  }
+  
+
+  package  {
+    package com.intellij.uiDesigner.core {
+      class HorizontalInfo {
+      }
+    }
+  }
+  
+
+  package  {
     package ui.coordinator {
       interface ILoginCoordinator {
       }
@@ -183,6 +221,14 @@ title __CANOE's Class Diagram__\n
   package  {
     package ui.coordinator {
       interface IMainMenuCoordinator {
+      }
+    }
+  }
+  
+
+  package  {
+    package com.intellij.uiDesigner.core {
+      class LayoutState {
       }
     }
   }
@@ -323,6 +369,22 @@ title __CANOE's Class Diagram__\n
   
 
   package  {
+    package com.intellij.uiDesigner.core {
+      class Spacer {
+      }
+    }
+  }
+  
+
+  package  {
+    package com.intellij.uiDesigner.core {
+      class SupportCode {
+      }
+    }
+  }
+  
+
+  package  {
     package routeCalculation {
       class TimeGrapherState {
       }
@@ -363,8 +425,24 @@ title __CANOE's Class Diagram__\n
   
 
   package  {
+    package com.intellij.uiDesigner.core {
+      class Util {
+      }
+    }
+  }
+  
+
+  package  {
     package ui.model {
       class Validator {
+      }
+    }
+  }
+  
+
+  package  {
+    package com.intellij.uiDesigner.core {
+      class VerticalInfo {
       }
     }
   }
@@ -395,51 +473,30 @@ title __CANOE's Class Diagram__\n
   
 
   package  {
-    package backgroundServices {
-      package backgroundServices.API_Handlers {
-        class getRequestHandler {
-        }
+    package backgroundServices.API_Handlers {
+      class getRequestHandler {
       }
     }
   }
   
 
   package  {
-    package backgroundServices {
-      package backgroundServices.API_Handlers {
-        class insertRequestHandler {
-        }
+    package backgroundServices.API_Handlers {
+      class insertRequestHandler {
       }
     }
   }
   
 
   package  {
-    package control {
-      class mainTest {
+    package backgroundServices.resourceReader {
+      class reader {
       }
     }
   }
   
 
-  package  {
-    package backgroundServices {
-      package backgroundServices.resourceReader {
-        class reader {
-        }
-      }
-    }
-  }
-  
-
-  package  {
-    package backgroundServices {
-      class tester {
-      }
-    }
-  }
-  
-
+  AbstractLayout -up-|> LayoutManager2
   AirlineEmployee -up-|> User
   Airport -up-|> Comparable
   Airport -up-|> Node
@@ -457,7 +514,6 @@ title __CANOE's Class Diagram__\n
   FlightSearchFrameController -up-|> BaseFrameController
   FlightSearchFrameController o-- IMainMenuCoordinator : coordinator
   FlightSearchFrameController o-- FlightSearchModel : model
-  FlightSearchModel o-- SearchController : searchController
   FlightSearchModel o-- Airport : departureAirport
   FlightSearchModel o-- Airport : destinationAirport
   FlightSearchResultsController -up-|> BaseFrameController
@@ -465,6 +521,7 @@ title __CANOE's Class Diagram__\n
   FlightSearchResultsFrame -up-|> JFrame
   FlightSearchResultsTableModel -up-|> AbstractTableModel
   Grapher o-- GrapherState : grapher
+  GridConstraints -up-|> Cloneable
   LoginCoordinator -up-|> ILoginCoordinator
   LoginCoordinator -up-|> BaseCoordinator
   LoginFrame -up-|> JFrame
@@ -490,6 +547,7 @@ title __CANOE's Class Diagram__\n
   Route o-- Edge : discountedFlight
   SearchController o-- getRequestHandler : dbHandler
   SearchController o-- Grapher : shortestPath
+  Spacer -up-|> JComponent
   TimeGrapherState -up-|> GrapherState
   TimeGrapherState o-- GrapherLambdaFunctions : grapherLambdaFunctions
   TimeGrapherState o-- FlightDayAndTimeToDateLambdaFunctions : flightDayAndTimeToDateLambdaFunctions
@@ -499,6 +557,8 @@ title __CANOE's Class Diagram__\n
   TraceBackGrapherState o-- Airport : start
   UIController o-- User : currentUser
   UIController o-- UserControl : userCon
+  UIController o-- SearchController : searchCon
+  UIController o-- insertRequestHandler : insertHandler
   UserControl o-- SimpleUserFactory : userFactory
   UserControl o-- getRequestHandler : dbPullHandler
   UserControl o-- insertRequestHandler : dbInsertHandler

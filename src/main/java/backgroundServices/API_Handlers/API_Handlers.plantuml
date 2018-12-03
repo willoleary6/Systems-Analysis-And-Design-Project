@@ -3,51 +3,45 @@
 title __API_HANDLERS's Class Diagram__\n
 
   package  {
-    package backgroundServices {
-      package backgroundServices.API_Handlers {
-        interface ApiRequestHandler {
-            {abstract} + getApiResponseResults()
-            {abstract} + getApiResponseKeys()
-        }
+    package backgroundServices.API_Handlers {
+      interface ApiRequestHandler {
+          {abstract} + getApiResponseResults()
+          {abstract} + getApiResponseKeys()
       }
     }
   }
   
 
   package  {
-    package backgroundServices {
-      package backgroundServices.API_Handlers {
-        class getRequestHandler {
-            - apiProperties : Properties
-            - apiResponse : JSONObject
-            + getRequestHandler()
-            + getAllAirports()
-            + getAllFlights()
-            + getFlightsByDepartureAirport()
-            + getDiscountsByFlightID()
-            + getUserInformation()
-            + getUserInformation()
-            + getUserInformation()
-            + getApiResponseResults()
-            + getApiResponseKeys()
-        }
+    package backgroundServices.API_Handlers {
+      class getRequestHandler {
+          - apiProperties : Properties
+          - apiResponse : JSONObject
+          + getRequestHandler()
+          + getAllAirports()
+          + getAllFlights()
+          + getFlightsByDepartureAirport()
+          + getDiscountsByFlightID()
+          + getUserInformation()
+          + getUserInformation()
+          + getUserInformation()
+          + getApiResponseResults()
+          + getApiResponseKeys()
       }
     }
   }
   
 
   package  {
-    package backgroundServices {
-      package backgroundServices.API_Handlers {
-        class insertRequestHandler {
-            - apiProperties : Properties
-            - apiResponse : JSONObject
-            + insertRequestHandler()
-            + addNewUser()
-            + addNewDiscount()
-            + getApiResponseResults()
-            + getApiResponseKeys()
-        }
+    package backgroundServices.API_Handlers {
+      class insertRequestHandler {
+          - apiProperties : Properties
+          - apiResponse : JSONObject
+          + insertRequestHandler()
+          + addNewUser()
+          + addNewDiscount()
+          + getApiResponseResults()
+          + getApiResponseKeys()
       }
     }
   }
