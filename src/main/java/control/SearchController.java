@@ -38,20 +38,6 @@ public class SearchController {
         return airports;
     }
 
-    private Date convertFlightTimeToDate(String day, String hour, Date input){
-        int minutes = 60*1000;
-        LocalDate ld = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        ld = ld.with(TemporalAdjusters.next(DayOfWeek.valueOf(day.toUpperCase())));
-        Date date = Date.from(ld.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        int minutesPassedInDay = convertStringToMinutes(hour);
-        return new Date(date.getTime() + minutesPassedInDay * minutes);
-    }
-    private int convertStringToMinutes(String stringTime){
-        String [] hoursAndMinutes = stringTime.split(":");
-        int hoursToMinutes = Integer.parseInt(hoursAndMinutes[0])*60;
-        int minutes = Integer.parseInt(hoursAndMinutes[1]);
-        return hoursToMinutes+minutes;
-    }
 
     public void retrieveAirports(){
         dbHandler.getAllAirports();
