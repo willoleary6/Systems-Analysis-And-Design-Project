@@ -9,9 +9,9 @@ import java.util.Date;
 public interface FlightDayAndTimeToDateLambdaFunctions {
     int initialise();
 
-    default Date convertFlightTimeToDate(String day, String hour, Date input){
+    default Date convertFlightTimeToDate(String day, String hour, Date startingDate){
         int minutes = 60*1000;
-        LocalDate ld = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate ld = startingDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();;
         ld = ld.with(TemporalAdjusters.next(DayOfWeek.valueOf(day.toUpperCase())));
         Date date = Date.from(ld.atStartOfDay(ZoneId.systemDefault()).toInstant());
         int minutesPassedInDay = convertStringToMinutes(hour);
