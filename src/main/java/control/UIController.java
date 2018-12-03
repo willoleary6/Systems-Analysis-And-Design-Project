@@ -2,6 +2,7 @@ package control;
 
 import account.AirlineEmployee;
 import account.User;
+import backgroundServices.API_Handlers.insertRequestHandler;
 import routeCalculation.Airport;
 import routeCalculation.Flight;
 import routeCalculation.Route;
@@ -16,14 +17,17 @@ public class UIController {
     private UserControl userCon;
     private SearchController searchCon;
     private ArrayList<ArrayList<Route>> archivedRoutes;
+    private insertRequestHandler insertHandler;
     private ArrayList<Route> routeResult;
 
     private UIController(){
         userCon = new UserControl();
         searchCon =  new SearchController();
         archivedRoutes = new ArrayList<>();
+        insertHandler = new insertRequestHandler();
     }
 
+    // returns the instance of UIController singleton
     public static UIController getInstance() {
         return shared;
     }
@@ -59,26 +63,23 @@ public class UIController {
         return searchCon.getAirports();
     }
 
-    public void applyDiscount(Flight flight, int percentage) {
+    public void applyDiscount(String userID, Flight flight,String discountStartDate,
+                              String discountEndDate, String discountPercentage) {
         if(checkForHigherAccess()) {
             if(flight.getAirlineID() == ((AirlineEmployee) currentUser).getAirlineID()) {
-                double price = flight.getWeight();
-                price = price - price / percentage;
-                flight.setCost(price);
-                //update db
-                //apply discount and update database
+                insertHandler.addNewDiscount(userID, Integer.toString(flight.getFlightID()), discountStartDate,
+                        discountEndDate, discountPercentage);
             }
         }
     }
 
     public void logout() {
         currentUser = null;
+        archivedRoutes = new ArrayList<>();
     }
 
     public boolean checkForHigherAccess(){
-        /**
-         *  checks if the user is an airline employee thus giving access to discount system
-         *  */
+        //checks if the user is an airline employee thus giving access to discount system
         if(currentUser.getUserType() > 0)
             return true;
         else

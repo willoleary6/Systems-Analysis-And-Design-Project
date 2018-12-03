@@ -1,6 +1,7 @@
 package ui.coordinator;
 
 
+import control.UIController;
 import routeCalculation.Route;
 import ui.controller.FlightSearchFrameController;
 import ui.controller.FlightSearchResultsController;
@@ -29,6 +30,7 @@ public class MainMenuCoordinator extends BaseCoordinator implements IMainMenuCoo
         );
 
         if (x == JOptionPane.YES_NO_OPTION) {
+            UIController.getInstance().logout();
             ILoginCoordinator loginCoordinator = new LoginCoordinator();
             loginCoordinator.start();
             setViewController(null);
